@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import type { ComponentType } from "react";
 import { motion } from "framer-motion";
 import { Mail, Sun, Calendar } from "lucide-react";
@@ -10,6 +9,7 @@ import HealthBreakdownCard from "../components/marketing/HealthBreakdownCard";
 import CLVMethodology from "../components/marketing/CLVMethodology";
 import NRRForecastMethodology from "../components/marketing/NRRForecastMethodology";
 import CoverageRoutingList from "../components/marketing/CoverageRoutingList";
+import ForecastAccuracy from "../components/marketing/ForecastAccuracy";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -155,31 +155,6 @@ function TreeDivider() {
       <TreeMark size={20} className="opacity-85" />
       <div className="h-px max-w-32 flex-1 bg-[#C8C8C3]" />
     </div>
-  );
-}
-
-type ScreenshotProps = {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-};
-
-function ScreenshotCard({ src, alt, width, height }: ScreenshotProps) {
-  return (
-    <motion.div
-      {...fadeUp}
-      className="overflow-hidden rounded-xl bg-white"
-      style={cardChrome}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className="block h-auto w-full"
-      />
-    </motion.div>
   );
 }
 
@@ -489,20 +464,13 @@ export default function Home() {
           </p>
         </motion.section>
 
-        <div className="mx-auto max-w-4xl space-y-12">
-          <ScreenshotCard
-            src="/screenshots/02a-forecast-accuracy-top.png"
-            alt="Forecast accuracy: formula and per-period table"
-            width={1092}
-            height={1092}
-          />
-          <ScreenshotCard
-            src="/screenshots/02b-forecast-accuracy-bottom.png"
-            alt="Forecast accuracy: per-metric trends and snapshot drill-down"
-            width={1141}
-            height={1064}
-          />
-        </div>
+        <motion.div
+          {...fadeUp}
+          className="mx-auto max-w-4xl overflow-hidden rounded-xl bg-white"
+          style={cardChrome}
+        >
+          <ForecastAccuracy />
+        </motion.div>
 
         <motion.section {...fadeUp} className="py-16 text-center">
           <p className="mx-auto max-w-3xl text-[16px] leading-[1.6] text-[#666] md:text-[17px]">
