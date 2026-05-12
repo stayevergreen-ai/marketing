@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, X } from "lucide-react";
+import { X } from "lucide-react";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -23,7 +23,7 @@ const TAB_LABELS: Record<HighlightTab, string> = {
 
 const TAB_HEADLINES: Record<HighlightTab, string> = {
   handoff: "AE submits once. AI extracts. CSM reviews.",
-  qbr: "Two audiences, one build.",
+  qbr: "Internal candor, external clarity.",
   voc: "Themes across your book, grounded in real quotes.",
   ooo: "When a CSM is out, customers don't notice.",
 };
@@ -31,7 +31,7 @@ const TAB_HEADLINES: Record<HighlightTab, string> = {
 const TAB_SUPPORTS: Record<HighlightTab, string> = {
   handoff:
     "Contacts, goals, risks, commitments — structured the moment the handoff lands.",
-  qbr: "Internal strategy memo and customer-facing deck, both grounded in the same data.",
+  qbr: "QBR builds both views from the same source. Update the data once, both stay synced.",
   voc: "Ask a question. Get an answer pulled from real customer conversations, not surveys.",
   ooo: "Routed by industry, relationship history, and live capacity. The math is visible.",
 };
@@ -48,6 +48,7 @@ export default function HighlightReelModal({
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<HighlightTab>(initialTab);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -56,6 +57,10 @@ export default function HighlightReelModal({
   useEffect(() => {
     if (open) setActiveTab(initialTab);
   }, [open, initialTab]);
+
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, [activeTab]);
 
   useEffect(() => {
     if (!open) return;
@@ -101,12 +106,8 @@ export default function HighlightReelModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.2, ease: FADE_EASE }}
-            className="relative max-h-[88vh] w-full max-w-[760px] overflow-y-auto rounded-2xl bg-white shadow-2xl"
-            style={{
-              border: "1px solid #EAEAEA",
-              scrollbarWidth: "thin",
-              scrollbarColor: "#E0E0E0 #FFFFFF",
-            }}
+            className="relative flex max-h-[85vh] w-full max-w-[760px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+            style={{ border: "1px solid #EAEAEA" }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
@@ -117,17 +118,16 @@ export default function HighlightReelModal({
               type="button"
               onClick={onClose}
               aria-label="Close highlight reel"
-              className="absolute right-4 top-4 cursor-pointer rounded-full p-2 text-[#888] transition-colors hover:bg-black/5 hover:text-[#0A0A0A]"
+              className="absolute right-4 top-4 z-10 cursor-pointer rounded-full bg-white/80 p-2 text-[#888] transition-colors hover:bg-black/5 hover:text-[#0A0A0A]"
             >
               <X size={20} aria-hidden="true" />
             </button>
 
-            <div className="px-6 pb-6 pt-7 sm:px-8 sm:pb-8 sm:pt-9">
+            <div className="shrink-0 px-6 pt-7 sm:px-8 sm:pt-9">
               <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#999]">
                 See it in action
               </p>
-
-              <div className="mb-6 mt-4 flex items-center gap-1 overflow-x-auto border-b border-[#EAEAEA]">
+              <div className="mt-4 flex items-center gap-1 overflow-x-auto border-b border-[#EAEAEA]">
                 {TAB_ORDER.map((tab) => {
                   const active = tab === activeTab;
                   return (
@@ -157,7 +157,16 @@ export default function HighlightReelModal({
                   );
                 })}
               </div>
+            </div>
 
+            <div
+              ref={scrollRef}
+              className="flex-1 overflow-y-auto px-6 py-6 sm:px-8"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "#E0E0E0 #FFFFFF",
+              }}
+            >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
@@ -180,19 +189,19 @@ export default function HighlightReelModal({
                   </p>
                 </motion.div>
               </AnimatePresence>
+            </div>
 
-              <div className="mt-7 flex flex-col gap-3 border-t border-[#EAEAEA] pt-5 sm:flex-row sm:items-center sm:justify-between">
-                <span className="text-[12.5px] text-[#444]">
-                  Want to see it live?
-                </span>
-                <a
-                  href={WALKTHROUGH_MAILTO}
-                  className="inline-flex items-center gap-1.5 self-start rounded-md bg-[#16A34A] px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#15803D] sm:self-auto"
-                >
-                  Book a walkthrough
-                  <span aria-hidden="true">→</span>
-                </a>
-              </div>
+            <div className="flex shrink-0 flex-col gap-3 border-t border-[#EAEAEA] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-5">
+              <span className="text-[12.5px] text-[#444]">
+                Want to see it live?
+              </span>
+              <a
+                href={WALKTHROUGH_MAILTO}
+                className="inline-flex items-center gap-1.5 self-start rounded-md bg-[#16A34A] px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#15803D] sm:self-auto"
+              >
+                Book a walkthrough
+                <span aria-hidden="true">→</span>
+              </a>
             </div>
           </motion.div>
         </motion.div>
@@ -267,22 +276,64 @@ function HandoffVisual() {
       className="rounded-lg bg-white p-5"
       style={{ border: "1px solid #E8E8E8" }}
     >
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <Check
-            size={12}
-            strokeWidth={2.75}
-            className="text-[#16A34A]"
-            aria-hidden="true"
-          />
+      <div className="mb-1.5 flex items-center justify-between">
+        <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          Raw handoff submission
+        </p>
+        <span className="text-[10px] uppercase tracking-[0.08em] text-[#888]">
+          Voltura Systems
+        </span>
+      </div>
+      <p className="mb-3 text-[10.5px] italic text-[#888]">
+        Submitted by Jordan Park · Account Executive · 8 days ago
+      </p>
+      <div
+        className="rounded-md p-4 font-mono text-[12.5px] leading-[1.6] text-[#444]"
+        style={{
+          background: "#F8F6EF",
+          border: "0.5px solid #EAEAEA",
+        }}
+      >
+        <p>
+          voltura systems - good call w priya raman vp eng, she&apos;s our
+          champ, super bought in. tom blackwell cfo signed off but heard he
+          might be leaving for another role idk. mike donovan ops director
+          will use it day to day. janet liu in procurement was a bit of a
+          pain on pricing pushback, watch her on renewal.
+        </p>
+        <p className="mt-3">
+          goals: hit 200 active users end Q2 (theyre at 147), expand module B
+          to 2 more teams Q3, want a quarterly value review with procurement
+          before renewal.
+        </p>
+        <p className="mt-3">
+          risks: tom&apos;s transition is real, procurement flagged DPA
+          pricing review, also mike mentioned the ops team has been slow to
+          adopt module B.
+        </p>
+        <p className="mt-3">
+          contract started Jan, 12 month term, renewal next jan.
+        </p>
+      </div>
+
+      <div
+        className="relative my-6 flex items-center justify-center"
+        aria-hidden="true"
+      >
+        <div className="absolute inset-x-0 top-1/2 h-px bg-[#EAEAEA]" />
+        <span
+          className="relative inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1"
+          style={{ border: "1px solid #BBF7D0" }}
+        >
+          <span className="text-[12px] font-bold leading-none text-[#16A34A]">
+            ✓
+          </span>
           <span className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#16A34A]">
             Parsed with AI
           </span>
-        </div>
-        <span className="text-[10px] font-medium uppercase tracking-[0.10em] text-[#888]">
-          Voltura Systems · Handoff
         </span>
       </div>
+
       <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
         Contacts · 4 extracted
       </p>
@@ -385,91 +436,115 @@ function QBRVisual() {
             Draft 87%
           </span>
         </div>
-        <div className="mt-3 inline-flex items-center gap-1 rounded-lg bg-[#F5F5F4] p-1">
-          <span className="rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#16A34A] shadow-sm">
-            Internal
-          </span>
-          <span className="rounded-md px-3 py-1 text-[11px] font-medium text-[#666]">
-            External
-          </span>
-        </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 px-5 py-4 sm:grid-cols-2">
-        <div>
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-            Progress Review
-          </p>
-          <p className="text-[12.5px] leading-[1.55] text-[#1F1F1F]">
-            Active users 147 of 200 (74%) — pace for end-of-Q2.
-          </p>
-          <div className="mt-3 border-l-2 border-[#16A34A] pl-3">
-            <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#16A34A]">
-              Say
+      <div className="grid grid-cols-1 gap-px bg-[#EAEAEA] sm:grid-cols-2">
+        <div
+          className="flex flex-col gap-3 px-5 py-4"
+          style={{ background: "#F8F6EF" }}
+        >
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
+              Internal · strategy memo
             </p>
-            <p className="mt-0.5 text-[11.5px] italic leading-[1.5] text-[#1F1F1F]">
-              &ldquo;You&rsquo;re tracking active users at 74% of your Q1
-              commitment. Trajectory is healthy.&rdquo;
+            <p className="mt-0.5 text-[10.5px] italic text-[#888]">
+              For your team and leadership
             </p>
           </div>
-          <p className="mt-2 text-[10px] text-[#666]">
-            <span className="font-bold uppercase tracking-[0.10em]">
-              Ref:
-            </span>{" "}
-            Q1 commitment · usage data
-          </p>
-        </div>
-        <div>
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-            Risks + Commitments
-          </p>
-          <ul className="flex flex-col gap-2">
-            <li className="flex items-start gap-2">
-              <span
-                aria-hidden="true"
-                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FB923C]"
-              />
-              <div className="min-w-0 flex-1">
-                <p className="text-[12px] font-medium leading-[1.4] text-[#1F1F1F]">
-                  Module B adoption gap (Ops team) — 12% active vs 60%
-                  target
-                </p>
-                <span
-                  className="mt-1 inline-block rounded px-1.5 py-px text-[9.5px] font-bold uppercase tracking-[0.08em]"
-                  style={{ color: "#9A3412", background: "#FFF7ED" }}
-                >
-                  Open · need plan
-                </span>
-              </div>
-            </li>
-            <li className="flex items-start gap-2">
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+              Progress review
+            </p>
+            <p className="text-[12.5px] leading-[1.5] text-[#1F1F1F]">
+              Active users 147 of 200 (74%) — pace for end-of-Q2.
+            </p>
+          </div>
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+              At-risk callout
+            </p>
+            <div
+              className="rounded-md p-2.5"
+              style={{
+                background: "#FFFBEB",
+                border: "0.5px solid #FED7AA",
+              }}
+            >
+              <p className="text-[12px] leading-[1.5] text-[#1F1F1F]">
+                <span className="font-semibold">
+                  Tom Blackwell (CFO) transition rumored.
+                </span>{" "}
+                Plan exec briefing once successor named.
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+              Commitment watch
+            </p>
+            <div className="flex items-start gap-2">
               <span
                 aria-hidden="true"
                 className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#16A34A]"
               />
-              <div className="min-w-0 flex-1">
-                <p className="text-[12px] font-medium leading-[1.4] text-[#1F1F1F]">
-                  Procurement value review confirmed for May 22
-                </p>
-                <span
-                  className="mt-1 inline-block rounded px-1.5 py-px text-[9.5px] font-bold uppercase tracking-[0.08em]"
-                  style={{ color: "#15803D", background: "#F0FDF4" }}
-                >
-                  Committed
-                </span>
-              </div>
-            </li>
-          </ul>
+              <p className="flex-1 text-[12px] leading-[1.5] text-[#1F1F1F]">
+                Procurement value review · confirmed for May 22
+              </p>
+              <span
+                className="shrink-0 rounded px-1.5 py-px text-[9.5px] font-bold uppercase tracking-[0.08em]"
+                style={{ color: "#15803D", background: "#F0FDF4" }}
+              >
+                Committed
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="flex flex-col gap-3 px-5 py-4"
+          style={{ background: "#F4FAF5" }}
+        >
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#15803D]">
+              External · customer deck
+            </p>
+            <p className="mt-0.5 text-[10.5px] italic text-[#888]">
+              For your customer&apos;s executive team
+            </p>
+          </div>
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+              Highlight slide
+            </p>
+            <p className="text-[12.5px] font-medium leading-[1.5] text-[#1F1F1F]">
+              Module A adoption: 147 active users — strong trajectory toward
+              200 target by end of Q2.
+            </p>
+          </div>
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+              Talk track
+            </p>
+            <div className="border-l-2 border-[#16A34A] pl-3">
+              <p className="text-[11.5px] italic leading-[1.55] text-[#1F1F1F]">
+                &ldquo;You&rsquo;re tracking active users at 74% of your Q1
+                commitment. Trajectory is healthy.&rdquo;
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+              Value proof
+            </p>
+            <p className="text-[12px] leading-[1.5] text-[#1F1F1F]">
+              Q1 commitment hit · Q2 on track · 3 expansion conversations
+              active
+            </p>
+          </div>
         </div>
       </div>
-      <div className="border-t border-[#EAEAEA] px-5 py-3">
-        <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-          At-risk callouts
-        </p>
-        <p className="text-[12px] leading-[1.5] text-[#1F1F1F]">
-          <span className="font-semibold">Tom Blackwell (CFO) transition
-          rumored.</span>{" "}
-          Plan exec briefing once successor named — 30 min, before Q3
-          renewal.
+      <div className="border-t border-[#EAEAEA] bg-white px-5 py-3">
+        <p className="text-center text-[11px] italic text-[#666]">
+          Same data. Two audiences. Both updated when the source updates.
         </p>
       </div>
     </div>
@@ -507,6 +582,67 @@ function VOCVisual() {
     green: "#16A34A",
     amber: "#FB923C",
     red: "#DC2626",
+  };
+  type Stakeholder = {
+    name: string;
+    role: string;
+    initials: string;
+    initialBg: string;
+    initialText: string;
+    sentiment: "green" | "amber" | "red";
+    trend: "up" | "down" | "stable";
+  };
+  const stakeholders: Stakeholder[] = [
+    {
+      name: "Tom Willis",
+      role: "Decision Maker",
+      initials: "TW",
+      initialBg: "#F5F5F4",
+      initialText: "#666",
+      sentiment: "amber",
+      trend: "down",
+    },
+    {
+      name: "Priya Raman",
+      role: "Champion",
+      initials: "PR",
+      initialBg: "#F0FDF4",
+      initialText: "#15803D",
+      sentiment: "green",
+      trend: "up",
+    },
+    {
+      name: "Mike Donovan",
+      role: "End User",
+      initials: "MD",
+      initialBg: "#F0FDF4",
+      initialText: "#15803D",
+      sentiment: "green",
+      trend: "stable",
+    },
+    {
+      name: "Janet Liu",
+      role: "Detractor",
+      initials: "JL",
+      initialBg: "#FFF7ED",
+      initialText: "#9A3412",
+      sentiment: "red",
+      trend: "down",
+    },
+    {
+      name: "Sam Reyes",
+      role: "Economic Buyer",
+      initials: "SR",
+      initialBg: "#F5F5F4",
+      initialText: "#666",
+      sentiment: "amber",
+      trend: "stable",
+    },
+  ];
+  const TREND_ARROW: Record<"up" | "down" | "stable", string> = {
+    up: "↑",
+    down: "↓",
+    stable: "→",
   };
   return (
     <div
@@ -563,6 +699,106 @@ function VOCVisual() {
             <span className="font-medium text-[#0A0A0A]">Tom Willis</span>{" "}
             · Decision Maker · Acme Corp · Email · Apr 28
           </p>
+        </div>
+      </div>
+
+      <div className="border-t border-[#EAEAEA] px-5 py-4">
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          Ask the VOC
+        </p>
+        <div
+          className="flex items-center gap-2.5 rounded-lg px-3.5 py-2.5"
+          style={{ background: "#FAFAFA", border: "0.5px solid #EAEAEA" }}
+        >
+          <span
+            aria-hidden="true"
+            className="text-[12px] font-bold leading-none text-[#16A34A]"
+          >
+            ✦
+          </span>
+          <span className="flex-1 truncate text-[12.5px] text-[#1F1F1F]">
+            What are my At-Risk accounts saying about onboarding?
+          </span>
+          <kbd className="hidden rounded border border-[#EAEAEA] bg-white px-1.5 py-0.5 font-mono text-[10px] text-[#999] sm:inline-block">
+            ⏎
+          </kbd>
+        </div>
+        <div
+          className="mt-3 rounded-md py-3 pl-4 pr-3"
+          style={{
+            background: "#FBFEFB",
+            borderLeft: "3px solid rgba(22, 163, 74, 0.3)",
+          }}
+        >
+          <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.10em] text-[#16A34A]">
+            AI answer
+          </p>
+          <p className="text-[12.5px] leading-[1.6] text-[#1F1F1F]">
+            Three At-Risk accounts (
+            <span className="font-semibold">Halford Capital</span>,{" "}
+            <span className="font-semibold">Northfield Industries</span>,{" "}
+            <span className="font-semibold">Riverbend Commerce</span>) cited
+            onboarding friction in the last 30 days. Two specifically
+            mentioned the Module B rollout as a friction point.
+            Halford&rsquo;s CFO escalated last week.
+          </p>
+          <p className="mt-2 text-[10px] text-[#666]">
+            <span className="font-bold uppercase tracking-[0.10em]">
+              Grounded in:
+            </span>{" "}
+            3 emails · 2 Slack threads · 1 call transcript
+          </p>
+        </div>
+      </div>
+
+      <div className="border-t border-[#EAEAEA] px-5 py-4">
+        <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          Sentiment by contact · Acme Corp
+        </p>
+        <p className="mt-0.5 text-[10.5px] italic text-[#888]">
+          Stakeholder-level sentiment, not just aggregate.
+        </p>
+        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5 sm:gap-2">
+          {stakeholders.map((s) => (
+            <div
+              key={s.name}
+              className="flex flex-col items-start gap-1.5 rounded-md p-2.5"
+              style={{
+                border: "0.5px solid #EAEAEA",
+                background: "#FAFAFA",
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold"
+                style={{
+                  background: s.initialBg,
+                  color: s.initialText,
+                }}
+              >
+                {s.initials}
+              </span>
+              <p className="w-full truncate text-[11px] font-semibold text-[#0A0A0A]">
+                {s.name}
+              </p>
+              <p className="w-full truncate text-[10px] text-[#666]">
+                {s.role}
+              </p>
+              <div className="flex items-center gap-1">
+                <span
+                  aria-hidden="true"
+                  className="h-2 w-2 rounded-full"
+                  style={{ background: TONE_COLOR[s.sentiment] }}
+                />
+                <span
+                  className="font-mono text-[10px] font-bold leading-none"
+                  style={{ color: TONE_COLOR[s.sentiment] }}
+                >
+                  {TREND_ARROW[s.trend]}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
