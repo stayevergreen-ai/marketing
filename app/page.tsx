@@ -1,13 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -122,11 +116,11 @@ function TreeDivider() {
   return (
     <div
       aria-hidden="true"
-      className="my-32 flex items-center justify-center gap-6"
+      className="my-20 flex items-center justify-center gap-6"
     >
-      <div className="h-px max-w-32 flex-1 bg-[#EAEAEA]" />
-      <TreeMark size={20} className="opacity-50" />
-      <div className="h-px max-w-32 flex-1 bg-[#EAEAEA]" />
+      <div className="h-px max-w-32 flex-1 bg-[#D8D8D5]" />
+      <TreeMark size={20} className="opacity-75" />
+      <div className="h-px max-w-32 flex-1 bg-[#D8D8D5]" />
     </div>
   );
 }
@@ -153,120 +147,6 @@ function ScreenshotCard({ src, alt, width, height }: ScreenshotProps) {
         className="block h-auto w-full"
       />
     </motion.div>
-  );
-}
-
-function StickyImage({
-  src,
-  alt,
-  progress,
-  fadeIn,
-  sizes,
-}: {
-  src: string;
-  alt: string;
-  progress: MotionValue<number>;
-  fadeIn: boolean;
-  sizes: string;
-}) {
-  const opacity = useTransform(
-    progress,
-    [0, 0.4, 0.6, 1],
-    fadeIn ? [0, 0, 1, 1] : [1, 1, 0, 0]
-  );
-
-  return (
-    <motion.div
-      style={{
-        opacity,
-        position: "absolute",
-        inset: 0,
-        overflow: "hidden",
-        borderRadius: "0.75rem",
-        backgroundColor: "#FFFFFF",
-        border: "1px solid #EAEAEA",
-        boxShadow:
-          "0 4px 12px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.06)",
-      }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes={sizes}
-        className="object-contain"
-      />
-    </motion.div>
-  );
-}
-
-function StickyPinForecastAccuracy() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  return (
-    <>
-      <div
-        ref={containerRef}
-        className="relative hidden md:block"
-        style={{ height: "180vh" }}
-      >
-        <div
-          style={{
-            position: "sticky",
-            top: "8vh",
-            height: "84vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              position: "relative",
-              aspectRatio: "1 / 1",
-              width: "100%",
-              maxWidth: "42rem",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            <StickyImage
-              src="/screenshots/02a-forecast-accuracy-top.png"
-              alt="Forecast accuracy modal — overview and per-period table"
-              progress={scrollYProgress}
-              fadeIn={false}
-              sizes="(min-width: 1024px) 42rem, (min-width: 768px) 36rem, 100vw"
-            />
-            <StickyImage
-              src="/screenshots/02b-forecast-accuracy-bottom.png"
-              alt="Forecast accuracy modal — per-metric drill-down and snapshot detail"
-              progress={scrollYProgress}
-              fadeIn={true}
-              sizes="(min-width: 1024px) 42rem, (min-width: 768px) 36rem, 100vw"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-8 md:hidden">
-        <ScreenshotCard
-          src="/screenshots/02a-forecast-accuracy-top.png"
-          alt="Forecast accuracy modal — overview and per-period table"
-          width={1092}
-          height={1092}
-        />
-        <ScreenshotCard
-          src="/screenshots/02b-forecast-accuracy-bottom.png"
-          alt="Forecast accuracy modal — per-metric drill-down and snapshot detail"
-          width={1141}
-          height={1064}
-        />
-      </div>
-    </>
   );
 }
 
@@ -356,7 +236,20 @@ export default function Home() {
           </p>
         </motion.section>
 
-        <StickyPinForecastAccuracy />
+        <div className="mx-auto max-w-5xl space-y-12">
+          <ScreenshotCard
+            src="/screenshots/02a-forecast-accuracy-top.png"
+            alt="Forecast accuracy: formula and per-period table"
+            width={1092}
+            height={1092}
+          />
+          <ScreenshotCard
+            src="/screenshots/02b-forecast-accuracy-bottom.png"
+            alt="Forecast accuracy: per-metric trends and snapshot drill-down"
+            width={1141}
+            height={1064}
+          />
+        </div>
 
         <motion.section {...fadeUp} className="py-16 text-center">
           <p className="mx-auto max-w-3xl text-[16px] leading-[1.6] text-[#666] md:text-[17px]">
@@ -375,32 +268,36 @@ export default function Home() {
 
           <div
             className="hidden overflow-hidden rounded-xl bg-white md:block"
-            style={cardChrome}
+            style={{
+              border: "1.5px solid #E5E5E0",
+              boxShadow:
+                "0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05)",
+            }}
           >
             <table className="w-full border-collapse">
               <thead className="bg-[#FAFAF9]">
                 <tr>
-                  <th className="px-6 py-5 text-left text-[13px] uppercase tracking-[0.10em] text-[#666]">
+                  <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
                     Question
                   </th>
                   <th
-                    className="bg-[#F5F5F2] px-6 py-5 text-left"
+                    className="bg-[#F0F0EC] px-6 py-5 text-center"
                     style={{
                       borderLeft: "1px solid #EAEAEA",
                       borderRight: "1px solid #EAEAEA",
                     }}
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center gap-2">
                       <TreeMark size={16} />
                       <span className="text-[13px] uppercase tracking-[0.10em] text-[#16A34A]">
                         Evergreen
                       </span>
                     </div>
                   </th>
-                  <th className="px-6 py-5 text-left text-[13px] uppercase tracking-[0.10em] text-[#666]">
+                  <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
                     Most CS tools
                   </th>
-                  <th className="px-6 py-5 text-left text-[13px] uppercase tracking-[0.10em] text-[#666]">
+                  <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
                     AI-replacement tools
                   </th>
                 </tr>
@@ -415,11 +312,11 @@ export default function Home() {
                         i === 0 ? "none" : "1px solid #EAEAEA",
                     }}
                   >
-                    <td className="px-6 py-5 align-top text-[15px] text-[#0A0A0A] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                    <td className="px-6 py-5 text-center align-top text-[15px] text-[#0A0A0A] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
                       {row.question}
                     </td>
                     <td
-                      className="bg-[#F5F5F2] px-6 py-5 align-top text-[15px] font-semibold text-[#0A0A0A]"
+                      className="bg-[#F0F0EC] px-6 py-5 text-center align-top text-[15px] font-semibold text-[#0A0A0A]"
                       style={{
                         borderLeft: "1.5px solid #E5E5E0",
                         borderRight: "1.5px solid #E5E5E0",
@@ -427,10 +324,10 @@ export default function Home() {
                     >
                       {row.evergreen}
                     </td>
-                    <td className="px-6 py-5 align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                    <td className="px-6 py-5 text-center align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
                       {row.legacy}
                     </td>
-                    <td className="px-6 py-5 align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                    <td className="px-6 py-5 text-center align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
                       {row.aiReplacement}
                     </td>
                   </tr>
@@ -451,7 +348,7 @@ export default function Home() {
                 </p>
                 <div className="space-y-4">
                   <div
-                    className="rounded-lg bg-[#F5F5F2] p-3"
+                    className="rounded-lg bg-[#F0F0EC] p-3"
                     style={{ border: "1.5px solid #E5E5E0" }}
                   >
                     <div className="mb-1 flex items-center gap-1.5">
