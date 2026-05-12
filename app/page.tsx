@@ -172,7 +172,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
             className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]"
           >
-            The AI platform for customer success
+            The operational intelligence layer for CS
           </motion.p>
 
           <motion.h1
@@ -181,7 +181,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.2, ease: FADE_EASE }}
             className="mx-auto max-w-5xl text-balance text-[48px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[80px] lg:text-[112px]"
           >
-            Built to make your CSMs irreplaceable.
+            Built to make your CSMs unbeatable.
           </motion.h1>
 
           <motion.p
@@ -190,7 +190,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.35, ease: FADE_EASE }}
             className="mx-auto mt-8 max-w-2xl text-balance text-[17px] leading-[1.45] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px] lg:text-[22px]"
           >
-            Leverage for your CSMs. Board-level confidence for their leaders.
+            The operational intelligence layer for CS — leverage for your team, confidence for your board.
           </motion.p>
 
           <motion.div
@@ -221,6 +221,15 @@ export default function Home() {
           >
             <MorningQueue />
           </motion.div>
+
+          <motion.p
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.85, ease: FADE_EASE }}
+            className="mx-auto mt-5 max-w-3xl text-[13px] italic text-[#888]"
+          >
+            Morning Queue: the day prioritized for your team, ranked by what&apos;s at stake.
+          </motion.p>
         </section>
 
         <TreeDivider />

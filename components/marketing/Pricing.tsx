@@ -33,7 +33,7 @@ const TIERS: Tier[] = [
     bestFor: [
       "Founder-led teams running CS hands-on",
       "Small CS orgs with a Manager, Director, or Head of CS",
-      "Pre-seed through Seed-stage SaaS",
+      "Pre-seed through Seed-stage companies",
     ],
     whatYouGet: [
       "Email-first methodology",
@@ -53,9 +53,9 @@ const TIERS: Tier[] = [
     perSeat: "+ $179 per CSM",
     bestFor: [
       "Mid-market CS teams running 4–12 CSMs",
-      "Series A through Series C SaaS",
+      "Series A through Series C companies",
       "Multiple segments, regions, or verticals",
-      "Need defensible numbers and operational clarity",
+      "Teams that need defensible numbers and operational clarity",
     ],
     whatYouGet: [
       "Everything in Starter",
@@ -81,13 +81,13 @@ const TIERS: Tier[] = [
     availability: "Available Q3 2026",
     bestFor: [
       "CS orgs with 13+ CSMs across multiple teams",
-      "Regulated industries needing SOC 2 Type II",
-      "Custom integration and dedicated CSM",
+      "Companies with complex compliance and security requirements",
+      "Custom integration and dedicated CSM needs",
     ],
     whatYouGet: [
       "Everything in Scale",
       "Unlimited CSMs",
-      "SOC 2 Type II compliance",
+      "SSO and SAML",
       "Custom integrations",
       "Dedicated CSM",
       "SLA-backed support",
