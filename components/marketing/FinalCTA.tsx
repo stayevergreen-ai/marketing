@@ -10,7 +10,7 @@ export default function FinalCTA() {
   return (
     <section id="demo" className="py-32 md:py-40">
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: FADE_EASE }}
         viewport={{ once: true, margin: "-80px" }}

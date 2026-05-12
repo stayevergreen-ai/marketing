@@ -9,7 +9,6 @@ type Inputs = {
   csms: number;
   csmCost: number;
   hoursRecovered: number;
-  hourlyValue: number;
   workingWeeks: number;
   deferredHire: number;
 };
@@ -18,10 +17,11 @@ const DEFAULTS: Inputs = {
   csms: 6,
   csmCost: 180000,
   hoursRecovered: 20,
-  hourlyValue: 80,
   workingWeeks: 50,
   deferredHire: 200000,
 };
+
+const HOURS_PER_WEEK = 40;
 
 const formatDollars = (n: number) => `$${Math.round(n).toLocaleString()}`;
 const formatNumber = (n: number) => n.toLocaleString();
@@ -44,11 +44,14 @@ export default function RoiPage() {
   };
 
   const results = useMemo(() => {
+    const annualHours = inputs.workingWeeks * HOURS_PER_WEEK;
+    const hourlyRate = annualHours > 0 ? inputs.csmCost / annualHours : 0;
+
     const productivity =
       inputs.csms *
       inputs.hoursRecovered *
       inputs.workingWeeks *
-      inputs.hourlyValue;
+      hourlyRate;
     const totalValue = productivity + inputs.deferredHire;
 
     const tier = pricingTier(inputs.csms);
@@ -62,15 +65,13 @@ export default function RoiPage() {
 
     const sensitivityHours = inputs.hoursRecovered * 0.75;
     const sensitivityProductivity =
-      inputs.csms *
-      sensitivityHours *
-      inputs.workingWeeks *
-      inputs.hourlyValue;
+      inputs.csms * sensitivityHours * inputs.workingWeeks * hourlyRate;
     const sensitivityValue = sensitivityProductivity + inputs.deferredHire;
     const sensitivityMultiplier =
       platformCost > 0 ? sensitivityValue / platformCost : 0;
 
     return {
+      hourlyRate,
       productivity,
       totalValue,
       platformCost,
@@ -136,6 +137,7 @@ export default function RoiPage() {
                       prefix="$"
                       value={inputs.csmCost}
                       onChange={(v) => update("csmCost", v)}
+                      derivedAnnotation={`≈ $${Math.round(results.hourlyRate)}/hr derived`}
                     />
                     <InputRow
                       id="hoursRecovered"
@@ -143,14 +145,6 @@ export default function RoiPage() {
                       annotation="Via AI brief + queue + automated workflows"
                       value={inputs.hoursRecovered}
                       onChange={(v) => update("hoursRecovered", v)}
-                    />
-                    <InputRow
-                      id="hourlyValue"
-                      label="Hourly value of CSM time"
-                      annotation="Industry average for senior CSM"
-                      prefix="$"
-                      value={inputs.hourlyValue}
-                      onChange={(v) => update("hourlyValue", v)}
                     />
                     <InputRow
                       id="workingWeeks"
@@ -209,6 +203,7 @@ function InputRow({
   value,
   onChange,
   prefix,
+  derivedAnnotation,
   last,
 }: {
   id: string;
@@ -217,6 +212,7 @@ function InputRow({
   value: number;
   onChange: (v: number) => void;
   prefix?: string;
+  derivedAnnotation?: string;
   last?: boolean;
 }) {
   const formatted = prefix === "$" ? value.toLocaleString() : value.toString();
@@ -243,18 +239,23 @@ function InputRow({
           {annotation}
         </span>
       </div>
-      <div className="flex shrink-0 items-center gap-1.5">
-        {prefix ? (
-          <span className="text-[15px] text-[#666]">{prefix}</span>
+      <div className="flex shrink-0 flex-col items-end gap-1">
+        <div className="flex items-center gap-1.5">
+          {prefix ? (
+            <span className="text-[15px] text-[#666]">{prefix}</span>
+          ) : null}
+          <input
+            id={id}
+            type="text"
+            inputMode="numeric"
+            value={formatted}
+            onChange={handleChange}
+            className="w-[110px] rounded-md border border-[#EAEAEA] bg-white px-3 py-2 text-right text-[16px] font-medium text-[#0A0A0A] outline-none transition-colors focus:border-[#16A34A]"
+          />
+        </div>
+        {derivedAnnotation ? (
+          <span className="text-[11px] text-[#888]">{derivedAnnotation}</span>
         ) : null}
-        <input
-          id={id}
-          type="text"
-          inputMode="numeric"
-          value={formatted}
-          onChange={handleChange}
-          className="w-[110px] rounded-md border border-[#EAEAEA] bg-white px-3 py-2 text-right text-[16px] font-medium text-[#0A0A0A] outline-none transition-colors focus:border-[#16A34A]"
-        />
       </div>
     </div>
   );
@@ -312,14 +313,17 @@ function ResultsColumn({
         <ResultRow
           label="Productivity recovered"
           value={formatDollars(results.productivity)}
+          explanation="Hours saved by AI-assisted workflows, valued at the CSM's effective hourly rate."
         />
         <ResultRow
           label="Deferred hire savings"
           value={formatDollars(inputs.deferredHire)}
+          explanation="Cost of the next CSM hire you don't have to make this year."
         />
         <ResultRow
           label="Total annual value"
           value={formatDollars(results.totalValue)}
+          explanation="What Evergreen returns to the business in year one."
           accent
         />
         <ResultRow
@@ -329,13 +333,20 @@ function ResultsColumn({
               ? "Custom — contact us"
               : formatDollars(results.platformCost)
           }
+          explanation="Annual subscription based on team size."
         />
         <ResultRow
           label="Net annual ROI"
           value={formatDollars(results.netRoi)}
+          explanation="Total value minus platform cost."
           accent
         />
-        <ResultRow label="Payback period" value={paybackDisplay} last />
+        <ResultRow
+          label="Payback period"
+          value={paybackDisplay}
+          explanation="Months until Evergreen pays for itself."
+          last
+        />
       </div>
 
       <div className="mt-6 rounded-lg bg-[#FAFAF9] p-4">
@@ -369,7 +380,8 @@ function ResultsColumn({
           <div className="mt-3 rounded-md bg-[#FAFAFA] p-4 text-[12px] leading-[1.65] text-[#1F1F1F]">
             <p>
               <span className="font-semibold">Productivity recovered</span> =
-              CSMs × hours per week × working weeks × hourly value of CSM time.
+              CSMs × hours per week × working weeks × derived hourly rate
+              (annual salary ÷ working weeks ÷ 40 hours).
             </p>
             <p className="mt-2">
               <span className="font-semibold">Total annual value</span> =
@@ -402,19 +414,22 @@ function ResultsColumn({
 function ResultRow({
   label,
   value,
+  explanation,
   accent,
   last,
 }: {
   label: string;
   value: string;
+  explanation?: string;
   accent?: boolean;
   last?: boolean;
 }) {
   return (
     <div
-      className="flex items-baseline justify-between gap-3 py-3"
+      className="py-3"
       style={{ borderBottom: last ? "none" : "0.5px solid #EAEAEA" }}
     >
+      <div className="flex items-baseline justify-between gap-3">
       <span
         className={
           accent
@@ -433,6 +448,12 @@ function ResultRow({
       >
         {value}
       </span>
+      </div>
+      {explanation ? (
+        <p className="mt-1 text-[12px] leading-[1.4] text-[#888]">
+          {explanation}
+        </p>
+      ) : null}
     </div>
   );
 }

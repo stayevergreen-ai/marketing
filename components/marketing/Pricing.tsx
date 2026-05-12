@@ -117,7 +117,7 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
   const isPrimary = tier.ctaStyle === "primary";
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay, ease: FADE_EASE }}
       viewport={{ once: true, margin: "-80px" }}
@@ -204,7 +204,7 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
 function ROIBlock() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: FADE_EASE }}
       viewport={{ once: true, margin: "-80px" }}

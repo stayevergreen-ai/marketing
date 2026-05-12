@@ -24,10 +24,7 @@ import AccountQBRMethodology from "../components/marketing/AccountQBRMethodology
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
 const fadeUp = {
-  initial: { opacity: 0, y: 16 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: FADE_EASE },
-  viewport: { once: true, margin: "-80px" },
+  initial: false,
 } as const;
 
 type Moment = {
@@ -252,7 +249,7 @@ function Section4() {
   return (
     <section className="py-24">
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: FADE_EASE }}
         viewport={{ once: true, margin: "-80px" }}
@@ -271,7 +268,7 @@ function Section4() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 8 }}
+        initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: FADE_EASE }}
         viewport={{ once: true, margin: "-80px" }}
@@ -289,7 +286,7 @@ function Section4() {
 
       <motion.div
         key={activeTab}
-        initial={{ opacity: 0, y: 8 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: FADE_EASE }}
         className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
@@ -363,7 +360,7 @@ export default function Home() {
             className="pb-24 pt-24 text-center md:pb-32 md:pt-32 lg:pt-40"
           >
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
             className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]"
@@ -372,7 +369,7 @@ export default function Home() {
           </motion.p>
 
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: FADE_EASE }}
             className="mx-auto max-w-5xl text-balance text-[48px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[80px] lg:text-[112px]"
@@ -381,7 +378,7 @@ export default function Home() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: FADE_EASE }}
             className="mx-auto mt-8 max-w-2xl text-balance text-[17px] leading-[1.45] tracking-[-0.005em] text-[#666] md:text-[19px] lg:text-[22px]"
@@ -390,7 +387,7 @@ export default function Home() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: FADE_EASE }}
             className="mx-auto mt-12 flex flex-col items-stretch justify-center gap-2 sm:flex-row sm:items-center sm:gap-3"
@@ -409,7 +406,7 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7, ease: FADE_EASE }}
             className="mx-auto mt-20 max-w-6xl overflow-hidden rounded-xl bg-white md:mt-24"
@@ -423,7 +420,7 @@ export default function Home() {
 
         <section className="py-24">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-100px" }}
@@ -443,7 +440,7 @@ export default function Home() {
 
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
               viewport={{ once: true, margin: "-100px" }}
@@ -478,7 +475,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: FADE_EASE }}
               viewport={{ once: true, margin: "-100px" }}
@@ -517,7 +514,7 @@ export default function Home() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-80px" }}
@@ -647,7 +644,7 @@ export default function Home() {
 
         <section className="py-20">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-100px" }}
@@ -673,20 +670,14 @@ export default function Home() {
                 return (
                   <motion.div
                     key={step.number}
-                    initial={{
-                      opacity: 0,
-                      y: 16,
-                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      y: 0,
-                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
-                    }}
+                    initial={false}
                     whileHover={{
                       y: -2,
                       boxShadow: "0 4px 16px rgba(0, 0, 0, 0.06)",
                       transition: { duration: 0.2, ease: "easeOut" },
+                    }}
+                    style={{
+                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
                     }}
                     transition={{
                       duration: 0.8,
@@ -782,18 +773,6 @@ export default function Home() {
             })}
           </div>
         </section>
-
-        <motion.section {...fadeUp} className="py-20">
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="/demo"
-              className="inline-flex items-center rounded-lg bg-transparent px-7 py-3.5 text-[15px] font-bold text-[#0A0A0A] transition-colors duration-200 hover:bg-[#F4F4F3]"
-              style={{ border: "1px solid #EAEAEA" }}
-            >
-              Talk to the founder
-            </a>
-          </div>
-        </motion.section>
 
         <TreeDivider />
 
