@@ -15,6 +15,7 @@ import AccountDetailPreview from "../components/marketing/AccountDetailPreview";
 import ManagerReportsPreview from "../components/marketing/ManagerReportsPreview";
 import ARRWaterfallPreview from "../components/marketing/ARRWaterfallPreview";
 import Pricing from "../components/marketing/Pricing";
+import FinalCTA from "../components/marketing/FinalCTA";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -186,7 +187,6 @@ function Nav() {
           <NavLink href="#product">Product</NavLink>
           <NavLink href="#methodology">Methodology</NavLink>
           <NavLink href="#pricing">Pricing</NavLink>
-          <NavLink href="#founder">Founder</NavLink>
         </div>
       </div>
     </nav>
@@ -403,20 +403,16 @@ export default function Home() {
             className="mx-auto mt-12 flex flex-col items-stretch justify-center gap-2 sm:flex-row sm:items-center sm:gap-3"
           >
             <motion.a
-              href="/demo"
+              href="https://calendly.com/matt-stayevergreen/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ scale: 1, backgroundColor: "#0A0A0A" }}
               whileHover={{ scale: 1.01, backgroundColor: "#16A34A" }}
               transition={{ duration: 0.2, ease: FADE_EASE }}
               className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[15px] font-medium text-white"
             >
-              See a demo
+              Book a demo
             </motion.a>
-            <a
-              href="/methodology"
-              className="inline-flex items-center justify-center rounded-lg border border-[#EAEAEA] bg-transparent px-7 py-3.5 text-[15px] font-medium text-[#0A0A0A] transition-all duration-200 hover:border-[#DDDDDD] hover:bg-[#FAFAF9]"
-            >
-              See the methodology
-            </a>
           </motion.div>
 
           <motion.div
@@ -829,16 +825,6 @@ export default function Home() {
 
         <motion.section {...fadeUp} className="py-20">
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <motion.a
-              href="/methodology"
-              initial={{ scale: 1, backgroundColor: "#0A0A0A" }}
-              whileHover={{ scale: 1.01, backgroundColor: "#16A34A" }}
-              transition={{ duration: 0.2, ease: FADE_EASE }}
-              className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-[15px] font-bold text-white"
-            >
-              See the full methodology
-              <span aria-hidden="true">→</span>
-            </motion.a>
             <a
               href="/demo"
               className="inline-flex items-center rounded-lg bg-transparent px-7 py-3.5 text-[15px] font-bold text-[#0A0A0A] transition-colors duration-200 hover:bg-[#F4F4F3]"
@@ -854,6 +840,8 @@ export default function Home() {
         <Pricing />
 
         <TreeDivider />
+
+        <FinalCTA />
 
         <div className="flex flex-col items-center gap-3 pb-24 pt-32 opacity-60">
           <TreeMark size={24} />
