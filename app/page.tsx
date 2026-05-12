@@ -137,11 +137,11 @@ function TreeDivider() {
   return (
     <div
       aria-hidden="true"
-      className="my-20 flex items-center justify-center gap-6"
+      className="my-16 flex items-center justify-center gap-6"
     >
-      <div className="h-px max-w-32 flex-1 bg-[#D8D8D5]" />
-      <TreeMark size={20} className="opacity-75" />
-      <div className="h-px max-w-32 flex-1 bg-[#D8D8D5]" />
+      <div className="h-px max-w-32 flex-1 bg-[#C8C8C3]" />
+      <TreeMark size={20} className="opacity-85" />
+      <div className="h-px max-w-32 flex-1 bg-[#C8C8C3]" />
     </div>
   );
 }
@@ -182,7 +182,7 @@ export default function Home() {
           className="flex items-center gap-2.5 pt-8 md:pt-10"
         >
           <TreeMark size={28} />
-          <span className="text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#0A0A0A]">
+          <span className="text-[22px] font-black leading-none tracking-[-0.03em] text-[#0A0A0A]">
             evergreen<span className="text-[#16A34A]">.</span>
           </span>
         </motion.header>
@@ -258,13 +258,13 @@ export default function Home() {
 
         <TreeDivider />
 
-        <section className="py-20 md:py-32">
+        <section className="py-24">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-100px" }}
-            className="mb-20 text-center"
+            className="mb-12 text-center"
           >
             <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
               There are two paths…
@@ -275,7 +275,7 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -331,13 +331,13 @@ export default function Home() {
 
         <TreeDivider />
 
-        <section className="py-20 md:py-32">
+        <section className="py-24">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-100px" }}
-            className="mb-20 text-center"
+            className="mb-12 text-center"
           >
             <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
               Go live in days. Not weeks. Not quarters.
@@ -347,7 +347,7 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:grid-cols-3">
             {steps.map((step, i) => (
               <motion.div
                 key={step.number}
@@ -386,7 +386,7 @@ export default function Home() {
 
         <motion.section
           {...fadeUp}
-          className="pb-20 pt-32 text-center md:pt-40"
+          className="pb-12 pt-24 text-center"
         >
           <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#888]">
             AI as the foundation
@@ -454,7 +454,7 @@ export default function Home() {
           </p>
         </motion.section>
 
-        <div className="mx-auto max-w-5xl space-y-12">
+        <div className="mx-auto max-w-4xl space-y-12">
           <ScreenshotCard
             src="/screenshots/02a-forecast-accuracy-top.png"
             alt="Forecast accuracy: formula and per-period table"
