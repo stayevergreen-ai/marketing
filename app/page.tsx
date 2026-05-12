@@ -100,12 +100,23 @@ const moments: Moment[] = [
   },
 ];
 
-const manifestoParagraphs = [
-  "We're living through the largest workforce shift since the industrial revolution. Every week, another company announces it's replacing a department with AI. Every major AI company is racing toward the same destination: software that doesn't need humans to run it. The customer success industry is no exception.",
-  "Two kinds of products are competing for your customer success budget. One can't keep up. The other is chasing the wrong destination. The first was built before AI, on architectures that demand integrations, implementation cycles, and dedicated admins to function. They can bolt AI on, but they can't out-iterate companies built around it — and the buyers who could never afford their stack are still locked out. The second is honest about what they're building: customer success without customer success managers. AI doing 99% of the CSM's job today. So the board can sign off on 100% tomorrow. Their honesty is the warning, not the comfort.",
-  "Evergreen exists because someone had to build the third option. AI is the most powerful tool customer success has ever seen, and we were built around that conviction — but with a line we will never cross. AI does not replace your CSMs. Ever. Customer success isn't a function that automates. It's a function that compounds — through trust, context, and judgment only humans accumulate. Every feature in Evergreen makes a CSM more capable. None make one optional.",
-  "The next decade of customer success will be defined by who used AI to amplify humans, and who used it to remove them. The companies that bet on AI replacement will spend years rebuilding the trust they automated away. The ones that bet on amplifying their teams will be the ones their customers stay with. We built Evergreen for the teams that already know which side they're on. We're going to be on the right side of history. So is every team that comes with us.",
-];
+const manifesto = {
+  eyebrow: "Our manifesto",
+  openingLine:
+    "We're living through the largest workforce shift since the industrial revolution.",
+  paragraph1Rest:
+    "Every week, another company announces it's replacing a department with AI. Every major AI company is racing toward the same destination: software that doesn't need humans to run it. The customer success industry is no exception.",
+  paragraph2:
+    "Two kinds of products are competing for your customer success budget. One can't keep up. The other is chasing the wrong destination. The first was built before AI, on architectures that demand integrations, implementation cycles, and dedicated admins to function. They can bolt AI on, but they can't out-iterate companies built around it — and the buyers who could never afford their stack are still locked out. The second is honest about what they're building: customer success without customer success managers. AI doing 99% of the CSM's job today. So the board can sign off on 100% tomorrow. Their honesty is the warning, not the comfort.",
+  paragraph3Before:
+    "Evergreen exists because someone had to build the third option. AI is the most powerful tool customer success has ever seen, and we were built around that conviction — but with a line we will never cross.",
+  pullQuote: "AI does not replace your CSMs. Ever.",
+  paragraph3After:
+    "Customer success isn't a function that automates. It's a function that compounds — through trust, context, and judgment only humans accumulate. Every feature in Evergreen makes a CSM more capable. None make one optional.",
+  paragraph4:
+    "The next decade of customer success will be defined by who used AI to amplify humans, and who used it to remove them. The companies that bet on AI replacement will spend years rebuilding the trust they automated away. The ones that bet on amplifying their teams will be the ones their customers stay with. We built Evergreen for the teams that already know which side they're on. We're going to be on the right side of history. So is every team that comes with us.",
+  signature: "— Matt Gilston, Founder",
+};
 
 type DefensibilityCard = {
   eyebrow: string;
@@ -117,35 +128,35 @@ type DefensibilityCard = {
 const defensibilityCards: DefensibilityCard[] = [
   {
     eyebrow: "Metrics",
-    question: "Show me the formula behind any metric.",
+    question: "Is this number defensible to a CFO?",
     evergreen:
-      "One click on any tile. Formula, inputs, assumptions, per-account breakdown, configurable settings. Every number in Evergreen is auditable down to its source data.",
+      "Every metric in Evergreen carries its formula with it. Click. Read. Audit. Change the assumption. Watch the number recompute.",
     contrast:
-      "Most CS tools surface a metric and bury the methodology in documentation. AI-replacement tools surface a confidence score with no traceable inputs.",
+      "The old guard hides methodology in documentation. The new guard hides it in the model.",
   },
   {
     eyebrow: "Signals",
-    question: "What pushed this account into the at-risk band?",
+    question: "Show me the signals that drove this score.",
     evergreen:
-      "5 weighted health components, drillable per account. Each component traces to its source signals — emails, tickets, meeting notes. Configurable thresholds. Live recompute.",
+      "Health is 5 weighted components. Click any component. Trace to source signals — every email, ticket, meeting note. Adjust the weights. Watch the score move.",
     contrast:
-      "Most CS tools show an aggregate health score with weights hidden. AI-replacement tools show a score with no breakdown — just a number to trust.",
+      "The old guard overcomplicates. The new guard just asks for your trust.",
   },
   {
     eyebrow: "AI decisions",
-    question: "Why did the AI pick that CSM for coverage?",
+    question: "Can I see the AI's reasoning?",
     evergreen:
-      "Every candidate evaluated, with capacity projection. The override logic is visible. The CSM's input is weighted in the recommendation. The AI shows its work — and your team can correct it.",
+      "AI decisions in Evergreen are transparent by design. Click the recommendation. See the alternatives. Override with one click. The AI learns from your correction — the human stays in the loop.",
     contrast:
-      "Most CS tools route by static rules with no projection visible. AI-replacement tools route autonomously without surfacing the human override path.",
+      "The old guard automates with rules. The new guard automates around humans. Neither shows the override.",
   },
   {
     eyebrow: "Commitment tracking",
-    question: "What did we commit to last QBR — and did we deliver?",
+    question: "Are we accountable to what we promised?",
     evergreen:
-      "Pulled directly from the QBR record. Tracked through the cycle. Surfaced automatically in the next QBR prep. The platform remembers what your team committed to.",
+      "Every QBR commitment is captured, tracked, and surfaced. Not in someone's notes — in the platform. The next QBR opens with what you said you'd do, and what actually happened.",
     contrast:
-      "Most CS tools leave commitments in meeting notes outside the platform. AI-replacement tools generate fresh QBR prep with no awareness of prior commitments.",
+      "Commitments lost in notes are commitments lost to memory. Evergreen turns them into structure.",
   },
 ];
 
@@ -535,18 +546,51 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-80px" }}
-            className="mx-auto mt-24 max-w-3xl py-16 md:py-20"
+            className="mx-auto mt-24 max-w-3xl py-20 md:py-24"
           >
-            {manifestoParagraphs.map((p, i) => (
-              <p
-                key={i}
-                className={`text-[18px] font-normal leading-[1.7] tracking-[-0.005em] text-[#0A0A0A] md:text-[19px] ${
-                  i === 0 ? "" : "mt-7"
-                }`}
-              >
-                {p}
+            <div className="border-l-4 border-[#16A34A] pl-8 md:pl-12">
+              <p className="mb-8 text-[12px] font-bold uppercase tracking-[0.18em] text-[#666]">
+                {manifesto.eyebrow}
               </p>
-            ))}
+
+              <p className="text-balance text-[24px] font-semibold leading-[1.25] tracking-[-0.015em] text-[#0A0A0A] md:text-[30px]">
+                {manifesto.openingLine}
+              </p>
+
+              <p className="mt-7 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
+                {manifesto.paragraph1Rest}
+              </p>
+
+              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
+                {manifesto.paragraph2}
+              </p>
+
+              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
+                {manifesto.paragraph3Before}
+              </p>
+
+              <p className="my-8 text-balance text-[22px] font-bold leading-[1.3] tracking-[-0.015em] text-[#0A0A0A] md:text-[26px]">
+                {manifesto.pullQuote}
+              </p>
+
+              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
+                {manifesto.paragraph3After}
+              </p>
+
+              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
+                {manifesto.paragraph4}
+              </p>
+
+              <div className="mt-12">
+                <div
+                  aria-hidden="true"
+                  className="mb-5 h-px w-16 bg-[#C8C8C3]"
+                />
+                <p className="text-[16px] font-medium text-[#0A0A0A]">
+                  {manifesto.signature}
+                </p>
+              </div>
+            </div>
           </motion.div>
 
           <motion.div
@@ -567,29 +611,36 @@ export default function Home() {
 
             <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
               {defensibilityCards.map((card) => (
-                <div
+                <motion.div
                   key={card.eyebrow}
-                  className="rounded-2xl bg-white p-6 md:p-8"
+                  initial={false}
+                  whileHover={{
+                    y: -2,
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.06)",
+                    transition: { duration: 0.2, ease: "easeOut" },
+                  }}
+                  className="rounded-2xl bg-white p-7 md:p-9"
                   style={{
                     border: "1px solid #EAEAEA",
+                    borderLeft: "3px solid #16A34A",
                     boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
                   }}
                 >
                   <p className="text-[11px] font-bold uppercase tracking-[0.10em] text-[#888]">
                     {card.eyebrow}
                   </p>
-                  <h4 className="mt-3 text-[20px] font-bold leading-[1.25] tracking-[-0.015em] text-[#0A0A0A] md:text-[22px]">
+                  <h4 className="mt-3 text-balance text-[22px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0A0A0A] md:text-[24px]">
                     {card.question}
                   </h4>
-                  <p className="mt-4 text-[15px] leading-[1.55] text-[#1F1F1F]">
+                  <p className="mt-5 text-[16px] font-medium leading-[1.55] text-[#1F1F1F] md:text-[17px]">
                     {card.evergreen}
                   </p>
-                  <div className="mt-5 border-t border-[#EAEAEA] pt-4">
-                    <p className="text-[13px] leading-[1.55] text-[#666]">
+                  <div className="mt-6 border-t border-[#EAEAEA] pt-4">
+                    <p className="text-[12px] leading-[1.55] text-[#888]">
                       {card.contrast}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
