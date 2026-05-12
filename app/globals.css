@@ -29,3 +29,30 @@ body {
     box-shadow: 0 0 14px rgba(74, 222, 128, 0.85), 0 0 28px rgba(74, 222, 128, 0.5);
   }
 }
+
+@keyframes drift-slow {
+  from {
+    transform: translate3d(-20px, 0, 0);
+  }
+  to {
+    transform: translate3d(20px, 0, 0);
+  }
+}
+
+@keyframes drift-slow-reverse {
+  from {
+    transform: translate3d(20px, -8px, 0);
+  }
+  to {
+    transform: translate3d(-20px, 8px, 0);
+  }
+}
+
+@keyframes drift-slow-xy {
+  from {
+    transform: translate3d(-15px, 10px, 0);
+  }
+  to {
+    transform: translate3d(15px, -10px, 0);
+  }
+}
