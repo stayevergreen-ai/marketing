@@ -17,8 +17,7 @@ import ARRWaterfallPreview from "../components/marketing/ARRWaterfallPreview";
 import Pricing from "../components/marketing/Pricing";
 import FinalCTA from "../components/marketing/FinalCTA";
 import Nav from "../components/marketing/Nav";
-import AccountVOCMethodology from "../components/marketing/AccountVOCMethodology";
-import BookVOCMethodology from "../components/marketing/BookVOCMethodology";
+import VoiceOfCustomerMethodology from "../components/marketing/VoiceOfCustomerMethodology";
 import AccountQBRMethodology from "../components/marketing/AccountQBRMethodology";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
@@ -66,20 +65,13 @@ const moments: Moment[] = [
       "AI assembles the brief from the same signals that feed health and forecasts — so what you say in the QBR matches what's actually true.",
     Component: AccountQBRMethodology,
   },
-  // Qualitative signals
+  // Qualitative signals — one platform, three scopes
   {
-    eyebrow: "Show me the signals",
-    headline: "Every theme traces back to a source.",
+    eyebrow: "Show me the answers",
+    headline: "Ask anything. Trace every answer.",
     caption:
-      "Sentiment isn't a vibe. It's an aggregate of email tone, ticket urgency, and meeting commentary — with the source visible.",
-    Component: AccountVOCMethodology,
-  },
-  {
-    eyebrow: "Show me the patterns",
-    headline: "What's true across the whole book.",
-    caption:
-      "AI surfaces themes that span multiple accounts — so you spot the systemic risk before it shows up in your numbers.",
-    Component: BookVOCMethodology,
+      "Voice of Customer in Evergreen isn't a sentiment number. It's a system you query. Ask across one account, your whole book, or the entire org — every answer traces back to the source signals that produced it.",
+    Component: VoiceOfCustomerMethodology,
   },
   // Operational decisions
   {
