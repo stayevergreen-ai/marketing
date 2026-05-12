@@ -131,7 +131,7 @@ const SCOPE_DATA: Record<Scope, ScopeData> = {
         tone: "positive",
       },
       {
-        role: "Skeptic",
+        role: "Detractor",
         score: "-0.34",
         trend: "down",
         subline: "Procurement, 2 contacts",
@@ -251,7 +251,7 @@ const SCOPE_DATA: Record<Scope, ScopeData> = {
         tone: "positive",
       },
       {
-        role: "Skeptic",
+        role: "Detractor",
         score: "-0.34",
         trend: "down",
         subline: "Procurement, 4 across book",
@@ -377,7 +377,7 @@ const SCOPE_DATA: Record<Scope, ScopeData> = {
         tone: "positive",
       },
       {
-        role: "Skeptic",
+        role: "Detractor",
         score: "-0.28",
         trend: "down",
         subline: "62 procurement / IT contacts",
