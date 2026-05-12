@@ -1,7 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import { useRef } from "react";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
@@ -89,13 +94,20 @@ const cardChrome = {
     "0 4px 12px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.06)",
 };
 
-function TreeMark({ size = 28 }: { size?: number }) {
+function TreeMark({
+  size = 28,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 64 64"
       fill="none"
+      className={className}
       aria-hidden="true"
     >
       <polygon points="32,8 21,24 43,24" fill="#4ADE80" />
@@ -103,6 +115,19 @@ function TreeMark({ size = 28 }: { size?: number }) {
       <polygon points="32,32 14,54 50,54" fill="#14532D" />
       <rect x="29" y="54" width="6" height="6" fill="#14532D" />
     </svg>
+  );
+}
+
+function TreeDivider() {
+  return (
+    <div
+      aria-hidden="true"
+      className="my-32 flex items-center justify-center gap-6"
+    >
+      <div className="h-px max-w-32 flex-1 bg-[#EAEAEA]" />
+      <TreeMark size={20} className="opacity-50" />
+      <div className="h-px max-w-32 flex-1 bg-[#EAEAEA]" />
+    </div>
   );
 }
 
@@ -131,18 +156,38 @@ function ScreenshotCard({ src, alt, width, height }: ScreenshotProps) {
   );
 }
 
-type StickyCardProps = {
+function StickyImage({
+  src,
+  alt,
+  progress,
+  fadeIn,
+  sizes,
+}: {
   src: string;
   alt: string;
-  opacity: ReturnType<typeof useTransform<number, number>>;
+  progress: MotionValue<number>;
+  fadeIn: boolean;
   sizes: string;
-};
+}) {
+  const opacity = useTransform(
+    progress,
+    [0, 0.4, 0.6, 1],
+    fadeIn ? [0, 0, 1, 1] : [1, 1, 0, 0]
+  );
 
-function StickyCard({ src, alt, opacity, sizes }: StickyCardProps) {
   return (
     <motion.div
-      style={{ opacity, ...cardChrome }}
-      className="absolute inset-0 overflow-hidden rounded-xl bg-white"
+      style={{
+        opacity,
+        position: "absolute",
+        inset: 0,
+        overflow: "hidden",
+        borderRadius: "0.75rem",
+        backgroundColor: "#FFFFFF",
+        border: "1px solid #EAEAEA",
+        boxShadow:
+          "0 4px 12px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.06)",
+      }}
     >
       <Image
         src={src}
@@ -161,16 +206,6 @@ function StickyPinForecastAccuracy() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  const opacityTop = useTransform(
-    scrollYProgress,
-    [0, 0.4, 0.6, 1],
-    [1, 1, 0, 0]
-  );
-  const opacityBottom = useTransform(
-    scrollYProgress,
-    [0, 0.4, 0.6, 1],
-    [0, 0, 1, 1]
-  );
 
   return (
     <>
@@ -180,20 +215,37 @@ function StickyPinForecastAccuracy() {
         style={{ height: "180vh" }}
       >
         <div
-          className="sticky flex items-center justify-center"
-          style={{ top: "8vh", height: "84vh" }}
+          style={{
+            position: "sticky",
+            top: "8vh",
+            height: "84vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <div className="relative mx-auto aspect-square w-full max-w-2xl">
-            <StickyCard
+          <div
+            style={{
+              position: "relative",
+              aspectRatio: "1 / 1",
+              width: "100%",
+              maxWidth: "42rem",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            <StickyImage
               src="/screenshots/02a-forecast-accuracy-top.png"
               alt="Forecast accuracy modal — overview and per-period table"
-              opacity={opacityTop}
+              progress={scrollYProgress}
+              fadeIn={false}
               sizes="(min-width: 1024px) 42rem, (min-width: 768px) 36rem, 100vw"
             />
-            <StickyCard
+            <StickyImage
               src="/screenshots/02b-forecast-accuracy-bottom.png"
               alt="Forecast accuracy modal — per-metric drill-down and snapshot detail"
-              opacity={opacityBottom}
+              progress={scrollYProgress}
+              fadeIn={true}
               sizes="(min-width: 1024px) 42rem, (min-width: 768px) 36rem, 100vw"
             />
           </div>
@@ -234,7 +286,10 @@ export default function Home() {
           </span>
         </motion.header>
 
-        <motion.section {...fadeUp} className="py-32 text-center md:py-40">
+        <motion.section
+          {...fadeUp}
+          className="pb-20 pt-32 text-center md:pt-40"
+        >
           <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#888]">
             AI as the foundation
           </p>
@@ -248,7 +303,7 @@ export default function Home() {
           </p>
         </motion.section>
 
-        <section className="border-t border-[#EAEAEA] py-32">
+        <section className="border-t border-[#EAEAEA] pb-32 pt-16">
           <div className="space-y-32">
             {moments.map((m) => (
               <motion.div
@@ -284,10 +339,9 @@ export default function Home() {
           </div>
         </section>
 
-        <motion.section
-          {...fadeUp}
-          className="border-t border-[#EAEAEA] py-32 text-center"
-        >
+        <TreeDivider />
+
+        <motion.section {...fadeUp} className="pb-12 pt-8 text-center">
           <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#888]">
             We grade ourselves
           </p>
@@ -312,10 +366,9 @@ export default function Home() {
           </p>
         </motion.section>
 
-        <motion.section
-          {...fadeUp}
-          className="border-t border-[#EAEAEA] py-32"
-        >
+        <TreeDivider />
+
+        <motion.section {...fadeUp} className="pb-16 pt-8">
           <p className="mb-12 text-[13px] uppercase tracking-[0.10em] text-[#888]">
             The defensibility test
           </p>
@@ -327,16 +380,27 @@ export default function Home() {
             <table className="w-full border-collapse">
               <thead className="bg-[#FAFAF9]">
                 <tr>
-                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
+                  <th className="px-6 py-5 text-left text-[13px] uppercase tracking-[0.10em] text-[#666]">
                     Question
                   </th>
-                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
-                    Evergreen
+                  <th
+                    className="bg-[#F5F5F2] px-6 py-5 text-left"
+                    style={{
+                      borderLeft: "1px solid #EAEAEA",
+                      borderRight: "1px solid #EAEAEA",
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <TreeMark size={16} />
+                      <span className="text-[13px] uppercase tracking-[0.10em] text-[#16A34A]">
+                        Evergreen
+                      </span>
+                    </div>
                   </th>
-                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
+                  <th className="px-6 py-5 text-left text-[13px] uppercase tracking-[0.10em] text-[#666]">
                     Most CS tools
                   </th>
-                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
+                  <th className="px-6 py-5 text-left text-[13px] uppercase tracking-[0.10em] text-[#666]">
                     AI-replacement tools
                   </th>
                 </tr>
@@ -355,10 +419,10 @@ export default function Home() {
                       {row.question}
                     </td>
                     <td
-                      className="bg-[#FAFAF9] px-6 py-5 align-top text-[15px] font-bold text-[#0A0A0A]"
+                      className="bg-[#F5F5F2] px-6 py-5 align-top text-[15px] font-semibold text-[#0A0A0A]"
                       style={{
-                        borderLeft: "1px solid #EAEAEA",
-                        borderRight: "1px solid #EAEAEA",
+                        borderLeft: "1.5px solid #E5E5E0",
+                        borderRight: "1.5px solid #E5E5E0",
                       }}
                     >
                       {row.evergreen}
@@ -387,13 +451,16 @@ export default function Home() {
                 </p>
                 <div className="space-y-4">
                   <div
-                    className="rounded-lg bg-[#FAFAF9] p-3"
-                    style={{ border: "1px solid #EAEAEA" }}
+                    className="rounded-lg bg-[#F5F5F2] p-3"
+                    style={{ border: "1.5px solid #E5E5E0" }}
                   >
-                    <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#888]">
-                      Evergreen
-                    </p>
-                    <p className="text-[15px] font-bold text-[#0A0A0A]">
+                    <div className="mb-1 flex items-center gap-1.5">
+                      <TreeMark size={12} />
+                      <p className="text-[10px] uppercase tracking-[0.10em] text-[#16A34A]">
+                        Evergreen
+                      </p>
+                    </div>
+                    <p className="text-[15px] font-semibold text-[#0A0A0A]">
                       {row.evergreen}
                     </p>
                   </div>
@@ -417,10 +484,7 @@ export default function Home() {
           </div>
         </motion.section>
 
-        <motion.section
-          {...fadeUp}
-          className="border-t border-[#EAEAEA] py-32"
-        >
+        <motion.section {...fadeUp} className="py-20">
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <motion.a
               href="/methodology"
@@ -441,6 +505,13 @@ export default function Home() {
             </a>
           </div>
         </motion.section>
+
+        <div className="flex flex-col items-center gap-3 pb-24 pt-32 opacity-60">
+          <TreeMark size={24} />
+          <span className="text-xs uppercase tracking-[0.15em] text-[#888]">
+            evergreen.
+          </span>
+        </div>
       </div>
     </main>
   );
