@@ -83,11 +83,13 @@ export default function ManifestoModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.2, ease: FADE_EASE }}
-            className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl"
+            className="relative max-h-[90vh] w-full max-w-[640px] overflow-y-auto rounded-2xl"
             style={{
-              backgroundColor: "#0A0A0A",
-              border: "1px solid #222",
+              backgroundColor: "#0F0F10",
+              border: "1px solid #1F1F22",
               boxShadow: "0 24px 80px rgba(0, 0, 0, 0.6)",
+              scrollbarWidth: "thin",
+              scrollbarColor: "#2A2A2D #0F0F10",
             }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
@@ -105,48 +107,52 @@ export default function ManifestoModal({
             </button>
 
             <div className="p-8 sm:p-12 md:p-16">
+              <div
+                aria-hidden="true"
+                className="mb-8 h-px w-12 bg-[#2A2A2D]"
+              />
               <p
                 id="manifesto-title"
-                className="mb-12 text-[12px] font-bold uppercase tracking-[0.18em] text-[#4ADE80]"
+                className="mb-12 text-[12px] font-bold uppercase tracking-[0.18em] text-[#22C55E]"
               >
                 {manifesto.eyebrow}
               </p>
 
-              <p className="text-balance text-[24px] font-semibold leading-[1.25] tracking-[-0.015em] text-white sm:text-[28px] md:text-[32px]">
+              <p className="mb-8 text-balance text-[24px] font-semibold leading-[1.25] tracking-[-0.015em] text-white sm:text-[26px] md:text-[28px]">
                 {manifesto.openingLine}
               </p>
 
-              <p className="mt-8 text-[17px] font-normal leading-[1.75] text-[#E5E5E5] md:text-[18px]">
+              <p className="overflow-hidden text-[17px] font-normal leading-[1.55] text-[#DDDDDD] first-letter:float-left first-letter:pr-3 first-letter:pt-1 first-letter:text-[52px] first-letter:font-bold first-letter:leading-none first-letter:text-[#22C55E] sm:first-letter:text-[60px]">
                 {manifesto.paragraph1Rest}
               </p>
 
-              <p className="mt-8 text-[17px] font-normal leading-[1.75] text-[#E5E5E5] md:text-[18px]">
+              <p className="mt-6 text-[17px] font-normal leading-[1.55] text-[#DDDDDD]">
                 {manifesto.paragraph2}
               </p>
 
-              <p className="mt-8 text-[17px] font-normal leading-[1.75] text-[#E5E5E5] md:text-[18px]">
+              <p className="mt-6 text-[17px] font-normal leading-[1.55] text-[#DDDDDD]">
                 {manifesto.paragraph3Before}
               </p>
 
-              <p className="my-8 text-balance text-[22px] font-bold leading-[1.3] tracking-[-0.015em] text-white sm:text-[24px] md:text-[26px]">
+              <p className="my-8 text-balance text-[24px] font-bold leading-[1.25] tracking-[-0.015em] text-white sm:text-[26px] md:text-[28px]">
                 {manifesto.pullQuote}
               </p>
 
-              <p className="mt-8 text-[17px] font-normal leading-[1.75] text-[#E5E5E5] md:text-[18px]">
+              <p className="mt-6 text-[17px] font-normal leading-[1.55] text-[#DDDDDD]">
                 {manifesto.paragraph3After}
               </p>
 
-              <p className="mt-8 text-[17px] font-normal leading-[1.75] text-[#E5E5E5] md:text-[18px]">
+              <p className="mt-6 text-[17px] font-normal leading-[1.55] text-[#DDDDDD]">
                 {manifesto.paragraph4}
               </p>
 
-              <div className="mt-16">
+              <div className="mt-20">
                 <div
                   aria-hidden="true"
-                  className="mb-5 h-px w-16 bg-[#333]"
+                  className="mb-6 h-px w-16 bg-[#2A2A2D]"
                 />
-                <p className="text-[16px] font-medium text-[#4ADE80]">
-                  {manifesto.signature}
+                <p className="text-[15px] font-medium text-[#22C55E]">
+                  — Matt Gilston, <em className="italic">Founder</em>
                 </p>
               </div>
             </div>
