@@ -541,12 +541,19 @@ export default function Home() {
             </span>
           </motion.button>
 
+          <div
+            role="separator"
+            aria-hidden="true"
+            className="mb-24 mt-32 flex justify-center"
+          >
+            <TreeMark size={28} className="opacity-40" />
+          </div>
+
           <motion.div
             initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-80px" }}
-            className="mt-12"
           >
             <div className="mb-12 text-center">
               <p className="mb-6 text-[13px] uppercase tracking-[0.10em] text-[#666]">
