@@ -13,6 +13,7 @@ type Item = {
   csmPicked?: string;
   csmReason?: string;
   managerHandles?: boolean;
+  capacityImpact?: { name: string; pct: string };
 };
 
 const OOO = {
@@ -32,6 +33,7 @@ const ATTENTION_ITEMS: Item[] = [
     aiCsm: "Aisha Mohammed",
     csmPicked: "Devon Walsh",
     csmReason: "Devon has the existing CFO relationship from Q1",
+    capacityImpact: { name: "Devon", pct: "93%" },
   },
   {
     id: "i2",
@@ -62,6 +64,7 @@ const AGREED_ITEMS: Item[] = [
     dueDate: "May 17",
     aiCsm: "Aisha Mohammed",
     csmPicked: "Aisha Mohammed",
+    capacityImpact: { name: "Aisha", pct: "88%" },
   },
   {
     id: "i5",
@@ -283,6 +286,13 @@ function ItemRow({
   const overrode =
     !!item.csmPicked && !item.managerHandles && item.csmPicked !== item.aiCsm;
 
+  const capacityLine = item.capacityImpact ? (
+    <div className="pl-1 text-[12px] leading-[1.4] text-[#92400E]">
+      → {item.capacityImpact.name} at {item.capacityImpact.pct} capacity if
+      accepted
+    </div>
+  ) : null;
+
   return (
     <div
       className={`flex flex-col gap-2 border-t border-[#EAEAEA] px-4 transition-colors hover:bg-[#FAFAF9] first:border-t-0 ${
@@ -343,6 +353,8 @@ function ItemRow({
         </div>
       )}
 
+      {!compact && capacityLine}
+
       {item.csmReason && (
         <div className="rounded-sm bg-[#FAFAF9] px-2.5 py-1.5 text-[11px] italic leading-[1.4] text-[#666]">
           “{item.csmReason}”
@@ -360,6 +372,8 @@ function ItemRow({
           <span className="text-[11px] text-[#16A34A]">✓ ready</span>
         </div>
       )}
+
+      {compact && capacityLine}
 
       {highlight && !compact && (
         <div className="flex items-center gap-2 pt-1">
