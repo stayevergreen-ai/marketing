@@ -6,6 +6,13 @@ import { useRef } from "react";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
+const fadeUp = {
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, ease: FADE_EASE },
+  viewport: { once: true, margin: "-80px" },
+} as const;
+
 const moments = [
   {
     eyebrow: "Show me the formula.",
@@ -15,7 +22,6 @@ const moments = [
     alt: "Customer Lifetime Value methodology modal",
     width: 1149,
     height: 1036,
-    badge: "formula",
   },
   {
     eyebrow: "Show me the assumptions.",
@@ -27,7 +33,6 @@ const moments = [
     alt: "Net Revenue Retention forecast detail",
     width: 1002,
     height: 1204,
-    badge: "assumptions",
   },
   {
     eyebrow: "Show me the AI's reasoning.",
@@ -38,7 +43,6 @@ const moments = [
     alt: "Coverage routing AI suggestions",
     width: 1084,
     height: 1120,
-    badge: "reasoning",
   },
   {
     eyebrow: "Show me what's pushing the score.",
@@ -49,7 +53,6 @@ const moments = [
     alt: "Account health score breakdown",
     width: 1568,
     height: 696,
-    badge: "components",
   },
 ];
 
@@ -81,25 +84,12 @@ const comparisonRows = [
 ];
 
 const cardChrome = {
-  borderTop: "2px solid #4ADE80",
-  borderLeft: "0.5px solid rgba(255, 255, 255, 0.1)",
-  borderRight: "0.5px solid rgba(255, 255, 255, 0.1)",
-  borderBottom: "0.5px solid rgba(255, 255, 255, 0.1)",
+  border: "1px solid #EAEAEA",
   boxShadow:
-    "0 30px 80px rgba(0, 0, 0, 0.6), 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 80px rgba(74, 222, 128, 0.08), 0 0 0 0.5px rgba(74, 222, 128, 0.20), inset 0 1px 0 rgba(255, 255, 255, 0.55)",
+    "0 4px 12px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.06)",
 };
 
-function PulsingDot() {
-  return (
-    <span
-      aria-hidden="true"
-      className="inline-block h-[6px] w-[6px] rounded-full bg-[#4ADE80]"
-      style={{ animation: "pulse-glow 2.4s ease-in-out infinite" }}
-    />
-  );
-}
-
-function TreeMark({ size = 26 }: { size?: number }) {
+function TreeMark({ size = 28 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -121,75 +111,39 @@ type ScreenshotProps = {
   alt: string;
   width: number;
   height: number;
-  badge: string;
 };
 
-function ScreenshotCard({ src, alt, width, height, badge }: ScreenshotProps) {
+function ScreenshotCard({ src, alt, width, height }: ScreenshotProps) {
   return (
-    <div className="group relative">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -inset-10 rounded-[32px] opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(74, 222, 128, 0.10) 0%, transparent 70%)",
-        }}
+    <motion.div
+      {...fadeUp}
+      className="overflow-hidden rounded-xl bg-white"
+      style={cardChrome}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className="block h-auto w-full"
       />
-      <motion.div
-        initial={{ opacity: 0, y: 24, rotateX: 4, rotateY: -1 }}
-        whileInView={{ opacity: 1, y: 0, rotateX: 2, rotateY: -1 }}
-        whileHover={{ rotateX: 0, rotateY: 0, scale: 1.01 }}
-        transition={{ duration: 0.7, ease: FADE_EASE }}
-        viewport={{ once: true, margin: "-100px" }}
-        style={{ transformPerspective: 1500, ...cardChrome }}
-        className="relative overflow-hidden rounded-xl bg-white"
-      >
-        <span
-          className="absolute right-3 top-3 z-10 rounded-md px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#16A34A] backdrop-blur-sm"
-          style={{ backgroundColor: "rgba(22, 163, 74, 0.08)" }}
-        >
-          {badge}
-        </span>
-        <Image
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          className="block h-auto w-full"
-        />
-      </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
 type StickyCardProps = {
   src: string;
   alt: string;
-  badge: string;
   opacity: ReturnType<typeof useTransform<number, number>>;
   sizes: string;
 };
 
-function StickyCard({ src, alt, badge, opacity, sizes }: StickyCardProps) {
+function StickyCard({ src, alt, opacity, sizes }: StickyCardProps) {
   return (
     <motion.div
-      style={{
-        opacity,
-        transformPerspective: 1500,
-        rotateX: 2,
-        rotateY: -1,
-        ...cardChrome,
-      }}
-      whileHover={{ rotateX: 0, rotateY: 0, scale: 1.01 }}
-      transition={{ duration: 0.4, ease: FADE_EASE }}
+      style={{ opacity, ...cardChrome }}
       className="absolute inset-0 overflow-hidden rounded-xl bg-white"
     >
-      <span
-        className="absolute right-3 top-3 z-10 rounded-md px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#16A34A] backdrop-blur-sm"
-        style={{ backgroundColor: "rgba(22, 163, 74, 0.08)" }}
-      >
-        {badge}
-      </span>
       <Image
         src={src}
         alt={alt}
@@ -227,30 +181,20 @@ function StickyPinForecastAccuracy() {
       >
         <div
           className="sticky flex items-center justify-center"
-          style={{ top: "10vh", height: "80vh" }}
+          style={{ top: "8vh", height: "84vh" }}
         >
-          <div className="group relative mx-auto aspect-square w-full max-w-xl">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -inset-12 rounded-[40px] opacity-80 blur-3xl"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(74, 222, 128, 0.12) 0%, transparent 70%)",
-              }}
-            />
+          <div className="relative mx-auto aspect-square w-full max-w-2xl">
             <StickyCard
               src="/screenshots/02a-forecast-accuracy-top.png"
               alt="Forecast accuracy modal — overview and per-period table"
-              badge="accuracy"
               opacity={opacityTop}
-              sizes="(min-width: 768px) 36rem, 100vw"
+              sizes="(min-width: 1024px) 42rem, (min-width: 768px) 36rem, 100vw"
             />
             <StickyCard
               src="/screenshots/02b-forecast-accuracy-bottom.png"
               alt="Forecast accuracy modal — per-metric drill-down and snapshot detail"
-              badge="accuracy"
               opacity={opacityBottom}
-              sizes="(min-width: 768px) 36rem, 100vw"
+              sizes="(min-width: 1024px) 42rem, (min-width: 768px) 36rem, 100vw"
             />
           </div>
         </div>
@@ -262,14 +206,12 @@ function StickyPinForecastAccuracy() {
           alt="Forecast accuracy modal — overview and per-period table"
           width={1092}
           height={1092}
-          badge="accuracy"
         />
         <ScreenshotCard
           src="/screenshots/02b-forecast-accuracy-bottom.png"
           alt="Forecast accuracy modal — per-metric drill-down and snapshot detail"
           width={1141}
           height={1064}
-          badge="accuracy"
         />
       </div>
     </>
@@ -278,396 +220,228 @@ function StickyPinForecastAccuracy() {
 
 export default function Home() {
   return (
-    <main
-      className="relative min-h-screen overflow-hidden text-white"
-      style={{
-        background:
-          "radial-gradient(ellipse at 50% 35%, #1A1A1C 0%, #0D0D0E 60%, #050506 100%)",
-      }}
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute h-[600px] w-[600px] rounded-full blur-3xl"
-        style={{
-          top: "8%",
-          right: "-100px",
-          background:
-            "radial-gradient(circle, rgba(74, 222, 128, 0.10) 0%, transparent 70%)",
-          animation: "drift-slow 38s ease-in-out infinite alternate",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute h-[700px] w-[700px] rounded-full blur-3xl"
-        style={{
-          top: "42%",
-          left: "-120px",
-          background:
-            "radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, transparent 70%)",
-          animation:
-            "drift-slow-reverse 45s ease-in-out infinite alternate",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute h-[500px] w-[800px] rounded-full blur-3xl"
-        style={{
-          bottom: "5%",
-          left: "calc(50% - 400px)",
-          background:
-            "radial-gradient(ellipse, rgba(74, 222, 128, 0.06) 0%, transparent 70%)",
-          animation: "drift-slow-xy 32s ease-in-out infinite alternate",
-        }}
-      />
+    <main className="min-h-screen bg-[#FAFAF9] text-[#0A0A0A]">
+      <div className="mx-auto max-w-7xl px-6 md:px-12">
+        <motion.header
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, ease: FADE_EASE }}
+          className="flex items-center gap-2.5 pt-8 md:pt-10"
+        >
+          <TreeMark size={28} />
+          <span className="text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#0A0A0A]">
+            evergreen<span className="text-[#16A34A]">.</span>
+          </span>
+        </motion.header>
 
-      <section className="relative px-6 py-32 md:px-16">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-px"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.30) 50%, transparent 100%)",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.30) 50%, transparent 100%)",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-[30%] h-[40%] w-[2px]"
-          style={{
-            background:
-              "linear-gradient(180deg, transparent 0%, rgba(74, 222, 128, 0.65) 50%, transparent 100%)",
-            boxShadow: "0 0 24px rgba(74, 222, 128, 0.4)",
-          }}
-        />
+        <motion.section {...fadeUp} className="py-32 text-center md:py-40">
+          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+            AI as the foundation
+          </p>
+          <h2 className="mx-auto max-w-5xl text-[44px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[72px] lg:text-[88px]">
+            Every metric in Evergreen earns its place.
+          </h2>
+          <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
+            Click any number. See the formula, the inputs, the assumptions, the
+            per-account breakdown. Every signal, every forecast, every flag —
+            defensible by design, not by claim.
+          </p>
+        </motion.section>
 
-        <div className="relative mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: FADE_EASE }}
-            className="mb-16 flex items-center gap-2.5"
-          >
-            <TreeMark size={26} />
-            <span className="text-[22px] font-extrabold leading-none tracking-[-0.03em] text-white">
-              evergreen<span className="text-[#4ADE80]">.</span>
-            </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="mb-24 max-w-3xl"
-          >
-            <p className="mb-6 flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-[#4ADE80]">
-              <PulsingDot />
-              AI as the foundation.
-            </p>
-            <h2 className="mb-7 text-[32px] font-semibold leading-[1.04] tracking-[-0.035em] text-white md:text-[44px] lg:text-[52px]">
-              Every metric in Evergreen earns its place.
-            </h2>
-            <p className="text-[17px] font-normal leading-[1.6] tracking-[-0.011em] text-[#9CA3AB] md:text-[18px]">
-              Click any number. See the formula, the inputs, the assumptions,
-              the per-account breakdown. Every signal, every forecast, every
-              flag — defensible by design, not by claim.
-            </p>
-          </motion.div>
-
-          <div className="mb-32 space-y-24">
-            {moments.map((m, i) => (
+        <section className="border-t border-[#EAEAEA] py-32">
+          <div className="space-y-32">
+            {moments.map((m) => (
               <motion.div
-                key={m.badge}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  ease: FADE_EASE,
-                  delay: i * 0.12,
-                }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="max-w-[720px]"
+                key={m.eyebrow}
+                {...fadeUp}
+                className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
               >
-                <p className="mb-4 flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-[#16A34A]">
-                  <PulsingDot />
-                  {m.eyebrow}
-                </p>
-                <h3 className="mb-4 text-[22px] font-medium leading-[1.1] tracking-[-0.025em] text-white md:text-[28px] lg:text-[32px]">
-                  {m.headline}
-                </h3>
-                {m.caption ? (
-                  <p className="mb-10 max-w-[640px] text-[15px] font-normal leading-[1.55] text-[#9CA3AB]">
-                    {m.caption}
-                  </p>
-                ) : (
-                  <div className="mb-10" />
-                )}
-                <ScreenshotCard {...m} />
+                <div className="lg:col-span-4">
+                  <div className="lg:sticky lg:top-24">
+                    <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+                      {m.eyebrow}
+                    </p>
+                    <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
+                      {m.headline}
+                    </h3>
+                    {m.caption ? (
+                      <p className="text-[16px] leading-[1.6] text-[#666]">
+                        {m.caption}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="lg:col-span-8">
+                  <ScreenshotCard
+                    src={m.src}
+                    alt={m.alt}
+                    width={m.width}
+                    height={m.height}
+                  />
+                </div>
               </motion.div>
             ))}
           </div>
+        </section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="mb-12 max-w-3xl"
-          >
-            <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.18em] text-[#4ADE80]">
-              We grade ourselves.
-            </p>
-            <h2 className="mb-7 text-[32px] font-semibold leading-[1.04] tracking-[-0.035em] text-white md:text-[44px] lg:text-[52px]">
-              Most CS tools forecast and never look back. We publish our own
-              accuracy.
-            </h2>
-            <p className="text-[17px] font-normal leading-[1.6] tracking-[-0.011em] text-[#9CA3AB] md:text-[18px]">
-              Per snapshot, per metric, per period — so you know exactly how
-              much trust to place in next quarter's number based on how last
-              quarter's held up.
-            </p>
-          </motion.div>
+        <motion.section
+          {...fadeUp}
+          className="border-t border-[#EAEAEA] py-32 text-center"
+        >
+          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+            We grade ourselves
+          </p>
+          <h2 className="mx-auto max-w-4xl text-[36px] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] md:text-[52px] lg:text-[64px]">
+            Most CS tools forecast and never look back. We publish our own
+            accuracy.
+          </h2>
+          <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
+            Per snapshot, per metric, per period — so you know exactly how much
+            trust to place in next quarter's number based on how last quarter's
+            held up.
+          </p>
+        </motion.section>
 
-          <StickyPinForecastAccuracy />
+        <StickyPinForecastAccuracy />
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-80px" }}
-            className="mx-auto mb-32 mt-16 max-w-3xl text-[17px] font-normal leading-[1.6] text-[#9CA3AB]"
-          >
+        <motion.section {...fadeUp} className="py-16 text-center">
+          <p className="mx-auto max-w-3xl text-[16px] leading-[1.6] text-[#666] md:text-[17px]">
             We grade ourselves on six metrics: NRR, GRR, Logo Retention,
             Expansion, ARR at Risk, and Save Rate. Trailing four quarters.
             Per-snapshot drill-down on every period. Configurable in Settings.
-          </motion.p>
+          </p>
+        </motion.section>
 
-          <div className="mx-auto mb-20 max-w-5xl">
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: FADE_EASE }}
-              viewport={{ once: true, margin: "-80px" }}
-              className="mb-8 text-[11px] font-medium uppercase tracking-[0.18em] text-[#16A34A]"
-            >
-              The defensibility test.
-            </motion.p>
+        <motion.section
+          {...fadeUp}
+          className="border-t border-[#EAEAEA] py-32"
+        >
+          <p className="mb-12 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+            The defensibility test
+          </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: FADE_EASE }}
-              viewport={{ once: true, margin: "-80px" }}
-              className="relative"
-            >
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -inset-12 rounded-[40px] blur-3xl"
-                style={{
-                  background:
-                    "radial-gradient(ellipse, rgba(74, 222, 128, 0.08) 0%, transparent 70%)",
-                }}
-              />
-              <div
-                className="relative rounded-[13px] p-px"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(74, 222, 128, 0.25) 0%, rgba(22, 163, 74, 0.10) 100%)",
-                }}
-              >
-                <div
-                  className="relative overflow-hidden rounded-xl"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #1A1F23 0%, #14181B 100%)",
-                    border: "0.5px solid rgba(255, 255, 255, 0.12)",
-                    boxShadow:
-                      "0 30px 60px rgba(0, 0, 0, 0.5), 0 12px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06)",
-                  }}
-                >
-                  <table className="hidden w-full border-collapse md:table">
-                    <thead
+          <div
+            className="hidden overflow-hidden rounded-xl bg-white md:block"
+            style={cardChrome}
+          >
+            <table className="w-full border-collapse">
+              <thead className="bg-[#FAFAF9]">
+                <tr>
+                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
+                    Question
+                  </th>
+                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
+                    Evergreen
+                  </th>
+                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
+                    Most CS tools
+                  </th>
+                  <th className="px-6 py-5 text-left text-[13px] font-bold text-[#0A0A0A]">
+                    AI-replacement tools
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row, i) => (
+                  <tr
+                    key={row.question}
+                    className="group"
+                    style={{
+                      borderTop:
+                        i === 0 ? "none" : "1px solid #EAEAEA",
+                    }}
+                  >
+                    <td className="px-6 py-5 align-top text-[15px] text-[#0A0A0A] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                      {row.question}
+                    </td>
+                    <td
+                      className="bg-[#FAFAF9] px-6 py-5 align-top text-[15px] font-bold text-[#0A0A0A]"
                       style={{
-                        background:
-                          "linear-gradient(180deg, #20272D 0%, #1A1F23 100%)",
-                        borderBottom: "1px solid rgba(74, 222, 128, 0.20)",
+                        borderLeft: "1px solid #EAEAEA",
+                        borderRight: "1px solid #EAEAEA",
                       }}
                     >
-                      <tr>
-                        <th className="px-6 py-5 text-left text-[13px] font-medium text-white">
-                          Question
-                        </th>
-                        <th className="px-6 py-5 text-left text-[13px] font-medium text-white">
-                          Evergreen
-                        </th>
-                        <th className="px-6 py-5 text-left text-[13px] font-medium text-white">
-                          Most CS tools
-                        </th>
-                        <th className="px-6 py-5 text-left text-[13px] font-medium text-white">
-                          AI-replacement tools
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {comparisonRows.map((row, i) => (
-                        <motion.tr
-                          key={row.question}
-                          initial={{ opacity: 0, y: 8 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{
-                            duration: 0.5,
-                            ease: FADE_EASE,
-                            delay: i * 0.06,
-                          }}
-                          viewport={{ once: true, margin: "-50px" }}
-                          className="transition-colors duration-200 hover:bg-[rgba(74,222,128,0.03)]"
-                          style={{
-                            borderTop:
-                              i === 0
-                                ? "none"
-                                : "0.5px solid rgba(255, 255, 255, 0.06)",
-                          }}
-                        >
-                          <td className="px-6 py-5 align-top text-[15px] text-white">
-                            {row.question}
-                          </td>
-                          <td
-                            className="px-6 py-5 align-top text-[15px] font-medium text-white"
-                            style={{
-                              background:
-                                "linear-gradient(135deg, rgba(22, 163, 74, 0.10) 0%, rgba(22, 163, 74, 0.06) 100%)",
-                              borderLeft:
-                                "1px solid rgba(22, 163, 74, 0.20)",
-                              borderRight:
-                                "1px solid rgba(22, 163, 74, 0.20)",
-                            }}
-                          >
-                            {row.evergreen}
-                          </td>
-                          <td className="px-6 py-5 align-top text-[15px] text-[#6B7280]">
-                            {row.legacy}
-                          </td>
-                          <td className="px-6 py-5 align-top text-[15px] text-[#6B7280]">
-                            {row.aiReplacement}
-                          </td>
-                        </motion.tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      {row.evergreen}
+                    </td>
+                    <td className="px-6 py-5 align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                      {row.legacy}
+                    </td>
+                    <td className="px-6 py-5 align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                      {row.aiReplacement}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-                  <div className="grid grid-cols-1 gap-4 p-4 md:hidden">
-                    {comparisonRows.map((row, i) => (
-                      <motion.div
-                        key={row.question}
-                        initial={{ opacity: 0, y: 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{
-                          duration: 0.5,
-                          ease: FADE_EASE,
-                          delay: i * 0.06,
-                        }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        className="rounded-xl p-5"
-                        style={{
-                          background: "rgba(255, 255, 255, 0.02)",
-                          border: "0.5px solid rgba(255, 255, 255, 0.08)",
-                        }}
-                      >
-                        <p className="mb-5 text-[15px] font-medium text-white">
-                          {row.question}
-                        </p>
-                        <div className="space-y-4">
-                          <div
-                            className="rounded-lg px-3 py-2"
-                            style={{
-                              background:
-                                "linear-gradient(135deg, rgba(22, 163, 74, 0.10) 0%, rgba(22, 163, 74, 0.06) 100%)",
-                              border:
-                                "1px solid rgba(22, 163, 74, 0.20)",
-                            }}
-                          >
-                            <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-[#16A34A]">
-                              Evergreen
-                            </p>
-                            <p className="text-[15px] font-medium text-white">
-                              {row.evergreen}
-                            </p>
-                          </div>
-                          <div className="px-1">
-                            <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-[#6B7280]">
-                              Most CS tools
-                            </p>
-                            <p className="text-[15px] text-[#6B7280]">
-                              {row.legacy}
-                            </p>
-                          </div>
-                          <div className="px-1">
-                            <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-[#6B7280]">
-                              AI-replacement tools
-                            </p>
-                            <p className="text-[15px] text-[#6B7280]">
-                              {row.aiReplacement}
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
+          <div className="grid grid-cols-1 gap-4 md:hidden">
+            {comparisonRows.map((row) => (
+              <div
+                key={row.question}
+                className="rounded-xl bg-white p-6"
+                style={cardChrome}
+              >
+                <p className="mb-5 text-[15px] font-bold text-[#0A0A0A]">
+                  {row.question}
+                </p>
+                <div className="space-y-4">
+                  <div
+                    className="rounded-lg bg-[#FAFAF9] p-3"
+                    style={{ border: "1px solid #EAEAEA" }}
+                  >
+                    <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#888]">
+                      Evergreen
+                    </p>
+                    <p className="text-[15px] font-bold text-[#0A0A0A]">
+                      {row.evergreen}
+                    </p>
+                  </div>
+                  <div className="px-1">
+                    <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#888]">
+                      Most CS tools
+                    </p>
+                    <p className="text-[15px] text-[#888]">{row.legacy}</p>
+                  </div>
+                  <div className="px-1">
+                    <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#888]">
+                      AI-replacement tools
+                    </p>
+                    <p className="text-[15px] text-[#888]">
+                      {row.aiReplacement}
+                    </p>
                   </div>
                 </div>
               </div>
-            </motion.div>
+            ))}
           </div>
+        </motion.section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-80px" }}
-            className="flex flex-col items-center gap-5"
-          >
+        <motion.section
+          {...fadeUp}
+          className="border-t border-[#EAEAEA] py-32"
+        >
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <motion.a
               href="/methodology"
-              initial={{
-                y: 0,
-                scale: 1,
-                boxShadow:
-                  "0 0 48px rgba(74, 222, 128, 0.40), 0 0 24px rgba(74, 222, 128, 0.30), 0 4px 8px rgba(74, 222, 128, 0.20), inset 0 1px 0 rgba(255, 255, 255, 0.30)",
-              }}
-              whileHover={{
-                y: -1,
-                scale: 1.02,
-                boxShadow:
-                  "0 0 64px rgba(74, 222, 128, 0.50), 0 0 32px rgba(74, 222, 128, 0.40), 0 4px 12px rgba(74, 222, 128, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.40)",
-              }}
-              transition={{ duration: 0.25, ease: FADE_EASE }}
-              className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-[15px] font-medium"
-              style={{
-                background:
-                  "linear-gradient(180deg, #4ADE80 0%, #22C55E 100%)",
-                color: "#050506",
-                border: "0.5px solid rgba(255, 255, 255, 0.20)",
-              }}
+              initial={{ scale: 1, backgroundColor: "#0A0A0A" }}
+              whileHover={{ scale: 1.01, backgroundColor: "#16A34A" }}
+              transition={{ duration: 0.2, ease: FADE_EASE }}
+              className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-[15px] font-bold text-white"
             >
               See the full methodology
               <span aria-hidden="true">→</span>
             </motion.a>
             <a
               href="/demo"
-              className="inline-flex items-center gap-2 rounded-lg bg-transparent px-7 py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-white/[0.04]"
-              style={{ border: "0.5px solid rgba(255, 255, 255, 0.20)" }}
+              className="inline-flex items-center rounded-lg bg-transparent px-7 py-3.5 text-[15px] font-bold text-[#0A0A0A] transition-colors duration-200 hover:bg-[#F4F4F3]"
+              style={{ border: "1px solid #EAEAEA" }}
             >
               Talk to the founder
             </a>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </motion.section>
+      </div>
     </main>
   );
 }
