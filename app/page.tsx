@@ -14,7 +14,6 @@ import Nav from "../components/marketing/Nav";
 import ManifestoModal from "../components/marketing/ManifestoModal";
 import MorningQueueSpotlight from "../components/marketing/MorningQueueSpotlight";
 import HighlightReel from "../components/marketing/HighlightReel";
-import OOOSpotlight from "../components/marketing/OOOSpotlight";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -189,7 +188,7 @@ export default function Home() {
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: FADE_EASE }}
-            className="mx-auto mt-8 max-w-2xl text-balance text-[17px] leading-[1.45] tracking-[-0.005em] text-[#666] md:text-[19px] lg:text-[22px]"
+            className="mx-auto mt-8 max-w-2xl text-balance text-[17px] leading-[1.45] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px] lg:text-[22px]"
           >
             Leverage for your CSMs. Board-level confidence for their leaders.
           </motion.p>
@@ -404,10 +403,6 @@ export default function Home() {
 
         <TreeDivider />
 
-        <OOOSpotlight />
-
-        <TreeDivider />
-
         <motion.section
           {...fadeUp}
           id="methodology"
@@ -419,7 +414,7 @@ export default function Home() {
           <h2 className="mx-auto max-w-5xl text-[44px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[64px] lg:text-[80px]">
             The math behind the numbers your board asks about.
           </h2>
-          <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
+          <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px]">
             Click any number. See the formula, the inputs, the assumptions, the
             per-account breakdown. Every signal, every forecast, every flag —
             defensible by design, not by claim.
@@ -445,7 +440,7 @@ export default function Home() {
                         {m.headline}
                       </h3>
                       {m.caption ? (
-                        <p className="text-[16px] leading-[1.6] text-[#666]">
+                        <p className="text-[16px] leading-[1.6] text-[#1F1F1F]">
                           {m.caption}
                         </p>
                       ) : null}

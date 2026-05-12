@@ -111,7 +111,7 @@ export default function Pricing() {
         <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
           Built around your team, priced around your wins.
         </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
+        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px]">
           Hybrid platform fee plus per-seat — designed so cost grows with your
           team's value, not punitively with seat count.
         </p>
@@ -266,7 +266,7 @@ function ROIBlock() {
       <p className="text-[18px] font-medium leading-[1.4] text-[#0A0A0A] md:text-[20px]">
         ROI typically lands at 16–20× year one for a 6-CSM team.
       </p>
-      <p className="mt-3 text-[14px] leading-[1.55] text-[#666] md:text-[15px]">
+      <p className="mt-3 text-[14px] leading-[1.55] text-[#1F1F1F] md:text-[15px]">
         We built the calculator so the math is yours, not ours.
       </p>
       <a

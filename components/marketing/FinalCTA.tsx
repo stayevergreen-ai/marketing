@@ -22,7 +22,7 @@ export default function FinalCTA() {
         <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
           Make your CSMs unbeatable.
         </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
+        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px]">
           30 minutes. We&apos;ll walk through what Evergreen does, how it fits
           your team, and whether it makes sense for where you are.
         </p>

@@ -1,6 +1,45 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+type SectionId = "product" | "methodology" | "pricing";
+
+const NAV_SECTIONS: { id: SectionId; label: string }[] = [
+  { id: "product", label: "Product" },
+  { id: "methodology", label: "Methodology" },
+  { id: "pricing", label: "Pricing" },
+];
+
 export default function Nav() {
+  const [active, setActive] = useState<SectionId>("product");
+
+  useEffect(() => {
+    const sections = NAV_SECTIONS.map(({ id }) =>
+      document.getElementById(id),
+    ).filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0) {
+          setActive(visible[0].target.id as SectionId);
+        }
+      },
+      {
+        rootMargin: "-20% 0px -65% 0px",
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <nav
       className="fixed left-0 right-0 top-0 z-50 h-16 bg-white"
@@ -20,9 +59,15 @@ export default function Nav() {
           </span>
         </a>
         <div className="flex items-center gap-3 sm:gap-6 md:gap-8">
-          <NavLink href="/#product">Product</NavLink>
-          <NavLink href="/#methodology">Methodology</NavLink>
-          <NavLink href="/#pricing">Pricing</NavLink>
+          {NAV_SECTIONS.map(({ id, label }) => (
+            <NavLink
+              key={id}
+              href={`/#${id}`}
+              active={active === id}
+            >
+              {label}
+            </NavLink>
+          ))}
         </div>
       </div>
     </nav>
@@ -31,17 +76,31 @@ export default function Nav() {
 
 function NavLink({
   href,
+  active,
   children,
 }: {
   href: string;
+  active: boolean;
   children: React.ReactNode;
 }) {
   return (
     <a
       href={href}
-      className="text-[12px] font-medium text-[#666] transition-colors hover:text-[#16A34A] sm:text-[14px]"
+      className={`relative py-1 text-[12px] font-medium transition-colors sm:text-[14px] ${
+        active
+          ? "text-[#0A0A0A]"
+          : "text-[#666] hover:text-[#16A34A]"
+      }`}
     >
       {children}
+      {active ? (
+        <motion.span
+          layoutId="nav-active-underline"
+          aria-hidden="true"
+          className="absolute -bottom-px left-0 right-0 h-[2px] rounded-full bg-[#16A34A]"
+          transition={{ type: "spring", stiffness: 400, damping: 32 }}
+        />
+      ) : null}
     </a>
   );
 }

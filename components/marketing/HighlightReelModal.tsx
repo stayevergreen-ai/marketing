@@ -7,20 +7,25 @@ import { Check, X } from "lucide-react";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
-export type HighlightTab = "handoff" | "qbr" | "voc";
+const WALKTHROUGH_MAILTO =
+  "mailto:matt@stayevergreen.ai?subject=Evergreen%20walkthrough";
 
-const TAB_ORDER: HighlightTab[] = ["handoff", "qbr", "voc"];
+export type HighlightTab = "handoff" | "qbr" | "voc" | "ooo";
+
+const TAB_ORDER: HighlightTab[] = ["handoff", "qbr", "voc", "ooo"];
 
 const TAB_LABELS: Record<HighlightTab, string> = {
   handoff: "Sales-to-CS Handoff",
   qbr: "QBR",
   voc: "VOC",
+  ooo: "OOO Coverage",
 };
 
 const TAB_HEADLINES: Record<HighlightTab, string> = {
   handoff: "AE submits once. AI extracts. CSM reviews.",
   qbr: "Two audiences, one build.",
   voc: "Themes across your book, grounded in real quotes.",
+  ooo: "When a CSM is out, customers don't notice.",
 };
 
 const TAB_SUPPORTS: Record<HighlightTab, string> = {
@@ -28,6 +33,7 @@ const TAB_SUPPORTS: Record<HighlightTab, string> = {
     "Contacts, goals, risks, commitments — structured the moment the handoff lands.",
   qbr: "Internal strategy memo and customer-facing deck, both grounded in the same data.",
   voc: "Ask a question. Get an answer pulled from real customer conversations, not surveys.",
+  ooo: "Routed by industry, relationship history, and live capacity. The math is visible.",
 };
 
 export default function HighlightReelModal({
@@ -95,7 +101,7 @@ export default function HighlightReelModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.2, ease: FADE_EASE }}
-            className="relative max-h-[85vh] w-full max-w-[720px] overflow-y-auto rounded-2xl bg-white shadow-2xl"
+            className="relative max-h-[88vh] w-full max-w-[760px] overflow-y-auto rounded-2xl bg-white shadow-2xl"
             style={{
               border: "1px solid #EAEAEA",
               scrollbarWidth: "thin",
@@ -121,7 +127,7 @@ export default function HighlightReelModal({
                 See it in action
               </p>
 
-              <div className="mb-6 mt-4 flex items-center gap-1 border-b border-[#EAEAEA]">
+              <div className="mb-6 mt-4 flex items-center gap-1 overflow-x-auto border-b border-[#EAEAEA]">
                 {TAB_ORDER.map((tab) => {
                   const active = tab === activeTab;
                   return (
@@ -131,8 +137,8 @@ export default function HighlightReelModal({
                       onClick={() => setActiveTab(tab)}
                       className={
                         active
-                          ? "relative cursor-pointer px-3 pb-3 pt-2 text-[13px] font-bold text-[#0A0A0A] transition-colors sm:text-[14px]"
-                          : "relative cursor-pointer px-3 pb-3 pt-2 text-[13px] font-medium text-[#888] transition-colors hover:text-[#0A0A0A] sm:text-[14px]"
+                          ? "relative shrink-0 cursor-pointer px-3 pb-3 pt-2 text-[12.5px] font-bold text-[#0A0A0A] transition-colors sm:text-[13.5px]"
+                          : "relative shrink-0 cursor-pointer px-3 pb-3 pt-2 text-[12.5px] font-medium text-[#666] transition-colors hover:text-[#0A0A0A] sm:text-[13.5px]"
                       }
                     >
                       {TAB_LABELS[tab]}
@@ -164,25 +170,26 @@ export default function HighlightReelModal({
                     {activeTab === "handoff" ? <HandoffVisual /> : null}
                     {activeTab === "qbr" ? <QBRVisual /> : null}
                     {activeTab === "voc" ? <VOCVisual /> : null}
+                    {activeTab === "ooo" ? <OOOVisual /> : null}
                   </div>
                   <h3 className="text-balance text-[20px] font-bold leading-[1.25] tracking-[-0.015em] text-[#0A0A0A] sm:text-[22px]">
                     {TAB_HEADLINES[activeTab]}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-[1.55] text-[#666]">
+                  <p className="mt-2 text-[14.5px] leading-[1.55] text-[#1F1F1F]">
                     {TAB_SUPPORTS[activeTab]}
                   </p>
                 </motion.div>
               </AnimatePresence>
 
               <div className="mt-7 flex flex-col gap-3 border-t border-[#EAEAEA] pt-5 sm:flex-row sm:items-center sm:justify-between">
-                <span className="text-[12px] text-[#888]">
-                  Want the full walkthrough?
+                <span className="text-[12.5px] text-[#444]">
+                  Want to see it live?
                 </span>
                 <a
-                  href="/tour"
+                  href={WALKTHROUGH_MAILTO}
                   className="inline-flex items-center gap-1.5 self-start rounded-md bg-[#16A34A] px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#15803D] sm:self-auto"
                 >
-                  See the product tour
+                  Book a walkthrough
                   <span aria-hidden="true">→</span>
                 </a>
               </div>
@@ -194,6 +201,17 @@ export default function HighlightReelModal({
     document.body,
   );
 }
+
+const TIER_TONE: Record<"green" | "neutral" | "amber", string> = {
+  green: "#15803D",
+  neutral: "#666",
+  amber: "#9A3412",
+};
+const TIER_BG: Record<"green" | "neutral" | "amber", string> = {
+  green: "#F0FDF4",
+  neutral: "#F5F5F4",
+  amber: "#FFF7ED",
+};
 
 function HandoffVisual() {
   const contacts: {
@@ -227,16 +245,23 @@ function HandoffVisual() {
       tone: "amber",
     },
   ];
-  const TIER_TONE: Record<"green" | "neutral" | "amber", string> = {
-    green: "#16A34A",
-    neutral: "#888",
-    amber: "#FB923C",
-  };
-  const TIER_BG: Record<"green" | "neutral" | "amber", string> = {
-    green: "#F0FDF4",
-    neutral: "#F5F5F4",
-    amber: "#FFF7ED",
-  };
+  const goals: { text: string }[] = [
+    { text: "Expand to Module B across 2 additional teams in Q3" },
+    { text: "Hit 200 active users by end of Q2 (currently 147)" },
+    { text: "Publish quarterly value review with procurement before renewal" },
+  ];
+  const risks: { text: string; severity: "amber" | "red"; flag: string }[] = [
+    {
+      text: "Decision-maker turnover — Tom Blackwell exit rumored",
+      severity: "red",
+      flag: "8 days",
+    },
+    {
+      text: "Procurement pricing review flagged in DPA",
+      severity: "amber",
+      flag: "Apr 14",
+    },
+  ];
   return (
     <div
       className="rounded-lg bg-white p-5"
@@ -254,8 +279,8 @@ function HandoffVisual() {
             Parsed with AI
           </span>
         </div>
-        <span className="text-[10px] uppercase tracking-[0.10em] text-[#888]">
-          Voltura Systems · handoff
+        <span className="text-[10px] font-medium uppercase tracking-[0.10em] text-[#888]">
+          Voltura Systems · Handoff
         </span>
       </div>
       <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
@@ -274,9 +299,9 @@ function HandoffVisual() {
             <p className="text-[12px] font-semibold text-[#0A0A0A]">
               {c.name}
             </p>
-            <p className="mt-0.5 text-[11px] text-[#666]">{c.role}</p>
+            <p className="mt-0.5 text-[11px] text-[#444]">{c.role}</p>
             <span
-              className="mt-2 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em]"
+              className="mt-2 inline-block rounded-full px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.08em]"
               style={{
                 color: TIER_TONE[c.tone],
                 background: TIER_BG[c.tone],
@@ -286,6 +311,57 @@ function HandoffVisual() {
             </span>
           </div>
         ))}
+      </div>
+
+      <div className="mt-5 border-t border-[#EAEAEA] pt-4">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          Goals · 4 identified
+        </p>
+        <ul className="flex flex-col gap-1.5">
+          {goals.map((g) => (
+            <li key={g.text} className="flex items-start gap-2.5 py-0.5">
+              <span
+                aria-hidden="true"
+                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#16A34A]"
+              />
+              <span className="flex-1 text-[12px] leading-[1.5] text-[#1F1F1F]">
+                {g.text}
+              </span>
+              <span
+                className="shrink-0 rounded px-1.5 py-px text-[9.5px] font-bold uppercase tracking-[0.08em]"
+                style={{ color: "#9A3412", background: "#FFF7ED" }}
+              >
+                Pending review
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-5 border-t border-[#EAEAEA] pt-4">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          Risks · 3
+        </p>
+        <ul className="flex flex-col gap-1.5">
+          {risks.map((r) => (
+            <li key={r.text} className="flex items-start gap-2.5 py-0.5">
+              <span
+                aria-hidden="true"
+                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{
+                  background:
+                    r.severity === "red" ? "#DC2626" : "#FB923C",
+                }}
+              />
+              <span className="flex-1 text-[12px] leading-[1.5] text-[#1F1F1F]">
+                {r.text}
+              </span>
+              <span className="shrink-0 font-mono text-[10px] tabular-nums text-[#888]">
+                {r.flag}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -298,39 +374,102 @@ function QBRVisual() {
       style={{ border: "1px solid #E8E8E8" }}
     >
       <div className="border-b border-[#EAEAEA] px-5 py-4">
-        <div className="inline-flex items-center gap-1 rounded-lg bg-[#F5F5F4] p-1">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[11px] text-[#444]">
+            Voltura Systems · Q2 2026
+          </p>
+          <span
+            className="rounded-md px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.10em]"
+            style={{ color: "#15803D", background: "#F0FDF4" }}
+          >
+            Draft 87%
+          </span>
+        </div>
+        <div className="mt-3 inline-flex items-center gap-1 rounded-lg bg-[#F5F5F4] p-1">
           <span className="rounded-md bg-white px-3 py-1 text-[11px] font-semibold text-[#16A34A] shadow-sm">
             Internal
           </span>
-          <span className="rounded-md px-3 py-1 text-[11px] font-medium text-[#888]">
+          <span className="rounded-md px-3 py-1 text-[11px] font-medium text-[#666]">
             External
           </span>
         </div>
-        <p className="mt-3 text-[11px] text-[#888]">
-          Voltura Systems · Q2 2026 · DRAFT 87%
-        </p>
       </div>
-      <div className="px-5 py-4">
-        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-          Progress Review
-        </p>
-        <p className="text-[12.5px] leading-[1.55] text-[#0A0A0A]">
-          Active users hit 147 of 200 target (74%) — on pace for end-of-Q2.
-        </p>
-        <div className="mt-3 border-l-2 border-[#16A34A] pl-3">
-          <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#16A34A]">
-            Say
+      <div className="grid grid-cols-1 gap-4 px-5 py-4 sm:grid-cols-2">
+        <div>
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+            Progress Review
           </p>
-          <p className="mt-0.5 text-[11.5px] italic leading-[1.5] text-[#444]">
-            &ldquo;You're tracking active users at 74% of your Q1
-            commitment. Trajectory is healthy — you'll hit 200 by mid-Q3.&rdquo;
+          <p className="text-[12.5px] leading-[1.55] text-[#1F1F1F]">
+            Active users 147 of 200 (74%) — pace for end-of-Q2.
+          </p>
+          <div className="mt-3 border-l-2 border-[#16A34A] pl-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#16A34A]">
+              Say
+            </p>
+            <p className="mt-0.5 text-[11.5px] italic leading-[1.5] text-[#1F1F1F]">
+              &ldquo;You&rsquo;re tracking active users at 74% of your Q1
+              commitment. Trajectory is healthy.&rdquo;
+            </p>
+          </div>
+          <p className="mt-2 text-[10px] text-[#666]">
+            <span className="font-bold uppercase tracking-[0.10em]">
+              Ref:
+            </span>{" "}
+            Q1 commitment · usage data
           </p>
         </div>
-        <p className="mt-2 text-[10px] text-[#888]">
-          <span className="font-bold uppercase tracking-[0.10em]">
-            Ref:
-          </span>{" "}
-          From Q1 QBR commitment · platform usage data
+        <div>
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+            Risks + Commitments
+          </p>
+          <ul className="flex flex-col gap-2">
+            <li className="flex items-start gap-2">
+              <span
+                aria-hidden="true"
+                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FB923C]"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="text-[12px] font-medium leading-[1.4] text-[#1F1F1F]">
+                  Module B adoption gap (Ops team) — 12% active vs 60%
+                  target
+                </p>
+                <span
+                  className="mt-1 inline-block rounded px-1.5 py-px text-[9.5px] font-bold uppercase tracking-[0.08em]"
+                  style={{ color: "#9A3412", background: "#FFF7ED" }}
+                >
+                  Open · need plan
+                </span>
+              </div>
+            </li>
+            <li className="flex items-start gap-2">
+              <span
+                aria-hidden="true"
+                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#16A34A]"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="text-[12px] font-medium leading-[1.4] text-[#1F1F1F]">
+                  Procurement value review confirmed for May 22
+                </p>
+                <span
+                  className="mt-1 inline-block rounded px-1.5 py-px text-[9.5px] font-bold uppercase tracking-[0.08em]"
+                  style={{ color: "#15803D", background: "#F0FDF4" }}
+                >
+                  Committed
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-[#EAEAEA] px-5 py-3">
+        <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          At-risk callouts
+        </p>
+        <p className="text-[12px] leading-[1.5] text-[#1F1F1F]">
+          <span className="font-semibold">Tom Blackwell (CFO) transition
+          rumored.</span>{" "}
+          Plan exec briefing once successor named — 30 min, before Q3
+          renewal.
         </p>
       </div>
     </div>
@@ -344,17 +483,22 @@ function VOCVisual() {
     tone: "green" | "amber" | "red";
     trend: "rising" | "stable";
   }[] = [
-    { name: "Pricing concern", mentions: 47, tone: "amber", trend: "rising" },
+    { name: "Pricing concern", mentions: 132, tone: "amber", trend: "rising" },
     {
       name: "Renewal alignment",
-      mentions: 34,
+      mentions: 89,
       tone: "green",
       trend: "rising",
     },
-    { name: "Adoption strong", mentions: 28, tone: "green", trend: "rising" },
+    {
+      name: "Adoption strong",
+      mentions: 76,
+      tone: "green",
+      trend: "rising",
+    },
     {
       name: "Decision-maker turnover",
-      mentions: 12,
+      mentions: 38,
       tone: "red",
       trend: "rising",
     },
@@ -370,8 +514,8 @@ function VOCVisual() {
       style={{ border: "1px solid #E8E8E8" }}
     >
       <div className="border-b border-[#EAEAEA] px-5 py-4">
-        <p className="text-[11px] text-[#888]">
-          Asking across 12 accounts · $4.6M ARR
+        <p className="text-[11px] text-[#444]">
+          Asking across your book · 47 accounts · $12.4M ARR
         </p>
       </div>
       <div className="px-5 py-4">
@@ -382,24 +526,24 @@ function VOCVisual() {
           {themes.map((t, i) => (
             <div
               key={t.name}
-              className="flex items-center gap-2.5 py-2"
+              className="flex items-center gap-3 py-2"
               style={{
                 borderTop: i === 0 ? "none" : "0.5px solid #EAEAEA",
               }}
             >
               <span
-                className="h-2 w-2 shrink-0 rounded-full"
+                className="h-2.5 w-2.5 shrink-0 rounded-full"
                 style={{ background: TONE_COLOR[t.tone] }}
                 aria-hidden="true"
               />
-              <span className="flex-1 text-[12px] font-semibold text-[#0A0A0A]">
+              <span className="flex-1 text-[12.5px] font-semibold text-[#0A0A0A]">
                 {t.name}
               </span>
-              <span className="font-mono text-[11px] tabular-nums text-[#666]">
+              <span className="font-mono text-[11px] tabular-nums text-[#444]">
                 {t.mentions} mentions
               </span>
               <span
-                className="font-mono text-[10px] uppercase tracking-[0.06em]"
+                className="font-mono text-[10px] font-bold uppercase tracking-[0.08em]"
                 style={{ color: TONE_COLOR[t.tone] }}
               >
                 ↑ {t.trend}
@@ -415,12 +559,133 @@ function VOCVisual() {
             &ldquo;Procurement is asking for a value review before renewal.
             Can we get on calendar?&rdquo;
           </p>
-          <p className="mt-2 text-[10px] text-[#888]">
+          <p className="mt-2 text-[10px] text-[#666]">
             <span className="font-medium text-[#0A0A0A]">Tom Willis</span>{" "}
             · Decision Maker · Acme Corp · Email · Apr 28
           </p>
         </div>
       </div>
+    </div>
+  );
+}
+
+function OOOVisual() {
+  const routes: {
+    account: string;
+    arr: string;
+    why: string;
+    cover: string;
+  }[] = [
+    {
+      account: "Acme Corp",
+      arr: "$480K",
+      why: "Same industry vertical · prior shadow on 2024 renewal · 78% capacity",
+      cover: "Markham Liu",
+    },
+    {
+      account: "Voltura Systems",
+      arr: "$480K",
+      why: "Strongest relationship history · attended Q1 QBR · 65% capacity",
+      cover: "Sasha Reyes",
+    },
+    {
+      account: "Bridgewater Co",
+      arr: "$360K",
+      why: "Procurement context familiar · same legal contact · 78% capacity",
+      cover: "Markham Liu",
+    },
+  ];
+  return (
+    <div
+      className="rounded-lg bg-white"
+      style={{ border: "1px solid #E8E8E8" }}
+    >
+      <div className="border-b border-[#EAEAEA] px-5 py-4">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+            OOO coverage plan
+          </p>
+          <span
+            className="rounded-md px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.10em]"
+            style={{ color: "#9A3412", background: "#FFF7ED" }}
+          >
+            Devon · OOO May 7–14
+          </span>
+        </div>
+        <p className="mt-2 text-[11px] text-[#444]">
+          22 accounts · $5.7M ARR redistributed in 4 minutes
+        </p>
+      </div>
+      <ul className="flex flex-col">
+        {routes.map((r, i) => (
+          <li
+            key={r.account}
+            className="flex items-start gap-3 px-5 py-3"
+            style={{ borderTop: i === 0 ? "none" : "0.5px solid #EAEAEA" }}
+          >
+            <div className="min-w-0 flex-1">
+              <div className="flex items-baseline gap-2">
+                <span className="text-[12.5px] font-bold text-[#0A0A0A]">
+                  {r.account}
+                </span>
+                <span className="font-mono text-[11px] tabular-nums text-[#666]">
+                  {r.arr}
+                </span>
+              </div>
+              <p className="mt-0.5 text-[11.5px] leading-[1.45] text-[#444]">
+                Why? {r.why}
+              </p>
+            </div>
+            <span
+              aria-hidden="true"
+              className="mt-1 shrink-0 text-[#BBB]"
+            >
+              →
+            </span>
+            <div className="shrink-0 text-right">
+              <p className="text-[9.5px] font-bold uppercase tracking-[0.08em] text-[#888]">
+                Cover
+              </p>
+              <p className="mt-0.5 text-[12px] font-semibold text-[#0A0A0A]">
+                {r.cover}
+              </p>
+            </div>
+          </li>
+        ))}
+        <li
+          className="flex items-start gap-3 px-5 py-3"
+          style={{
+            borderTop: "0.5px solid #EAEAEA",
+            background: "#FAFAF9",
+          }}
+        >
+          <div className="min-w-0 flex-1">
+            <span className="text-[12px] font-medium italic text-[#666]">
+              + 19 more accounts
+            </span>
+            <span className="ml-2 font-mono text-[11px] tabular-nums text-[#666]">
+              $2.8M total
+            </span>
+          </div>
+          <span
+            aria-hidden="true"
+            className="mt-1 shrink-0 text-[#BBB]"
+          >
+            →
+          </span>
+          <div className="shrink-0 text-right">
+            <p className="text-[9.5px] font-bold uppercase tracking-[0.08em] text-[#888]">
+              Cover
+            </p>
+            <p className="mt-0.5 text-[12px] font-semibold text-[#0A0A0A]">
+              5 CSMs
+            </p>
+          </div>
+        </li>
+      </ul>
+      <p className="border-t border-[#EAEAEA] px-5 py-3 text-center text-[11px] italic text-[#666]">
+        Devon OOO May 7–14. 22 accounts redistributed in 4 minutes.
+      </p>
     </div>
   );
 }
