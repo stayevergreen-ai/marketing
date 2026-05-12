@@ -16,7 +16,6 @@ type Tier = {
   name: string;
   monthlyFee: string;
   perSeat?: string;
-  founderNote?: string;
   description: string;
   bullets: string[];
   ctaLabel: string;
@@ -32,7 +31,6 @@ const TIERS: Tier[] = [
     name: "Starter",
     monthlyFee: "$1,500",
     perSeat: "+ $129 per CSM",
-    founderNote: "Year 1: $1,000 + $99/CSM",
     description: "For founder-led teams getting their CS motion right.",
     bullets: [
       "Email-first methodology",
@@ -156,20 +154,6 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
           <div className="mt-1.5 text-[14px] text-[#666]">{tier.perSeat}</div>
         ) : null}
       </div>
-
-      {tier.founderNote ? (
-        <div
-          className="mt-3 inline-flex w-fit items-center rounded-md px-3 py-1.5"
-          style={{
-            background: "#FFFBEB",
-            border: "0.5px solid #FDE68A",
-          }}
-        >
-          <span className="text-[12px] italic text-[#92400E]">
-            {tier.founderNote}
-          </span>
-        </div>
-      ) : null}
 
       <p className="mt-6 text-[14px] leading-[1.55] text-[#666]">
         {tier.description}
