@@ -107,6 +107,45 @@ const TYPE_LABEL: Record<ItemType, string> = {
   meeting: "Meeting",
 };
 
+type DebriefType = "escalation" | "decision" | "capacity";
+
+type DebriefItem = {
+  type: DebriefType;
+  description: string;
+  source: string;
+};
+
+const ON_RETURN: DebriefItem[] = [
+  {
+    type: "escalation",
+    description:
+      "Threadgill SEC findings — Devon escalated to legal, awaiting your input",
+    source: "from coverage thread · May 14",
+  },
+  {
+    type: "decision",
+    description: "Acme Corp coverage continued with Devon — confirm or revert",
+    source: "decision pending",
+  },
+  {
+    type: "capacity",
+    description: "Aisha at 88% — flag if upcoming PTO conflicts",
+    source: "from capacity model",
+  },
+];
+
+const DEBRIEF_COLOR: Record<DebriefType, string> = {
+  escalation: "#DC2626",
+  decision: "#92400E",
+  capacity: "#16A34A",
+};
+
+const DEBRIEF_BG: Record<DebriefType, string> = {
+  escalation: "#FEF2F2",
+  decision: "#FFF7ED",
+  capacity: "#F0FDF4",
+};
+
 export default function CoverageRoutingList() {
   const total =
     ATTENTION_ITEMS.length + AGREED_ITEMS.length + AI_ONLY_ITEMS.length;
@@ -177,6 +216,17 @@ export default function CoverageRoutingList() {
         </Section>
       </div>
 
+      <div className="border-t border-[#EAEAEA] px-6 py-4">
+        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
+          On {OOO.csm.split(" ")[0]}&apos;s return · {OOO.end}
+        </div>
+        <div className="flex flex-col gap-1">
+          {ON_RETURN.map((item) => (
+            <DebriefRow key={item.description} item={item} />
+          ))}
+        </div>
+      </div>
+
       <div className="flex items-center justify-between border-t border-[#EAEAEA] px-6 py-3">
         <span className="text-[11px] text-[#666]">
           Routing AI · 4 candidates evaluated per item
@@ -184,6 +234,28 @@ export default function CoverageRoutingList() {
         <span className="text-[12px] font-medium text-[#16A34A]">
           See routing methodology →
         </span>
+      </div>
+    </div>
+  );
+}
+
+function DebriefRow({ item }: { item: DebriefItem }) {
+  return (
+    <div className="-mx-2 flex items-start gap-3 rounded-md px-2 py-2 transition-colors hover:bg-[#FAFAF9]">
+      <span
+        className="shrink-0 rounded-sm px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.10em]"
+        style={{
+          color: DEBRIEF_COLOR[item.type],
+          backgroundColor: DEBRIEF_BG[item.type],
+        }}
+      >
+        {item.type}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-[12px] leading-[1.45] text-[#1F1F1F]">
+          {item.description}
+        </p>
+        <p className="mt-0.5 text-[10px] italic text-[#888]">{item.source}</p>
       </div>
     </div>
   );

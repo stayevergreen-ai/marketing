@@ -17,6 +17,9 @@ import ARRWaterfallPreview from "../components/marketing/ARRWaterfallPreview";
 import Pricing from "../components/marketing/Pricing";
 import FinalCTA from "../components/marketing/FinalCTA";
 import Nav from "../components/marketing/Nav";
+import AccountVOCMethodology from "../components/marketing/AccountVOCMethodology";
+import BookVOCMethodology from "../components/marketing/BookVOCMethodology";
+import AccountQBRMethodology from "../components/marketing/AccountQBRMethodology";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -35,33 +38,68 @@ type Moment = {
 };
 
 const moments: Moment[] = [
+  // Beat 1 — Metrics that drive forecasts
   {
-    eyebrow: "Show me the formula.",
+    eyebrow: "Show me the formula",
     headline: "Click any number. See exactly how it was computed.",
-    caption: null,
+    caption:
+      "The starting point. Every metric in Evergreen — every claim, every flag — is built on math you can audit.",
     Component: CLVMethodology,
   },
   {
-    eyebrow: "Show me the assumptions.",
+    eyebrow: "Show me the assumptions",
     headline:
       "Every threshold, weight, and cap is configurable — and visible.",
     caption:
-      "Stretch upside scenarios show what's possible if signals close as expected.",
+      "Forecasts move with your reality. Stretch upside scenarios show what's possible if signals close as expected.",
     Component: NRRForecastMethodology,
   },
+  // Beat 2 — Signals that drive metrics
   {
-    eyebrow: "Show me the AI's reasoning.",
+    eyebrow: "Show me what's pushing the score",
+    headline: "Five components. Weighted. Traceable.",
+    caption:
+      "Every health number traces back to engagement, sentiment, behavior, business signals, and renewal proximity. Configurable. Always current.",
+    Component: HealthBreakdownCard,
+  },
+  {
+    eyebrow: "Show me the signals",
+    headline: "Every theme traces back to a source.",
+    caption:
+      "Sentiment isn't a vibe. It's an aggregate of email tone, ticket urgency, and meeting commentary — with the source visible.",
+    Component: AccountVOCMethodology,
+  },
+  // Beat 3 — Patterns that drive strategy
+  {
+    eyebrow: "Show me the patterns",
+    headline: "What's true across the whole book.",
+    caption:
+      "AI surfaces themes that span multiple accounts — so you spot the systemic risk before it shows up in your numbers.",
+    Component: BookVOCMethodology,
+  },
+  // Beat 4 — Decisions the AI makes
+  {
+    eyebrow: "Show me the AI's reasoning",
     headline: "Every CSM evaluated. Every projection shown.",
     caption:
-      "When the AI suggests coverage, the lattice behind the choice is fully visible.",
+      "When the AI suggests coverage, the lattice behind the choice is fully visible — including capacity impact and what your CSMs need to handle on return.",
     Component: CoverageRoutingList,
   },
   {
-    eyebrow: "Show me what's pushing the score.",
-    headline: "Five components. Weighted. Traceable.",
+    eyebrow: "Show me the prep",
+    headline: "Every QBR walks in fully prepared.",
     caption:
-      "Every health number traces back to engagement, sentiment, behavior, business signals, and renewal proximity.",
-    Component: HealthBreakdownCard,
+      "AI assembles the brief from the same signals that feed health and forecasts — so what you say in the QBR matches what's actually true.",
+    Component: AccountQBRMethodology,
+  },
+  // Beat 5 — Self-grading proof
+  {
+    eyebrow: "Show me the proof",
+    headline:
+      "Most CS tools forecast and never look back. We publish our own accuracy.",
+    caption:
+      "Per snapshot, per metric, per period — so you know exactly how much trust to place in next quarter's number based on how last quarter's held up.",
+    Component: ForecastAccuracy,
   },
 ];
 
@@ -744,39 +782,6 @@ export default function Home() {
             })}
           </div>
         </section>
-
-        <TreeDivider />
-
-        <motion.section {...fadeUp} className="pb-12 pt-8 text-center">
-          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#666]">
-            We grade ourselves
-          </p>
-          <h2 className="mx-auto max-w-4xl text-[36px] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] md:text-[52px] lg:text-[64px]">
-            Most CS tools forecast and never look back. We publish our own
-            accuracy.
-          </h2>
-          <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
-            Per snapshot, per metric, per period — so you know exactly how much
-            trust to place in next quarter's number based on how last quarter's
-            held up.
-          </p>
-        </motion.section>
-
-        <motion.div
-          {...fadeUp}
-          className="mx-auto max-w-4xl overflow-hidden rounded-xl bg-white"
-          style={cardChrome}
-        >
-          <ForecastAccuracy />
-        </motion.div>
-
-        <motion.section {...fadeUp} className="py-16 text-center">
-          <p className="mx-auto max-w-3xl text-[16px] leading-[1.6] text-[#666] md:text-[17px]">
-            We grade ourselves on six metrics: NRR, GRR, Logo Retention,
-            Expansion, ARR at Risk, and Save Rate. Trailing four quarters.
-            Per-snapshot drill-down on every period. Configurable in Settings.
-          </p>
-        </motion.section>
 
         <motion.section {...fadeUp} className="py-20">
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
