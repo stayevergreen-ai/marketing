@@ -1,9 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import type { ComponentType } from "react";
 import { motion } from "framer-motion";
 import { Mail, Sun, Calendar } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import MorningQueue from "../components/marketing/MorningQueue";
+import HealthBreakdownCard from "../components/marketing/HealthBreakdownCard";
+import CLVMethodology from "../components/marketing/CLVMethodology";
+import NRRForecastMethodology from "../components/marketing/NRRForecastMethodology";
+import CoverageRoutingList from "../components/marketing/CoverageRoutingList";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -14,15 +20,19 @@ const fadeUp = {
   viewport: { once: true, margin: "-80px" },
 } as const;
 
-const moments = [
+type Moment = {
+  eyebrow: string;
+  headline: string;
+  caption: string | null;
+  Component: ComponentType;
+};
+
+const moments: Moment[] = [
   {
     eyebrow: "Show me the formula.",
     headline: "Click any number. See exactly how it was computed.",
-    caption: null as string | null,
-    src: "/screenshots/01-methodology-reports.png",
-    alt: "Customer Lifetime Value methodology modal",
-    width: 1149,
-    height: 1036,
+    caption: null,
+    Component: CLVMethodology,
   },
   {
     eyebrow: "Show me the assumptions.",
@@ -30,30 +40,21 @@ const moments = [
       "Every threshold, weight, and cap is configurable — and visible.",
     caption:
       "Stretch upside scenarios show what's possible if signals close as expected.",
-    src: "/screenshots/03-forecast-nrr-modal.png",
-    alt: "Net Revenue Retention forecast detail",
-    width: 1002,
-    height: 1204,
+    Component: NRRForecastMethodology,
   },
   {
     eyebrow: "Show me the AI's reasoning.",
     headline: "Every CSM evaluated. Every projection shown.",
     caption:
       "When the AI suggests coverage, the lattice behind the choice is fully visible.",
-    src: "/screenshots/03b-coverage-routing-list.png",
-    alt: "Coverage routing AI suggestions",
-    width: 1084,
-    height: 1120,
+    Component: CoverageRoutingList,
   },
   {
     eyebrow: "Show me what's pushing the score.",
     headline: "Five components. Weighted. Traceable.",
     caption:
       "Every health number traces back to engagement, sentiment, behavior, business signals, and renewal proximity.",
-    src: "/screenshots/04-health-breakdown.png",
-    alt: "Account health score breakdown",
-    width: 1568,
-    height: 696,
+    Component: HealthBreakdownCard,
   },
 ];
 
@@ -256,14 +257,7 @@ export default function Home() {
             className="mx-auto mt-20 max-w-6xl overflow-hidden rounded-xl bg-white md:mt-24"
             style={cardChrome}
           >
-            <Image
-              src="/screenshots/00-hero-workspace.png"
-              alt="Evergreen workspace — morning queue with AI-prepared drafts and account signals"
-              width={1235}
-              height={952}
-              priority
-              className="block h-auto w-full"
-            />
+            <MorningQueue />
           </motion.div>
         </section>
 
@@ -441,37 +435,40 @@ export default function Home() {
 
         <section className="border-t border-[#EAEAEA] pb-24 pt-12">
           <div className="space-y-32">
-            {moments.map((m) => (
-              <motion.div
-                key={m.eyebrow}
-                {...fadeUp}
-                className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
-              >
-                <div className="lg:col-span-5">
-                  <div className="lg:sticky lg:top-24">
-                    <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#888]">
-                      {m.eyebrow}
-                    </p>
-                    <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
-                      {m.headline}
-                    </h3>
-                    {m.caption ? (
-                      <p className="text-[16px] leading-[1.6] text-[#666]">
-                        {m.caption}
+            {moments.map((m) => {
+              const Comp = m.Component;
+              return (
+                <motion.div
+                  key={m.eyebrow}
+                  {...fadeUp}
+                  className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
+                >
+                  <div className="lg:col-span-5">
+                    <div className="lg:sticky lg:top-24">
+                      <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+                        {m.eyebrow}
                       </p>
-                    ) : null}
+                      <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
+                        {m.headline}
+                      </h3>
+                      {m.caption ? (
+                        <p className="text-[16px] leading-[1.6] text-[#666]">
+                          {m.caption}
+                        </p>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-                <div className="lg:col-span-7">
-                  <ScreenshotCard
-                    src={m.src}
-                    alt={m.alt}
-                    width={m.width}
-                    height={m.height}
-                  />
-                </div>
-              </motion.div>
-            ))}
+                  <div className="lg:col-span-7">
+                    <div
+                      className="overflow-hidden rounded-xl bg-white"
+                      style={cardChrome}
+                    >
+                      <Comp />
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 
