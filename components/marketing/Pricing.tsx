@@ -148,7 +148,12 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
         <span className="mb-4 inline-block w-fit rounded-full bg-[#16A34A] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.10em] text-white">
           Most popular
         </span>
-      ) : null}
+      ) : (
+        <div
+          aria-hidden="true"
+          className="mb-4 hidden min-h-[24px] lg:block"
+        />
+      )}
 
       <h3 className="text-[20px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
         {tier.name}
@@ -173,7 +178,7 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
         ) : null}
       </div>
 
-      <div className="mt-7 border-t border-[#EAEAEA] pt-7">
+      <div className="mt-7 border-t border-[#EAEAEA] pt-7 lg:min-h-[200px]">
         <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888]">
           Best for
         </p>
@@ -262,7 +267,7 @@ function ROIBlock() {
         ROI typically lands at 16–20× year one for a 6-CSM team.
       </p>
       <p className="mt-3 text-[14px] leading-[1.55] text-[#666] md:text-[15px]">
-        Run the math on your team. No vibes — just inputs you control.
+        We built the calculator so the math is yours, not ours.
       </p>
       <a
         href="/roi"

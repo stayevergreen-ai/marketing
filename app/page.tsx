@@ -100,30 +100,52 @@ const moments: Moment[] = [
   },
 ];
 
-const comparisonRows = [
+const manifestoParagraphs = [
+  "We're living through the largest workforce shift since the industrial revolution. Every week, another company announces it's replacing a department with AI. Every major AI company is racing toward the same destination: software that doesn't need humans to run it. The customer success industry is no exception.",
+  "Two kinds of products are competing for your customer success budget. One can't keep up. The other is chasing the wrong destination. The first was built before AI, on architectures that demand integrations, implementation cycles, and dedicated admins to function. They can bolt AI on, but they can't out-iterate companies built around it — and the buyers who could never afford their stack are still locked out. The second is honest about what they're building: customer success without customer success managers. AI doing 99% of the CSM's job today. So the board can sign off on 100% tomorrow. Their honesty is the warning, not the comfort.",
+  "Evergreen exists because someone had to build the third option. AI is the most powerful tool customer success has ever seen, and we were built around that conviction — but with a line we will never cross. AI does not replace your CSMs. Ever. Customer success isn't a function that automates. It's a function that compounds — through trust, context, and judgment only humans accumulate. Every feature in Evergreen makes a CSM more capable. None make one optional.",
+  "The next decade of customer success will be defined by who used AI to amplify humans, and who used it to remove them. The companies that bet on AI replacement will spend years rebuilding the trust they automated away. The ones that bet on amplifying their teams will be the ones their customers stay with. We built Evergreen for the teams that already know which side they're on. We're going to be on the right side of history. So is every team that comes with us.",
+];
+
+type DefensibilityCard = {
+  eyebrow: string;
+  question: string;
+  evergreen: string;
+  contrast: string;
+};
+
+const defensibilityCards: DefensibilityCard[] = [
   {
-    question: "Show me the formula behind any metric",
-    evergreen: "One click on any tile",
-    legacy: "Documentation only — formula not surfaced",
-    aiReplacement: "Confidence score only — no traceable inputs",
+    eyebrow: "Metrics",
+    question: "Show me the formula behind any metric.",
+    evergreen:
+      "One click on any tile. Formula, inputs, assumptions, per-account breakdown, configurable settings. Every number in Evergreen is auditable down to its source data.",
+    contrast:
+      "Most CS tools surface a metric and bury the methodology in documentation. AI-replacement tools surface a confidence score with no traceable inputs.",
   },
   {
-    question: "Why did the AI pick that CSM for coverage?",
-    evergreen: "Every candidate evaluated, with projection",
-    legacy: "Rules-based, no projection visible",
-    aiReplacement: "Doesn't surface the human override",
-  },
-  {
+    eyebrow: "Signals",
     question: "What pushed this account into the at-risk band?",
-    evergreen: "5-component health breakdown with weights",
-    legacy: "Aggregate score, weights not visible",
-    aiReplacement: "Score with no breakdown",
+    evergreen:
+      "5 weighted health components, drillable per account. Each component traces to its source signals — emails, tickets, meeting notes. Configurable thresholds. Live recompute.",
+    contrast:
+      "Most CS tools show an aggregate health score with weights hidden. AI-replacement tools show a score with no breakdown — just a number to trust.",
   },
   {
+    eyebrow: "AI decisions",
+    question: "Why did the AI pick that CSM for coverage?",
+    evergreen:
+      "Every candidate evaluated, with capacity projection. The override logic is visible. The CSM's input is weighted in the recommendation. The AI shows its work — and your team can correct it.",
+    contrast:
+      "Most CS tools route by static rules with no projection visible. AI-replacement tools route autonomously without surfacing the human override path.",
+  },
+  {
+    eyebrow: "Commitment tracking",
     question: "What did we commit to last QBR — and did we deliver?",
-    evergreen: "Pulled from QBR record + tracked through cycle",
-    legacy: "Lives in meeting notes outside the platform",
-    aiReplacement: "AI generates new prep without commitment context",
+    evergreen:
+      "Pulled directly from the QBR record. Tracked through the cycle. Surfaced automatically in the next QBR prep. The platform remembers what your team committed to.",
+    contrast:
+      "Most CS tools leave commitments in meeting notes outside the platform. AI-replacement tools generate fresh QBR prep with no awareness of prior commitments.",
   },
 ];
 
@@ -431,10 +453,6 @@ export default function Home() {
             <h2 className="mx-auto max-w-4xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
               There are two paths for AI in customer success.
             </h2>
-            <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
-              Most AI in customer success is built to replace your CSMs. We bet
-              on your team.
-            </p>
           </motion.div>
 
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
@@ -517,121 +535,59 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-80px" }}
-            className="mt-20"
+            className="mx-auto mt-24 max-w-3xl py-16 md:py-20"
           >
-            <p className="mb-8 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
-              The defensibility test
-            </p>
+            {manifestoParagraphs.map((p, i) => (
+              <p
+                key={i}
+                className={`text-[18px] font-normal leading-[1.7] tracking-[-0.005em] text-[#0A0A0A] md:text-[19px] ${
+                  i === 0 ? "" : "mt-7"
+                }`}
+              >
+                {p}
+              </p>
+            ))}
+          </motion.div>
 
-            <div
-              className="hidden overflow-hidden rounded-xl bg-white md:block"
-              style={{
-                border: "1.5px solid #E5E5E0",
-                boxShadow:
-                  "0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05)",
-              }}
-            >
-              <table className="w-full border-collapse">
-                <thead className="bg-[#FAFAF9]">
-                  <tr>
-                    <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                      Question
-                    </th>
-                    <th
-                      className="bg-[#F0F0EC] px-6 py-5 text-center"
-                      style={{
-                        borderLeft: "1px solid #EAEAEA",
-                        borderRight: "1px solid #EAEAEA",
-                      }}
-                    >
-                      <div className="flex items-center justify-center gap-2">
-                        <TreeMark size={16} />
-                        <span className="text-[13px] uppercase tracking-[0.10em] text-[#16A34A]">
-                          Evergreen
-                        </span>
-                      </div>
-                    </th>
-                    <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                      Most CS tools
-                    </th>
-                    <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                      AI-replacement tools
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonRows.map((row, i) => (
-                    <tr
-                      key={row.question}
-                      className="group"
-                      style={{
-                        borderTop:
-                          i === 0 ? "none" : "1px solid #EAEAEA",
-                      }}
-                    >
-                      <td className="px-6 py-5 text-center align-top text-[15px] text-[#0A0A0A] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
-                        {row.question}
-                      </td>
-                      <td
-                        className="bg-[#F0F0EC] px-6 py-5 text-center align-top text-[15px] font-semibold text-[#0A0A0A]"
-                        style={{
-                          borderLeft: "1.5px solid #E5E5E0",
-                          borderRight: "1.5px solid #E5E5E0",
-                        }}
-                      >
-                        {row.evergreen}
-                      </td>
-                      <td className="px-6 py-5 text-center align-top text-[15px] text-[#666] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
-                        {row.legacy}
-                      </td>
-                      <td className="px-6 py-5 text-center align-top text-[15px] text-[#666] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
-                        {row.aiReplacement}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <motion.div
+            initial={false}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: FADE_EASE }}
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-12"
+          >
+            <div className="mb-12 text-center">
+              <p className="mb-6 text-[13px] uppercase tracking-[0.10em] text-[#666]">
+                The defensibility test
+              </p>
+              <h3 className="mx-auto max-w-3xl text-balance text-[28px] font-bold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] md:text-[36px]">
+                Every claim in Evergreen has a defensible answer.
+              </h3>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:hidden">
-              {comparisonRows.map((row) => (
+            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+              {defensibilityCards.map((card) => (
                 <div
-                  key={row.question}
-                  className="rounded-xl bg-white p-6"
-                  style={cardChrome}
+                  key={card.eyebrow}
+                  className="rounded-2xl bg-white p-6 md:p-8"
+                  style={{
+                    border: "1px solid #EAEAEA",
+                    boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
+                  }}
                 >
-                  <p className="mb-5 text-[15px] font-bold text-[#0A0A0A]">
-                    {row.question}
+                  <p className="text-[11px] font-bold uppercase tracking-[0.10em] text-[#888]">
+                    {card.eyebrow}
                   </p>
-                  <div className="space-y-4">
-                    <div
-                      className="rounded-lg bg-[#F0F0EC] p-3"
-                      style={{ border: "1.5px solid #E5E5E0" }}
-                    >
-                      <div className="mb-1 flex items-center gap-1.5">
-                        <TreeMark size={12} />
-                        <p className="text-[10px] uppercase tracking-[0.10em] text-[#16A34A]">
-                          Evergreen
-                        </p>
-                      </div>
-                      <p className="text-[15px] font-semibold text-[#0A0A0A]">
-                        {row.evergreen}
-                      </p>
-                    </div>
-                    <div className="px-1">
-                      <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#666]">
-                        Most CS tools
-                      </p>
-                      <p className="text-[15px] text-[#666]">{row.legacy}</p>
-                    </div>
-                    <div className="px-1">
-                      <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#666]">
-                        AI-replacement tools
-                      </p>
-                      <p className="text-[15px] text-[#666]">
-                        {row.aiReplacement}
-                      </p>
-                    </div>
+                  <h4 className="mt-3 text-[20px] font-bold leading-[1.25] tracking-[-0.015em] text-[#0A0A0A] md:text-[22px]">
+                    {card.question}
+                  </h4>
+                  <p className="mt-4 text-[15px] leading-[1.55] text-[#1F1F1F]">
+                    {card.evergreen}
+                  </p>
+                  <div className="mt-5 border-t border-[#EAEAEA] pt-4">
+                    <p className="text-[13px] leading-[1.55] text-[#666]">
+                      {card.contrast}
+                    </p>
                   </div>
                 </div>
               ))}
