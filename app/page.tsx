@@ -3,23 +3,18 @@
 import { useEffect, useState } from "react";
 import type { ComponentType } from "react";
 import { motion } from "framer-motion";
-import { Mail, Sun, Calendar } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import MorningQueue from "../components/marketing/MorningQueue";
 import HealthBreakdownCard from "../components/marketing/HealthBreakdownCard";
 import CLVMethodology from "../components/marketing/CLVMethodology";
 import NRRForecastMethodology from "../components/marketing/NRRForecastMethodology";
-import CoverageRoutingList from "../components/marketing/CoverageRoutingList";
 import ForecastAccuracy from "../components/marketing/ForecastAccuracy";
-import AccountDetailPreview from "../components/marketing/AccountDetailPreview";
-import ManagerReportsPreview from "../components/marketing/ManagerReportsPreview";
-import ARRWaterfallPreview from "../components/marketing/ARRWaterfallPreview";
 import Pricing from "../components/marketing/Pricing";
 import FinalCTA from "../components/marketing/FinalCTA";
 import Nav from "../components/marketing/Nav";
-import VoiceOfCustomerMethodology from "../components/marketing/VoiceOfCustomerMethodology";
-import AccountQBRMethodology from "../components/marketing/AccountQBRMethodology";
 import ManifestoModal from "../components/marketing/ManifestoModal";
+import MorningQueueSpotlight from "../components/marketing/MorningQueueSpotlight";
+import HighlightReel from "../components/marketing/HighlightReel";
+import OOOSpotlight from "../components/marketing/OOOSpotlight";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -35,7 +30,6 @@ type Moment = {
 };
 
 const moments: Moment[] = [
-  // Foundational metrics
   {
     eyebrow: "Show me the formula",
     headline: "Click any number. See exactly how it was computed.",
@@ -58,31 +52,6 @@ const moments: Moment[] = [
       "Every health number traces back to engagement, sentiment, behavior, business signals, and renewal proximity. Configurable. Always current.",
     Component: HealthBreakdownCard,
   },
-  // Operational peak
-  {
-    eyebrow: "Show me the prep",
-    headline: "Every QBR walks in fully prepared.",
-    caption:
-      "AI assembles the brief from the same signals that feed health and forecasts — so what you say in the QBR matches what's actually true.",
-    Component: AccountQBRMethodology,
-  },
-  // Qualitative signals — one platform, three scopes
-  {
-    eyebrow: "Show me the answers",
-    headline: "Ask anything. Trace every answer.",
-    caption:
-      "Voice of Customer in Evergreen isn't a sentiment number. It's a system you query. Ask across one account, your whole book, or the entire org — every answer traces back to the source signals that produced it.",
-    Component: VoiceOfCustomerMethodology,
-  },
-  // Operational decisions
-  {
-    eyebrow: "Show me the AI's reasoning",
-    headline: "Every CSM evaluated. Every projection shown.",
-    caption:
-      "When the AI suggests coverage, the lattice behind the choice is fully visible — including capacity impact and what your CSMs need to handle on return.",
-    Component: CoverageRoutingList,
-  },
-  // Self-grading proof
   {
     eyebrow: "Show me the proof",
     headline:
@@ -135,36 +104,6 @@ const defensibilityCards: DefensibilityCard[] = [
   },
 ];
 
-const steps: {
-  number: string;
-  icon: LucideIcon;
-  headline: string;
-  subHeadline: string;
-  body: string;
-}[] = [
-  {
-    number: "01",
-    icon: Mail,
-    headline: "Connect what you have",
-    subHeadline: "Gmail or Outlook. Done.",
-    body: "Evergreen reads your customer email signal — the same conversations your CSMs are already having. No data warehouse migration. No CSV imports. No 'foundational data work' that takes a quarter.",
-  },
-  {
-    number: "02",
-    icon: Sun,
-    headline: "CSMs open Evergreen",
-    subHeadline: "First queue is ready that morning.",
-    body: "AI prioritizes the first day of accounts based on signal it's seen since you connected. Your CSMs walk into a workspace that already understands their book.",
-  },
-  {
-    number: "03",
-    icon: Calendar,
-    headline: "Numbers leaders can defend",
-    subHeadline: "Within 30 days.",
-    body: "Forecast accuracy starts grading itself from snapshot one. Health scores anchor to real engagement, sentiment, behavior, and renewal signals. Every number traces back to a method, not a vibe.",
-  },
-];
-
 const cardChrome = {
   border: "1px solid #EAEAEA",
   boxShadow:
@@ -205,146 +144,6 @@ function TreeDivider() {
       <TreeMark size={20} className="opacity-85" />
       <div className="h-px max-w-32 flex-1 bg-[#C8C8C3]" />
     </div>
-  );
-}
-
-type TabId = "csm" | "manager" | "leader";
-
-const PERSONA_TABS: Record<
-  TabId,
-  {
-    label: string;
-    sidebar: { eyebrow: string; headline: string; sub: string };
-    Component: ComponentType;
-  }
-> = {
-  csm: {
-    label: "CSM",
-    sidebar: {
-      eyebrow: "For the operator",
-      headline: "Every account, fully contextual.",
-      sub: "AI briefs the moment of work. Signals trace to source. No manual digging through threads to remember why an account stalled.",
-    },
-    Component: AccountDetailPreview,
-  },
-  manager: {
-    label: "Manager",
-    sidebar: {
-      eyebrow: "For the manager",
-      headline: "Your team's rhythm, every cadence.",
-      sub: "Per-CSM visibility, trend tracking, capacity awareness. Switch cadence to match the conversation — weekly standups to quarterly business reviews.",
-    },
-    Component: ManagerReportsPreview,
-  },
-  leader: {
-    label: "Leader",
-    sidebar: {
-      eyebrow: "For the leader",
-      headline: "Defensible numbers for the board.",
-      sub: "Methodology-backed forecasts. Recovery confidence broken out by save-rate model. Exec-ready visibility without the spreadsheet ceremony.",
-    },
-    Component: ARRWaterfallPreview,
-  },
-};
-
-const TAB_ORDER: TabId[] = ["csm", "manager", "leader"];
-
-function Section4() {
-  const [activeTab, setActiveTab] = useState<TabId>("csm");
-  const Active = PERSONA_TABS[activeTab];
-  const ActiveComponent = Active.Component;
-
-  return (
-    <section className="py-24">
-      <motion.div
-        initial={false}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: FADE_EASE }}
-        viewport={{ once: true, margin: "-80px" }}
-        className="mx-auto mb-12 max-w-3xl text-center"
-      >
-        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
-          Built for your whole team
-        </p>
-        <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
-          Same product. Three lenses. One source of truth.
-        </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
-          What your CSMs, managers, and CS leadership see in Evergreen — one
-          product surface tuned to each.
-        </p>
-      </motion.div>
-
-      <div className="mb-10 flex justify-center border-b border-[#EAEAEA]">
-        {TAB_ORDER.map((id) => (
-          <PersonaTab
-            key={id}
-            label={PERSONA_TABS[id].label}
-            active={activeTab === id}
-            onClick={() => setActiveTab(id)}
-          />
-        ))}
-      </div>
-
-      <motion.div
-        key={activeTab}
-        initial={false}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.25, ease: FADE_EASE }}
-        className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
-      >
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-24">
-            <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#666]">
-              {Active.sidebar.eyebrow}
-            </p>
-            <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
-              {Active.sidebar.headline}
-            </h3>
-            <p className="text-[16px] leading-[1.6] text-[#666]">
-              {Active.sidebar.sub}
-            </p>
-          </div>
-        </div>
-        <div className="lg:col-span-8">
-          <div
-            className="overflow-hidden rounded-xl bg-white"
-            style={cardChrome}
-          >
-            <ActiveComponent />
-          </div>
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
-function PersonaTab({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`relative cursor-pointer px-6 py-3 text-[14px] transition-colors ${
-        active
-          ? "font-bold text-[#16A34A]"
-          : "font-medium text-[#666] hover:text-[#0A0A0A]"
-      }`}
-    >
-      {label}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-px left-3 right-3 h-[2px] bg-[#16A34A] transition-opacity duration-200"
-        style={{ opacity: active ? 1 : 0 }}
-      />
-    </button>
   );
 }
 
@@ -597,78 +396,15 @@ export default function Home() {
 
         <TreeDivider />
 
-        <section className="py-20">
-          <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="mb-12 text-center"
-          >
-            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
-              Go live in days. Not weeks. Not quarters.
-            </p>
-            <h2 className="mx-auto max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
-              Three steps. No 12-week implementation.
-            </h2>
-          </motion.div>
-
-          <div className="relative mx-auto max-w-7xl">
-            <div
-              aria-hidden="true"
-              className="absolute left-0 right-0 hidden h-px bg-[#EAEAEA] lg:block"
-              style={{ top: "68px" }}
-            />
-            <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-3">
-              {steps.map((step, i) => {
-                const Icon = step.icon;
-                return (
-                  <motion.div
-                    key={step.number}
-                    initial={false}
-                    whileHover={{
-                      y: -2,
-                      boxShadow: "0 4px 16px rgba(0, 0, 0, 0.06)",
-                      transition: { duration: 0.2, ease: "easeOut" },
-                    }}
-                    style={{
-                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      delay: 0.1 * (i + 1),
-                      ease: FADE_EASE,
-                    }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="rounded-2xl border border-[#EAEAEA] bg-white p-6 md:p-8 lg:p-10"
-                  >
-                    <p className="mb-6 text-[48px] font-extrabold leading-none tracking-[-0.04em] text-[#16A34A] lg:text-[56px]">
-                      {step.number}
-                    </p>
-                    <h3 className="mb-2 text-[22px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0A0A0A] lg:text-[24px]">
-                      {step.headline}
-                    </h3>
-                    <p className="mb-4 flex items-center gap-2 text-[17px] font-bold leading-[1.4] tracking-[-0.01em] text-[#0A0A0A]">
-                      <Icon
-                        size={14}
-                        className="shrink-0 text-[#666]"
-                        aria-hidden="true"
-                      />
-                      <span>{step.subHeadline}</span>
-                    </p>
-                    <p className="text-[16px] leading-[1.6] text-[#666]">
-                      {step.body}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <MorningQueueSpotlight />
 
         <TreeDivider />
 
-        <Section4 />
+        <HighlightReel />
+
+        <TreeDivider />
+
+        <OOOSpotlight />
 
         <TreeDivider />
 
@@ -678,10 +414,10 @@ export default function Home() {
           className="pb-12 pt-24 text-center"
         >
           <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#666]">
-            AI as the foundation
+            Every number is defensible
           </p>
-          <h2 className="mx-auto max-w-5xl text-[44px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[72px] lg:text-[88px]">
-            Every metric in Evergreen earns its place.
+          <h2 className="mx-auto max-w-5xl text-[44px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[64px] lg:text-[80px]">
+            The math behind the numbers your board asks about.
           </h2>
           <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
             Click any number. See the formula, the inputs, the assumptions, the
