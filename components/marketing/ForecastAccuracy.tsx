@@ -101,7 +101,7 @@ export default function ForecastAccuracy() {
     <div className="bg-white text-[#0A0A0A]">
       <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] px-6 py-5">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
             Forecast Accuracy
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -115,7 +115,7 @@ export default function ForecastAccuracy() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Formula
         </div>
         <div
@@ -127,7 +127,7 @@ export default function ForecastAccuracy() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           What this measures
         </div>
         <p className="text-[13px] leading-[1.55] text-[#1F1F1F]">
@@ -136,7 +136,7 @@ export default function ForecastAccuracy() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Per forecast type
         </div>
         <div
@@ -188,7 +188,7 @@ export default function ForecastAccuracy() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Most recent closed quarter · {SUMMARY.recentQuarter}
         </div>
         <div className="flex flex-col gap-1.5">
@@ -202,12 +202,12 @@ export default function ForecastAccuracy() {
               }}
             >
               <span className="font-semibold text-[#0A0A0A]">{q.metric}</span>
-              <span className="text-[#888]"> · forecast </span>
+              <span className="text-[#666]"> · forecast </span>
               <span className="font-mono tabular-nums text-[#1F1F1F]">
                 {q.forecast}
               </span>
               <span className="text-[#bbb]"> → </span>
-              <span className="text-[#888]">actual </span>
+              <span className="text-[#666]">actual </span>
               <span className="font-mono tabular-nums text-[#1F1F1F]">
                 {q.actual}
               </span>
@@ -215,14 +215,14 @@ export default function ForecastAccuracy() {
               <span className="font-mono font-semibold tabular-nums text-[#16A34A]">
                 {q.accuracy}
               </span>
-              <span className="text-[#888]"> accuracy</span>
+              <span className="text-[#666]"> accuracy</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Drift factors
         </div>
         <ul className="list-disc space-y-1.5 pl-5 text-[12px] leading-[1.65] text-[#1F1F1F]">
@@ -233,7 +233,7 @@ export default function ForecastAccuracy() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Settings driving this
         </div>
         {SETTINGS.map((s) => (
@@ -242,7 +242,7 @@ export default function ForecastAccuracy() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           {SUMMARY.snapshotsEvaluated} snapshots evaluated ·{" "}
           {SUMMARY.missedPeriods} missed periods
         </span>
@@ -275,7 +275,7 @@ function ColumnHeader({
 }) {
   return (
     <th
-      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#888]"
+      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#666]"
       style={{ textAlign: align }}
     >
       {children}

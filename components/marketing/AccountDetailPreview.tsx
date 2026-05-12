@@ -143,7 +143,7 @@ export default function AccountDetailPreview() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Signals · {SIGNALS.length} active
         </div>
         <div className="flex flex-col gap-1">
@@ -154,7 +154,7 @@ export default function AccountDetailPreview() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Recent email · {THREAD.receivedAt}
         </div>
         <div
@@ -176,7 +176,7 @@ export default function AccountDetailPreview() {
             >
               <div className="mb-1 flex items-baseline gap-2 text-[11px]">
                 <span className="font-semibold text-[#0A0A0A]">{m.from}</span>
-                <span className="text-[#888]">{m.role}</span>
+                <span className="text-[#666]">{m.role}</span>
               </div>
               <p className="text-[12px] leading-[1.5] text-[#1F1F1F]">
                 {m.preview}
@@ -187,7 +187,7 @@ export default function AccountDetailPreview() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           3 contacts · 2 emails this week
         </span>
         <span className="text-[12px] font-medium text-[#16A34A]">
@@ -228,7 +228,7 @@ function SignalRow({ signal }: { signal: Signal }) {
           <span className="text-[12px] font-semibold text-[#0A0A0A]">
             {signal.type}
           </span>
-          <span className="text-[10px] text-[#888]">{signal.source}</span>
+          <span className="text-[10px] text-[#666]">{signal.source}</span>
         </div>
         <p className="text-[11px] leading-[1.4] text-[#666]">
           {signal.description}

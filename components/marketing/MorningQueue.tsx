@@ -151,7 +151,7 @@ function TopBar() {
         <h2 className="text-[14px] font-bold tracking-[-0.01em] md:text-[15px]">
           Morning queue
         </h2>
-        <span className="text-[11px] text-[#888] md:text-[12px]">
+        <span className="text-[11px] text-[#666] md:text-[12px]">
           Tuesday, May 6
         </span>
       </div>
@@ -198,7 +198,7 @@ function KpiRow() {
           key={k.label}
           className="rounded-md border-[0.5px] border-[#E8E8E8] bg-white px-3 py-2.5 transition-colors hover:bg-[#FAFAF9]"
         >
-          <div className="text-[9px] font-semibold uppercase tracking-[0.06em] text-[#888] md:text-[10px]">
+          <div className="text-[9px] font-semibold uppercase tracking-[0.06em] text-[#666] md:text-[10px]">
             {k.label}
           </div>
           <div className="mt-1.5 text-[16px] font-semibold tracking-[-0.02em] text-[#0A0A0A] md:text-[18px]">
@@ -300,7 +300,7 @@ function KanbanColumn({
           >
             {title}
           </h3>
-          <span className="text-[10px] text-[#888]">{count}</span>
+          <span className="text-[10px] text-[#666]">{count}</span>
         </div>
         <div className="flex items-center gap-1 rounded border-[0.5px] border-[#E8E8E8] bg-white px-2 py-0.5 text-[10px] text-[#666]">
           AI score <span className="text-[#aaa]">▾</span>
@@ -329,7 +329,7 @@ function KanbanCard({ account, tone }: { account: Account; tone: string }) {
           {account.arr}
         </span>
       </div>
-      <div className="mt-1 flex items-center gap-2 text-[10px] text-[#888]">
+      <div className="mt-1 flex items-center gap-2 text-[10px] text-[#666]">
         <span>Renew in {account.renewal}</span>
         <span className="text-[#ccc]">·</span>
         <span>Silent {account.silent}</span>

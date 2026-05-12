@@ -163,6 +163,53 @@ function TreeDivider() {
   );
 }
 
+function Nav() {
+  return (
+    <nav
+      className="fixed left-0 right-0 top-0 z-50 h-16 bg-white"
+      style={{ borderBottom: "1px solid #EAEAEA" }}
+    >
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 md:px-12">
+        <a
+          href="#product"
+          className="flex items-center gap-2 sm:gap-2.5"
+          aria-label="Evergreen — back to top"
+        >
+          <span className="hidden sm:inline-flex">
+            <TreeMark size={22} />
+          </span>
+          <span className="text-[16px] font-black tracking-[-0.03em] text-[#0A0A0A] sm:text-[18px]">
+            evergreen<span className="text-[#16A34A]">.</span>
+          </span>
+        </a>
+        <div className="flex items-center gap-3 sm:gap-6 md:gap-8">
+          <NavLink href="#product">Product</NavLink>
+          <NavLink href="#methodology">Methodology</NavLink>
+          <NavLink href="#pricing">Pricing</NavLink>
+          <NavLink href="#founder">Founder</NavLink>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function NavLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="text-[12px] font-medium text-[#666] transition-colors hover:text-[#16A34A] sm:text-[14px]"
+    >
+      {children}
+    </a>
+  );
+}
+
 type TabId = "csm" | "manager" | "leader";
 
 const PERSONA_TABS: Record<
@@ -218,7 +265,7 @@ function Section4() {
         viewport={{ once: true, margin: "-80px" }}
         className="mx-auto mb-12 max-w-3xl text-center"
       >
-        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
+        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
           Built for your whole team
         </p>
         <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
@@ -256,7 +303,7 @@ function Section4() {
       >
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-24">
-            <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+            <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#666]">
               {Active.sidebar.eyebrow}
             </p>
             <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
@@ -296,7 +343,7 @@ function PersonaTab({
       className={`relative px-6 py-3 text-[14px] transition-colors ${
         active
           ? "font-bold text-[#16A34A]"
-          : "font-medium text-[#888] hover:text-[#0A0A0A]"
+          : "font-medium text-[#666] hover:text-[#0A0A0A]"
       }`}
     >
       {label}
@@ -314,26 +361,19 @@ function PersonaTab({
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#FAFAF9] text-[#0A0A0A]">
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <motion.header
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: FADE_EASE }}
-          className="flex items-center gap-2.5 pt-8 md:pt-10"
-        >
-          <TreeMark size={28} />
-          <span className="text-[22px] font-black leading-none tracking-[-0.03em] text-[#0A0A0A]">
-            evergreen<span className="text-[#16A34A]">.</span>
-          </span>
-        </motion.header>
-
-        <section className="pb-24 pt-24 text-center md:pb-32 md:pt-32 lg:pt-40">
+    <>
+      <Nav />
+      <main className="min-h-screen bg-[#FAFAF9] pt-16 text-[#0A0A0A]">
+        <div className="mx-auto max-w-7xl px-6 md:px-12">
+          <section
+            id="product"
+            className="pb-24 pt-24 text-center md:pb-32 md:pt-32 lg:pt-40"
+          >
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
-            className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]"
+            className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]"
           >
             The AI platform for customer success
           </motion.p>
@@ -400,13 +440,16 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             className="mb-12 text-center"
           >
-            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
-              There are two paths…
+            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
+              The fork
             </p>
             <h2 className="mx-auto max-w-4xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
+              Two paths for AI in customer success.
+            </h2>
+            <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
               Most AI in customer success is built to replace your CSMs. We bet
               on your team.
-            </h2>
+            </p>
           </motion.div>
 
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
@@ -421,17 +464,27 @@ export default function Home() {
                 boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
               }}
             >
-              <p className="mb-6 text-[12px] uppercase tracking-[0.10em] text-[#888]">
+              <p className="mb-6 text-[12px] uppercase tracking-[0.10em] text-[#666]">
                 The replacement bet
               </p>
               <h3 className="mb-8 text-[24px] font-bold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] lg:text-[28px]">
                 AI replaces your team
               </h3>
-              <ul className="space-y-3 text-[17px] leading-[1.55] text-[#666]">
-                <li>AI runs accounts autonomously</li>
-                <li>CSMs become optional, then redundant</li>
-                <li>Headcount reduction is the ROI story</li>
-                <li>When the AI gets it wrong, no one notices</li>
+              <ul className="flex flex-col gap-2.5 text-[17px] leading-[1.55] text-[#666]">
+                {[
+                  "AI runs accounts autonomously",
+                  "CSMs become optional, then redundant",
+                  "Headcount reduction is the ROI story",
+                  "When the AI gets it wrong, no one notices",
+                ].map((b) => (
+                  <li key={b} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#BBB]"
+                    />
+                    <span>{b}</span>
+                  </li>
+                ))}
               </ul>
             </motion.div>
 
@@ -456,19 +509,154 @@ export default function Home() {
               <h3 className="mb-8 text-[28px] font-extrabold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] lg:text-[32px]">
                 AI makes your team unbeatable
               </h3>
-              <ul className="space-y-3 text-[17px] leading-[1.55] text-[#1F1F1F]">
-                <li>AI handles the cognitive switching cost</li>
-                <li>CSMs do higher-leverage work, faster</li>
-                <li>Your best people get more accounts, not fewer</li>
-                <li>When the AI gets it wrong, your CSM catches it</li>
+              <ul className="flex flex-col gap-2.5 text-[17px] leading-[1.55] text-[#1F1F1F]">
+                {[
+                  "AI handles the cognitive switching cost",
+                  "CSMs do higher-leverage work, faster",
+                  "Your best people get more accounts, not fewer",
+                  "When the AI gets it wrong, your CSM catches it",
+                ].map((b) => (
+                  <li key={b} className="flex items-start gap-3">
+                    <span aria-hidden="true" className="mt-1 shrink-0">
+                      <TreeMark size={14} />
+                    </span>
+                    <span>{b}</span>
+                  </li>
+                ))}
               </ul>
             </motion.div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: FADE_EASE }}
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-20"
+          >
+            <p className="mb-8 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
+              The defensibility test
+            </p>
+
+            <div
+              className="hidden overflow-hidden rounded-xl bg-white md:block"
+              style={{
+                border: "1.5px solid #E5E5E0",
+                boxShadow:
+                  "0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05)",
+              }}
+            >
+              <table className="w-full border-collapse">
+                <thead className="bg-[#FAFAF9]">
+                  <tr>
+                    <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
+                      Question
+                    </th>
+                    <th
+                      className="bg-[#F0F0EC] px-6 py-5 text-center"
+                      style={{
+                        borderLeft: "1px solid #EAEAEA",
+                        borderRight: "1px solid #EAEAEA",
+                      }}
+                    >
+                      <div className="flex items-center justify-center gap-2">
+                        <TreeMark size={16} />
+                        <span className="text-[13px] uppercase tracking-[0.10em] text-[#16A34A]">
+                          Evergreen
+                        </span>
+                      </div>
+                    </th>
+                    <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
+                      Most CS tools
+                    </th>
+                    <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
+                      AI-replacement tools
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row, i) => (
+                    <tr
+                      key={row.question}
+                      className="group"
+                      style={{
+                        borderTop:
+                          i === 0 ? "none" : "1px solid #EAEAEA",
+                      }}
+                    >
+                      <td className="px-6 py-5 text-center align-top text-[15px] text-[#0A0A0A] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                        {row.question}
+                      </td>
+                      <td
+                        className="bg-[#F0F0EC] px-6 py-5 text-center align-top text-[15px] font-semibold text-[#0A0A0A]"
+                        style={{
+                          borderLeft: "1.5px solid #E5E5E0",
+                          borderRight: "1.5px solid #E5E5E0",
+                        }}
+                      >
+                        {row.evergreen}
+                      </td>
+                      <td className="px-6 py-5 text-center align-top text-[15px] text-[#666] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                        {row.legacy}
+                      </td>
+                      <td className="px-6 py-5 text-center align-top text-[15px] text-[#666] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
+                        {row.aiReplacement}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+              {comparisonRows.map((row) => (
+                <div
+                  key={row.question}
+                  className="rounded-xl bg-white p-6"
+                  style={cardChrome}
+                >
+                  <p className="mb-5 text-[15px] font-bold text-[#0A0A0A]">
+                    {row.question}
+                  </p>
+                  <div className="space-y-4">
+                    <div
+                      className="rounded-lg bg-[#F0F0EC] p-3"
+                      style={{ border: "1.5px solid #E5E5E0" }}
+                    >
+                      <div className="mb-1 flex items-center gap-1.5">
+                        <TreeMark size={12} />
+                        <p className="text-[10px] uppercase tracking-[0.10em] text-[#16A34A]">
+                          Evergreen
+                        </p>
+                      </div>
+                      <p className="text-[15px] font-semibold text-[#0A0A0A]">
+                        {row.evergreen}
+                      </p>
+                    </div>
+                    <div className="px-1">
+                      <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#666]">
+                        Most CS tools
+                      </p>
+                      <p className="text-[15px] text-[#666]">{row.legacy}</p>
+                    </div>
+                    <div className="px-1">
+                      <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#666]">
+                        AI-replacement tools
+                      </p>
+                      <p className="text-[15px] text-[#666]">
+                        {row.aiReplacement}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         <TreeDivider />
 
-        <section className="py-24">
+        <section className="py-20">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -476,7 +664,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             className="mb-12 text-center"
           >
-            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
+            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
               Go live in days. Not weeks. Not quarters.
             </p>
             <h2 className="mx-auto max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
@@ -528,7 +716,7 @@ export default function Home() {
                     <p className="mb-4 flex items-center gap-2 text-[17px] font-bold leading-[1.4] tracking-[-0.01em] text-[#0A0A0A]">
                       <Icon
                         size={14}
-                        className="shrink-0 text-[#888]"
+                        className="shrink-0 text-[#666]"
                         aria-hidden="true"
                       />
                       <span>{step.subHeadline}</span>
@@ -551,9 +739,10 @@ export default function Home() {
 
         <motion.section
           {...fadeUp}
+          id="methodology"
           className="pb-12 pt-24 text-center"
         >
-          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#666]">
             AI as the foundation
           </p>
           <h2 className="mx-auto max-w-5xl text-[44px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[72px] lg:text-[88px]">
@@ -578,7 +767,7 @@ export default function Home() {
                 >
                   <div className="lg:col-span-5">
                     <div className="lg:sticky lg:top-24">
-                      <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+                      <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#666]">
                         {m.eyebrow}
                       </p>
                       <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
@@ -608,7 +797,7 @@ export default function Home() {
         <TreeDivider />
 
         <motion.section {...fadeUp} className="pb-12 pt-8 text-center">
-          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#666]">
             We grade ourselves
           </p>
           <h2 className="mx-auto max-w-4xl text-[36px] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] md:text-[52px] lg:text-[64px]">
@@ -636,128 +825,6 @@ export default function Home() {
             Expansion, ARR at Risk, and Save Rate. Trailing four quarters.
             Per-snapshot drill-down on every period. Configurable in Settings.
           </p>
-        </motion.section>
-
-        <TreeDivider />
-
-        <motion.section {...fadeUp} className="pb-16 pt-8">
-          <p className="mb-12 text-[13px] uppercase tracking-[0.10em] text-[#888]">
-            The defensibility test
-          </p>
-
-          <div
-            className="hidden overflow-hidden rounded-xl bg-white md:block"
-            style={{
-              border: "1.5px solid #E5E5E0",
-              boxShadow:
-                "0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05)",
-            }}
-          >
-            <table className="w-full border-collapse">
-              <thead className="bg-[#FAFAF9]">
-                <tr>
-                  <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                    Question
-                  </th>
-                  <th
-                    className="bg-[#F0F0EC] px-6 py-5 text-center"
-                    style={{
-                      borderLeft: "1px solid #EAEAEA",
-                      borderRight: "1px solid #EAEAEA",
-                    }}
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      <TreeMark size={16} />
-                      <span className="text-[13px] uppercase tracking-[0.10em] text-[#16A34A]">
-                        Evergreen
-                      </span>
-                    </div>
-                  </th>
-                  <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                    Most CS tools
-                  </th>
-                  <th className="px-6 py-5 text-center text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                    AI-replacement tools
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonRows.map((row, i) => (
-                  <tr
-                    key={row.question}
-                    className="group"
-                    style={{
-                      borderTop:
-                        i === 0 ? "none" : "1px solid #EAEAEA",
-                    }}
-                  >
-                    <td className="px-6 py-5 text-center align-top text-[15px] text-[#0A0A0A] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
-                      {row.question}
-                    </td>
-                    <td
-                      className="bg-[#F0F0EC] px-6 py-5 text-center align-top text-[15px] font-semibold text-[#0A0A0A]"
-                      style={{
-                        borderLeft: "1.5px solid #E5E5E0",
-                        borderRight: "1.5px solid #E5E5E0",
-                      }}
-                    >
-                      {row.evergreen}
-                    </td>
-                    <td className="px-6 py-5 text-center align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
-                      {row.legacy}
-                    </td>
-                    <td className="px-6 py-5 text-center align-top text-[15px] text-[#888] transition-colors duration-200 group-hover:bg-[rgba(74,222,128,0.03)]">
-                      {row.aiReplacement}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:hidden">
-            {comparisonRows.map((row) => (
-              <div
-                key={row.question}
-                className="rounded-xl bg-white p-6"
-                style={cardChrome}
-              >
-                <p className="mb-5 text-[15px] font-bold text-[#0A0A0A]">
-                  {row.question}
-                </p>
-                <div className="space-y-4">
-                  <div
-                    className="rounded-lg bg-[#F0F0EC] p-3"
-                    style={{ border: "1.5px solid #E5E5E0" }}
-                  >
-                    <div className="mb-1 flex items-center gap-1.5">
-                      <TreeMark size={12} />
-                      <p className="text-[10px] uppercase tracking-[0.10em] text-[#16A34A]">
-                        Evergreen
-                      </p>
-                    </div>
-                    <p className="text-[15px] font-semibold text-[#0A0A0A]">
-                      {row.evergreen}
-                    </p>
-                  </div>
-                  <div className="px-1">
-                    <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#888]">
-                      Most CS tools
-                    </p>
-                    <p className="text-[15px] text-[#888]">{row.legacy}</p>
-                  </div>
-                  <div className="px-1">
-                    <p className="mb-1 text-[10px] uppercase tracking-[0.10em] text-[#888]">
-                      AI-replacement tools
-                    </p>
-                    <p className="text-[15px] text-[#888]">
-                      {row.aiReplacement}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </motion.section>
 
         <motion.section {...fadeUp} className="py-20">
@@ -790,11 +857,12 @@ export default function Home() {
 
         <div className="flex flex-col items-center gap-3 pb-24 pt-32 opacity-60">
           <TreeMark size={24} />
-          <span className="text-xs uppercase tracking-[0.15em] text-[#888]">
+          <span className="text-xs uppercase tracking-[0.15em] text-[#666]">
             evergreen.
           </span>
         </div>
-      </div>
-    </main>
+        </div>
+      </main>
+    </>
   );
 }

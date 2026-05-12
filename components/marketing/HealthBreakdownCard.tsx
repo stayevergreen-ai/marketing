@@ -92,7 +92,7 @@ export default function HealthBreakdownCard() {
         style={{ borderLeft: `3px solid ${color}` }}
       >
         <div className="min-w-0">
-          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
             Health Score
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -119,7 +119,7 @@ export default function HealthBreakdownCard() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           How this is calculated
         </div>
         <p className="text-[13px] leading-[1.55] text-[#1F1F1F]">
@@ -131,7 +131,7 @@ export default function HealthBreakdownCard() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Component breakdown
         </div>
         <div className="flex flex-col gap-3">
@@ -147,7 +147,7 @@ export default function HealthBreakdownCard() {
                     <span className="text-[13px] font-medium text-[#0A0A0A]">
                       {c.label}
                     </span>
-                    <span className="text-[10px] text-[#888]">
+                    <span className="text-[10px] text-[#666]">
                       {c.weight}% weight
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export default function HealthBreakdownCard() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           Composite {composite.toFixed(1)} / 100 · Settings → Health Weights
         </span>
         <span className="text-[12px] font-medium text-[#16A34A]">

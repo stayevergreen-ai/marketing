@@ -87,12 +87,12 @@ const TIERS: Tier[] = [
 
 export default function Pricing() {
   return (
-    <section className="py-24">
+    <section id="pricing" className="py-24">
       <motion.div
         {...fadeUp}
         className="mx-auto mb-16 max-w-3xl text-center"
       >
-        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
+        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
           Pricing
         </p>
         <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
@@ -195,7 +195,7 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
       </ul>
 
       {tier.availability ? (
-        <p className="mt-4 text-[12px] italic text-[#888]">
+        <p className="mt-4 text-[12px] italic text-[#666]">
           {tier.availability}
         </p>
       ) : null}
@@ -226,7 +226,7 @@ function ROIBlock() {
       viewport={{ once: true, margin: "-80px" }}
       className="mx-auto mt-24 max-w-3xl text-center"
     >
-      <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+      <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
         The math
       </p>
       <p className="text-[18px] font-medium leading-[1.4] text-[#0A0A0A] md:text-[20px]">

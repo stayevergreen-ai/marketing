@@ -69,7 +69,7 @@ export default function ManagerReportsPreview() {
       <div className="border-b border-[#EAEAEA] px-6 py-5">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+            <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
               Team Performance
             </div>
             <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -94,7 +94,7 @@ export default function ManagerReportsPreview() {
             className="rounded-md px-3 py-2.5 transition-colors hover:bg-[#FAFAF9]"
             style={{ border: "0.5px solid #EAEAEA" }}
           >
-            <div className="text-[9px] font-semibold uppercase tracking-[0.06em] text-[#888]">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.06em] text-[#666]">
               {k.label}
             </div>
             <div className="mt-1.5 text-[18px] font-semibold tracking-[-0.02em] text-[#0A0A0A]">
@@ -106,7 +106,7 @@ export default function ManagerReportsPreview() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Per CSM · this month
         </div>
         <div
@@ -164,7 +164,7 @@ export default function ManagerReportsPreview() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           This month
         </div>
         <ul className="list-disc space-y-1.5 pl-5 text-[12px] leading-[1.65] text-[#1F1F1F]">
@@ -175,7 +175,7 @@ export default function ManagerReportsPreview() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           36 accounts across 3 CSMs · last sync 4 min ago
         </span>
         <span className="text-[12px] font-medium text-[#16A34A]">
@@ -212,7 +212,7 @@ function ColumnHeader({
 }) {
   return (
     <th
-      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#888]"
+      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#666]"
       style={{ textAlign: align }}
     >
       {children}

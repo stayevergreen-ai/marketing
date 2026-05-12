@@ -78,7 +78,7 @@ export default function CLVMethodology() {
     <div className="bg-white text-[#0A0A0A]">
       <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] px-6 py-5">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
             Customer Lifetime Value
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -94,7 +94,7 @@ export default function CLVMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           How this is calculated
         </div>
         <p className="text-[13px] leading-[1.55] text-[#1F1F1F]">
@@ -105,7 +105,7 @@ export default function CLVMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           The math
         </div>
         <MathRow
@@ -130,7 +130,7 @@ export default function CLVMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Settings driving this
         </div>
         <SettingsRow label="Lifetime cap" value="50 years" />
@@ -139,7 +139,7 @@ export default function CLVMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Accounts in scope · top contributors
         </div>
         <div
@@ -186,7 +186,7 @@ export default function CLVMethodology() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           Showing top 6 of {SUMMARY.accountCount}
         </span>
         <span className="text-[12px] font-medium text-[#16A34A]">
@@ -252,7 +252,7 @@ function ColumnHeader({
 }) {
   return (
     <th
-      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#888]"
+      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#666]"
       style={{ textAlign: align }}
     >
       {children}

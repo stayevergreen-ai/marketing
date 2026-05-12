@@ -112,7 +112,7 @@ export default function CoverageRoutingList() {
     <div className="bg-white text-[#0A0A0A]">
       <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] px-6 py-5">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
             Coverage routing
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -175,7 +175,7 @@ export default function CoverageRoutingList() {
       </div>
 
       <div className="flex items-center justify-between border-t border-[#EAEAEA] px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           Routing AI · 4 candidates evaluated per item
         </span>
         <span className="text-[12px] font-medium text-[#16A34A]">
@@ -210,7 +210,7 @@ function SummaryLine({
       <span className="text-[#bbb]">·</span>
       <span>{aiOnly} AI-only</span>
       <span className="text-[#bbb]">·</span>
-      <span className="text-[#888]">{total} total</span>
+      <span className="text-[#666]">{total} total</span>
     </div>
   );
 }
@@ -246,7 +246,7 @@ function Section({
             <h4 className="text-[12px] font-bold tracking-[-0.01em] text-[#0A0A0A]">
               {title}
             </h4>
-            <span className="text-[11px] text-[#888]">{count}</span>
+            <span className="text-[11px] text-[#666]">{count}</span>
           </div>
           <p className="text-[11px] leading-[1.4] text-[#666]">{subtitle}</p>
         </div>
@@ -295,7 +295,7 @@ function ItemRow({
           <span className="text-[12px] font-semibold text-[#0A0A0A]">
             {item.account}
           </span>
-          <span className="text-[11px] text-[#888]">
+          <span className="text-[11px] text-[#666]">
             {TYPE_LABEL[item.type]} · {item.dueDate}
           </span>
         </div>

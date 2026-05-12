@@ -25,7 +25,7 @@ export default function NRRForecastMethodology() {
     <div className="bg-white text-[#0A0A0A]">
       <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] px-6 py-5">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
             Forecast · NRR
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -42,7 +42,7 @@ export default function NRRForecastMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Formula
         </div>
         <div
@@ -54,7 +54,7 @@ export default function NRRForecastMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Inputs
         </div>
         <MathRow
@@ -107,7 +107,7 @@ export default function NRRForecastMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Assumptions
         </div>
         <ul className="list-disc pl-5 text-[12px] leading-[1.7] text-[#1F1F1F]">
@@ -118,7 +118,7 @@ export default function NRRForecastMethodology() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           Settings → Forecasting · Last snapshot: May 1
         </span>
         <span className="text-[12px] font-medium text-[#16A34A]">

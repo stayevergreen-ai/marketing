@@ -106,7 +106,7 @@ export default function ARRWaterfallPreview() {
     <div className="bg-white text-[#0A0A0A]">
       <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] px-6 py-5">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
             ARR at Risk · {ORG.period}
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -120,7 +120,7 @@ export default function ARRWaterfallPreview() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Quarter-to-date waterfall
         </div>
         <div className="flex flex-col gap-2">
@@ -157,7 +157,7 @@ export default function ARRWaterfallPreview() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           By segment
         </div>
         <div
@@ -210,7 +210,7 @@ export default function ARRWaterfallPreview() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
-        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Recovery confidence
         </div>
         <div className="flex flex-col gap-1.5">
@@ -239,7 +239,7 @@ export default function ARRWaterfallPreview() {
       </div>
 
       <div className="flex items-center justify-between px-6 py-3">
-        <span className="text-[11px] text-[#888]">
+        <span className="text-[11px] text-[#666]">
           Save-rate model · trailing 4Q baseline
         </span>
         <span className="text-[12px] font-medium text-[#16A34A]">
@@ -259,7 +259,7 @@ function ColumnHeader({
 }) {
   return (
     <th
-      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#888]"
+      className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.06em] text-[#666]"
       style={{ textAlign: align }}
     >
       {children}
