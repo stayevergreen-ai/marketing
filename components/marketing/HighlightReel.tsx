@@ -68,13 +68,13 @@ export default function HighlightReel() {
         className="mx-auto mb-14 max-w-3xl text-center"
       >
         <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
-          Features CS has been trying to solve for years
+          What CS has been trying to solve for years
         </p>
         <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
           Built right, finally.
         </h2>
         <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.6] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px]">
-          Three workflows every CS leader has tried to fix and given up on —
+          Four workflows every CS leader has tried to fix and given up on —
           and one most haven't even named. They're hard because they're
           cross-functional, judgment-heavy, and resist automation. They're
           also where AI actually earns its place — when paired with the
