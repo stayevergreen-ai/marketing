@@ -166,6 +166,77 @@ export default function Home() {
           </span>
         </motion.header>
 
+        <section className="pb-24 pt-24 text-center md:pb-32 md:pt-32 lg:pt-40">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
+            className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]"
+          >
+            The AI platform for customer success
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: FADE_EASE }}
+            className="mx-auto max-w-5xl text-balance text-[48px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[80px] lg:text-[112px]"
+          >
+            Built to make your CSMs irreplaceable.
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.35, ease: FADE_EASE }}
+            className="mx-auto mt-8 max-w-2xl text-balance text-[17px] leading-[1.45] tracking-[-0.005em] text-[#666] md:text-[19px] lg:text-[22px]"
+          >
+            Leverage for your CSMs. Board-level confidence for their leaders.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: FADE_EASE }}
+            className="mx-auto mt-12 flex flex-col items-stretch justify-center gap-2 sm:flex-row sm:items-center sm:gap-3"
+          >
+            <motion.a
+              href="/demo"
+              initial={{ scale: 1, backgroundColor: "#0A0A0A" }}
+              whileHover={{ scale: 1.01, backgroundColor: "#16A34A" }}
+              transition={{ duration: 0.2, ease: FADE_EASE }}
+              className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[15px] font-medium text-white"
+            >
+              See a demo
+            </motion.a>
+            <a
+              href="/methodology"
+              className="inline-flex items-center justify-center rounded-lg border border-[#EAEAEA] bg-transparent px-7 py-3.5 text-[15px] font-medium text-[#0A0A0A] transition-all duration-200 hover:border-[#DDDDDD] hover:bg-[#FAFAF9]"
+            >
+              See the methodology
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: FADE_EASE }}
+            className="mx-auto mt-20 max-w-6xl overflow-hidden rounded-xl bg-white md:mt-24"
+            style={cardChrome}
+          >
+            <Image
+              src="/screenshots/00-hero-workspace.png"
+              alt="Evergreen workspace — morning queue with AI-prepared drafts and account signals"
+              width={1235}
+              height={952}
+              priority
+              className="block h-auto w-full"
+            />
+          </motion.div>
+        </section>
+
+        <TreeDivider />
+
         <motion.section
           {...fadeUp}
           className="pb-20 pt-32 text-center md:pt-40"
