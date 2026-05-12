@@ -181,7 +181,7 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
           {tier.bestFor.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-2.5 text-[13px] leading-[1.45] text-[#1F1F1F]"
+              className="flex items-start gap-2.5 text-[13px] leading-[1.45] text-[#444]"
             >
               <Check
                 size={13}
@@ -205,7 +205,7 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
             return (
               <li
                 key={key}
-                className="flex items-start gap-2.5 text-[13px] leading-[1.4] text-[#666]"
+                className="flex items-start gap-2.5 text-[13px] leading-[1.4] text-[#444]"
               >
                 <span
                   aria-hidden="true"
@@ -235,9 +235,9 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
           className={
             isPrimary
               ? "inline-flex w-full items-center justify-center rounded-lg bg-[#16A34A] px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-[#15803D]"
-              : "inline-flex w-full items-center justify-center rounded-lg bg-white px-6 py-3 text-[15px] font-medium text-[#16A34A] transition-colors hover:bg-[#F0FDF4]"
+              : "inline-flex w-full items-center justify-center rounded-lg bg-white px-6 py-3 text-[15px] font-semibold text-[#16A34A] transition-colors hover:bg-[#F0FDF4]"
           }
-          style={isPrimary ? undefined : { border: "1.5px solid #16A34A" }}
+          style={isPrimary ? undefined : { border: "2px solid #16A34A" }}
         >
           {tier.ctaLabel}
         </a>
@@ -262,7 +262,7 @@ function ROIBlock() {
         ROI typically lands at 16–20× year one for a 6-CSM team.
       </p>
       <p className="mt-3 text-[14px] leading-[1.55] text-[#666] md:text-[15px]">
-        Calculator lets you tune assumptions to your own team.
+        Run the math on your team. No vibes — just inputs you control.
       </p>
       <a
         href="/roi"

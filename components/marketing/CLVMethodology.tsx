@@ -1,15 +1,14 @@
 "use client";
 
 const SCOPE = {
-  csm: "Devon Walsh",
-  team: "Mid-Market",
+  org: "Customer Success Org",
   window: "Trailing 12 months",
 };
 
 const SUMMARY = {
-  ltv: "$1.84M",
-  accountCount: 18,
-  avgARR: "$340K",
+  ltv: "$97.2M",
+  accountCount: 86,
+  avgARR: "$95K",
   annualChurnRate: "8.4%",
   avgLifetimeYears: "11.9",
 };
@@ -28,42 +27,42 @@ const TOP_ACCOUNTS: AccountRow[] = [
     name: "Summit Logistics",
     arr: "$520K",
     health: "green",
-    ltvContribution: "$280K",
+    ltvContribution: "$6.19M",
   },
   {
     accountId: "acme-corp",
     name: "Acme Corp",
     arr: "$480K",
     health: "danger",
-    ltvContribution: "$258K",
+    ltvContribution: "$5.71M",
   },
   {
     accountId: "pinewood-partners",
     name: "Pinewood Partners",
-    arr: "$410K",
+    arr: "$440K",
     health: "green",
-    ltvContribution: "$220K",
+    ltvContribution: "$5.24M",
   },
   {
     accountId: "globex-industries",
     name: "Globex Industries",
-    arr: "$390K",
+    arr: "$410K",
     health: "danger",
-    ltvContribution: "$210K",
+    ltvContribution: "$4.88M",
   },
   {
     accountId: "bridgewater-co",
     name: "Bridgewater Co",
-    arr: "$340K",
+    arr: "$360K",
     health: "warn",
-    ltvContribution: "$183K",
+    ltvContribution: "$4.28M",
   },
   {
     accountId: "northfield-health",
     name: "Northfield Health",
-    arr: "$295K",
+    arr: "$310K",
     health: "warn",
-    ltvContribution: "$159K",
+    ltvContribution: "$3.69M",
   },
 ];
 
@@ -82,7 +81,7 @@ export default function CLVMethodology() {
             Customer Lifetime Value
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
-            {SCOPE.csm} · {SCOPE.team} team
+            {SCOPE.org}
           </h3>
           <p className="mt-1 text-[12px] text-[#666]">
             {SCOPE.window} · {SUMMARY.accountCount} accounts in scope
@@ -123,7 +122,7 @@ export default function CLVMethodology() {
           striped
         />
         <MathRow
-          label="Customer Lifetime Value (avg ARR × lifetime)"
+          label="Customer Lifetime Value (avg ARR × lifetime × accounts)"
           value={SUMMARY.ltv}
           accent
         />

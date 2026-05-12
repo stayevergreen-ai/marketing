@@ -108,7 +108,7 @@ export default function BookVOCMethodology() {
       <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] px-6 py-5">
         <div className="min-w-0">
           <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
-            Book VOC · Live
+            Book Voice of Customer · Live
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
             {BOOK.csm}&apos;s book

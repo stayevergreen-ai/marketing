@@ -35,12 +35,12 @@ type Moment = {
 };
 
 const moments: Moment[] = [
-  // Beat 1 — Metrics that drive forecasts
+  // Foundational metrics
   {
     eyebrow: "Show me the formula",
     headline: "Click any number. See exactly how it was computed.",
     caption:
-      "The starting point. Every metric in Evergreen — every claim, every flag — is built on math you can audit.",
+      "Customer Lifetime Value, computed at your org's actual scale. Every metric in Evergreen — every claim, every flag — is built on math you can audit.",
     Component: CLVMethodology,
   },
   {
@@ -51,7 +51,6 @@ const moments: Moment[] = [
       "Forecasts move with your reality. Stretch upside scenarios show what's possible if signals close as expected.",
     Component: NRRForecastMethodology,
   },
-  // Beat 2 — Signals that drive metrics
   {
     eyebrow: "Show me what's pushing the score",
     headline: "Five components. Weighted. Traceable.",
@@ -59,29 +58,7 @@ const moments: Moment[] = [
       "Every health number traces back to engagement, sentiment, behavior, business signals, and renewal proximity. Configurable. Always current.",
     Component: HealthBreakdownCard,
   },
-  {
-    eyebrow: "Show me the signals",
-    headline: "Every theme traces back to a source.",
-    caption:
-      "Sentiment isn't a vibe. It's an aggregate of email tone, ticket urgency, and meeting commentary — with the source visible.",
-    Component: AccountVOCMethodology,
-  },
-  // Beat 3 — Patterns that drive strategy
-  {
-    eyebrow: "Show me the patterns",
-    headline: "What's true across the whole book.",
-    caption:
-      "AI surfaces themes that span multiple accounts — so you spot the systemic risk before it shows up in your numbers.",
-    Component: BookVOCMethodology,
-  },
-  // Beat 4 — Decisions the AI makes
-  {
-    eyebrow: "Show me the AI's reasoning",
-    headline: "Every CSM evaluated. Every projection shown.",
-    caption:
-      "When the AI suggests coverage, the lattice behind the choice is fully visible — including capacity impact and what your CSMs need to handle on return.",
-    Component: CoverageRoutingList,
-  },
+  // Operational peak
   {
     eyebrow: "Show me the prep",
     headline: "Every QBR walks in fully prepared.",
@@ -89,7 +66,30 @@ const moments: Moment[] = [
       "AI assembles the brief from the same signals that feed health and forecasts — so what you say in the QBR matches what's actually true.",
     Component: AccountQBRMethodology,
   },
-  // Beat 5 — Self-grading proof
+  // Qualitative signals
+  {
+    eyebrow: "Show me the signals",
+    headline: "Every theme traces back to a source.",
+    caption:
+      "Sentiment isn't a vibe. It's an aggregate of email tone, ticket urgency, and meeting commentary — with the source visible.",
+    Component: AccountVOCMethodology,
+  },
+  {
+    eyebrow: "Show me the patterns",
+    headline: "What's true across the whole book.",
+    caption:
+      "AI surfaces themes that span multiple accounts — so you spot the systemic risk before it shows up in your numbers.",
+    Component: BookVOCMethodology,
+  },
+  // Operational decisions
+  {
+    eyebrow: "Show me the AI's reasoning",
+    headline: "Every CSM evaluated. Every projection shown.",
+    caption:
+      "When the AI suggests coverage, the lattice behind the choice is fully visible — including capacity impact and what your CSMs need to handle on return.",
+    Component: CoverageRoutingList,
+  },
+  // Self-grading proof
   {
     eyebrow: "Show me the proof",
     headline:
@@ -104,26 +104,26 @@ const comparisonRows = [
   {
     question: "Show me the formula behind any metric",
     evergreen: "One click on any tile",
-    legacy: "Help docs",
-    aiReplacement: "Black-box",
-  },
-  {
-    question: "How accurate were last quarter's forecasts vs actual?",
-    evergreen: "Per-snapshot drill-down, per metric, per period",
-    legacy: "Manual tracking in spreadsheets",
-    aiReplacement: "Claimed, not proven",
+    legacy: "Documentation only — formula not surfaced",
+    aiReplacement: "Confidence score only — no traceable inputs",
   },
   {
     question: "Why did the AI pick that CSM for coverage?",
     evergreen: "Every candidate evaluated, with projection",
-    legacy: "Rules-based or hidden",
-    aiReplacement: "Doesn't ask the human",
+    legacy: "Rules-based, no projection visible",
+    aiReplacement: "Doesn't surface the human override",
   },
   {
     question: "What pushed this account into the at-risk band?",
     evergreen: "5-component health breakdown with weights",
-    legacy: "Aggregate score only",
-    aiReplacement: "Black-box",
+    legacy: "Aggregate score, weights not visible",
+    aiReplacement: "Score with no breakdown",
+  },
+  {
+    question: "What did we commit to last QBR — and did we deliver?",
+    evergreen: "Pulled from QBR record + tracked through cycle",
+    legacy: "Lives in meeting notes outside the platform",
+    aiReplacement: "AI generates new prep without commitment context",
   },
 ];
 
@@ -429,7 +429,7 @@ export default function Home() {
               The fork
             </p>
             <h2 className="mx-auto max-w-4xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
-              Two paths for AI in customer success.
+              There are two paths for AI in customer success.
             </h2>
             <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
               Most AI in customer success is built to replace your CSMs. We bet
