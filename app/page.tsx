@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { ComponentType } from "react";
 import { motion } from "framer-motion";
 import { Mail, Sun, Calendar } from "lucide-react";
@@ -10,6 +11,9 @@ import CLVMethodology from "../components/marketing/CLVMethodology";
 import NRRForecastMethodology from "../components/marketing/NRRForecastMethodology";
 import CoverageRoutingList from "../components/marketing/CoverageRoutingList";
 import ForecastAccuracy from "../components/marketing/ForecastAccuracy";
+import AccountDetailPreview from "../components/marketing/AccountDetailPreview";
+import ManagerReportsPreview from "../components/marketing/ManagerReportsPreview";
+import ARRWaterfallPreview from "../components/marketing/ARRWaterfallPreview";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -155,6 +159,155 @@ function TreeDivider() {
       <TreeMark size={20} className="opacity-85" />
       <div className="h-px max-w-32 flex-1 bg-[#C8C8C3]" />
     </div>
+  );
+}
+
+type TabId = "csm" | "manager" | "leader";
+
+const PERSONA_TABS: Record<
+  TabId,
+  {
+    label: string;
+    sidebar: { eyebrow: string; headline: string; sub: string };
+    Component: ComponentType;
+  }
+> = {
+  csm: {
+    label: "CSM",
+    sidebar: {
+      eyebrow: "For the operator",
+      headline: "Every account, fully contextual.",
+      sub: "AI briefs the moment of work. Signals trace to source. No manual digging through threads to remember why an account stalled.",
+    },
+    Component: AccountDetailPreview,
+  },
+  manager: {
+    label: "Manager",
+    sidebar: {
+      eyebrow: "For the manager",
+      headline: "Your team's rhythm, every cadence.",
+      sub: "Per-CSM visibility, trend tracking, capacity awareness. Switch cadence to match the conversation — weekly standups to quarterly business reviews.",
+    },
+    Component: ManagerReportsPreview,
+  },
+  leader: {
+    label: "Leader",
+    sidebar: {
+      eyebrow: "For the leader",
+      headline: "Defensible numbers for the board.",
+      sub: "Methodology-backed forecasts. Recovery confidence broken out by save-rate model. Exec-ready visibility without the spreadsheet ceremony.",
+    },
+    Component: ARRWaterfallPreview,
+  },
+};
+
+const TAB_ORDER: TabId[] = ["csm", "manager", "leader"];
+
+function Section4() {
+  const [activeTab, setActiveTab] = useState<TabId>("csm");
+  const Active = PERSONA_TABS[activeTab];
+  const ActiveComponent = Active.Component;
+
+  return (
+    <section className="py-24">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: FADE_EASE }}
+        viewport={{ once: true, margin: "-80px" }}
+        className="mx-auto mb-12 max-w-3xl text-center"
+      >
+        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
+          Built for your whole team
+        </p>
+        <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
+          Same product. Three lenses. One source of truth.
+        </h2>
+        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
+          What your CSMs, managers, and CS leadership see in Evergreen — one
+          product surface tuned to each.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: FADE_EASE }}
+        viewport={{ once: true, margin: "-80px" }}
+        className="mb-10 flex justify-center border-b border-[#EAEAEA]"
+      >
+        {TAB_ORDER.map((id) => (
+          <PersonaTab
+            key={id}
+            label={PERSONA_TABS[id].label}
+            active={activeTab === id}
+            onClick={() => setActiveTab(id)}
+          />
+        ))}
+      </motion.div>
+
+      <motion.div
+        key={activeTab}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: FADE_EASE }}
+        className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
+      >
+        <div className="lg:col-span-4">
+          <div className="lg:sticky lg:top-24">
+            <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#888]">
+              {Active.sidebar.eyebrow}
+            </p>
+            <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
+              {Active.sidebar.headline}
+            </h3>
+            <p className="text-[16px] leading-[1.6] text-[#666]">
+              {Active.sidebar.sub}
+            </p>
+          </div>
+        </div>
+        <div className="lg:col-span-8">
+          <div
+            className="overflow-hidden rounded-xl bg-white"
+            style={cardChrome}
+          >
+            <ActiveComponent />
+          </div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function PersonaTab({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`relative px-6 py-3 text-[14px] transition-colors ${
+        active
+          ? "font-bold text-[#16A34A]"
+          : "font-medium text-[#888] hover:text-[#0A0A0A]"
+      }`}
+    >
+      {label}
+      {active && (
+        <motion.span
+          layoutId="active-persona-tab"
+          className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-[#16A34A]"
+          aria-hidden="true"
+          transition={{ duration: 0.3, ease: FADE_EASE }}
+        />
+      )}
+    </button>
   );
 }
 
@@ -388,6 +541,10 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <TreeDivider />
+
+        <Section4 />
 
         <TreeDivider />
 
