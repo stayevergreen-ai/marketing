@@ -219,9 +219,8 @@ function ROIBlock() {
       <p className="mt-3 text-[14px] leading-[1.55] text-[#666] md:text-[15px]">
         Calculator lets you tune assumptions to your own team.
       </p>
-      {/* /roi calculator coming next sprint — placeholder href */}
       <a
-        href="#"
+        href="/roi"
         className="mt-5 inline-block text-[14px] font-medium text-[#16A34A] transition-colors hover:text-[#15803D]"
       >
         See the math →
