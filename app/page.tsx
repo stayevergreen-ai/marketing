@@ -541,13 +541,7 @@ export default function Home() {
             </span>
           </motion.button>
 
-          <div
-            role="separator"
-            aria-hidden="true"
-            className="mb-24 mt-32 flex justify-center"
-          >
-            <TreeMark size={28} className="opacity-40" />
-          </div>
+          <TreeDivider />
 
           <motion.div
             initial={false}
