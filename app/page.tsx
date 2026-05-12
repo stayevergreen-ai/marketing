@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Mail, Sun, Calendar } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -82,21 +84,30 @@ const comparisonRows = [
   },
 ];
 
-const steps = [
+const steps: {
+  number: string;
+  icon: LucideIcon;
+  headline: string;
+  subHeadline: string;
+  body: string;
+}[] = [
   {
     number: "01",
+    icon: Mail,
     headline: "Connect what you have",
     subHeadline: "Gmail or Outlook. Done.",
     body: "Evergreen reads your customer email signal — the same conversations your CSMs are already having. No data warehouse migration. No CSV imports. No 'foundational data work' that takes a quarter.",
   },
   {
     number: "02",
+    icon: Sun,
     headline: "CSMs open Evergreen",
     subHeadline: "First queue is ready that morning.",
     body: "AI prioritizes the first day of accounts based on signal it's seen since you connected. Your CSMs walk into a workspace that already understands their book.",
   },
   {
     number: "03",
+    icon: Calendar,
     headline: "Numbers leaders can defend",
     subHeadline: "Within 30 days.",
     body: "Forecast accuracy starts grading itself from snapshot one. Health scores anchor to real engagement, sentiment, behavior, and renewal signals. Every number traces back to a method, not a vibe.",
@@ -269,7 +280,7 @@ export default function Home() {
             <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
               There are two paths…
             </p>
-            <h2 className="mx-auto max-w-4xl text-balance text-[36px] font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] md:text-[48px] lg:text-[64px]">
+            <h2 className="mx-auto max-w-4xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
               Most AI in customer success is built to replace your CSMs. We bet
               on your team.
             </h2>
@@ -306,17 +317,20 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: FADE_EASE }}
               viewport={{ once: true, margin: "-100px" }}
-              className="rounded-2xl bg-white p-6 md:p-8 lg:p-10"
+              className="relative rounded-2xl bg-[#FBFBFA] p-6 md:p-8 lg:p-10"
               style={{
                 border: "1.5px solid #E5E5E0",
                 boxShadow:
-                  "0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05)",
+                  "0 1px 3px rgba(0, 0, 0, 0.05), 0 12px 32px rgba(0, 0, 0, 0.07)",
               }}
             >
+              <div className="absolute right-8 top-8">
+                <TreeMark size={24} />
+              </div>
               <p className="mb-6 text-[12px] uppercase tracking-[0.10em] text-[#16A34A]">
                 Our bet
               </p>
-              <h3 className="mb-8 text-[24px] font-bold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] lg:text-[28px]">
+              <h3 className="mb-8 text-[28px] font-extrabold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] lg:text-[32px]">
                 AI makes your team unbeatable
               </h3>
               <ul className="space-y-3 text-[17px] leading-[1.55] text-[#1F1F1F]">
@@ -342,43 +356,67 @@ export default function Home() {
             <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#888]">
               Go live in days. Not weeks. Not quarters.
             </p>
-            <h2 className="mx-auto max-w-3xl text-balance text-[32px] font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] md:text-[48px] lg:text-[56px]">
+            <h2 className="mx-auto max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
               Three steps. No 12-week implementation.
             </h2>
           </motion.div>
 
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:grid-cols-3">
-            {steps.map((step, i) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.1 * (i + 1),
-                  ease: FADE_EASE,
-                }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="rounded-2xl bg-white p-6 md:p-8 lg:p-10"
-                style={{
-                  border: "1px solid #EAEAEA",
-                  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
-                }}
-              >
-                <p className="mb-6 text-[48px] font-extrabold leading-none tracking-[-0.04em] text-[#16A34A] lg:text-[56px]">
-                  {step.number}
-                </p>
-                <h3 className="mb-2 text-[22px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0A0A0A] lg:text-[24px]">
-                  {step.headline}
-                </h3>
-                <p className="mb-4 text-[17px] font-bold leading-[1.4] tracking-[-0.01em] text-[#0A0A0A]">
-                  {step.subHeadline}
-                </p>
-                <p className="text-[16px] leading-[1.6] text-[#666]">
-                  {step.body}
-                </p>
-              </motion.div>
-            ))}
+          <div className="relative mx-auto max-w-7xl">
+            <div
+              aria-hidden="true"
+              className="absolute left-0 right-0 hidden h-px bg-[#EAEAEA] lg:block"
+              style={{ top: "68px" }}
+            />
+            <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-3">
+              {steps.map((step, i) => {
+                const Icon = step.icon;
+                return (
+                  <motion.div
+                    key={step.number}
+                    initial={{
+                      opacity: 0,
+                      y: 16,
+                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
+                    }}
+                    whileHover={{
+                      y: -2,
+                      boxShadow: "0 4px 16px rgba(0, 0, 0, 0.06)",
+                      transition: { duration: 0.2, ease: "easeOut" },
+                    }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 0.1 * (i + 1),
+                      ease: FADE_EASE,
+                    }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="rounded-2xl border border-[#EAEAEA] bg-white p-6 md:p-8 lg:p-10"
+                  >
+                    <p className="mb-6 text-[48px] font-extrabold leading-none tracking-[-0.04em] text-[#16A34A] lg:text-[56px]">
+                      {step.number}
+                    </p>
+                    <h3 className="mb-2 text-[22px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0A0A0A] lg:text-[24px]">
+                      {step.headline}
+                    </h3>
+                    <p className="mb-4 flex items-center gap-2 text-[17px] font-bold leading-[1.4] tracking-[-0.01em] text-[#0A0A0A]">
+                      <Icon
+                        size={14}
+                        className="shrink-0 text-[#888]"
+                        aria-hidden="true"
+                      />
+                      <span>{step.subHeadline}</span>
+                    </p>
+                    <p className="text-[16px] leading-[1.6] text-[#666]">
+                      {step.body}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </section>
 
@@ -401,7 +439,7 @@ export default function Home() {
           </p>
         </motion.section>
 
-        <section className="border-t border-[#EAEAEA] pb-32 pt-16">
+        <section className="border-t border-[#EAEAEA] pb-24 pt-12">
           <div className="space-y-32">
             {moments.map((m) => (
               <motion.div
@@ -409,7 +447,7 @@ export default function Home() {
                 {...fadeUp}
                 className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
               >
-                <div className="lg:col-span-4">
+                <div className="lg:col-span-5">
                   <div className="lg:sticky lg:top-24">
                     <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#888]">
                       {m.eyebrow}
@@ -424,7 +462,7 @@ export default function Home() {
                     ) : null}
                   </div>
                 </div>
-                <div className="lg:col-span-8">
+                <div className="lg:col-span-7">
                   <ScreenshotCard
                     src={m.src}
                     alt={m.alt}
