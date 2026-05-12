@@ -439,7 +439,7 @@ function QBRVisual() {
       </div>
       <div className="grid grid-cols-1 gap-px bg-[#EAEAEA] sm:grid-cols-2">
         <div
-          className="flex flex-col gap-3 px-5 py-4"
+          className="flex flex-col gap-4 px-5 py-4"
           style={{ background: "#F8F6EF" }}
         >
           <div>
@@ -450,18 +450,38 @@ function QBRVisual() {
               For your team and leadership
             </p>
           </div>
-          <div>
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-              Progress review
-            </p>
-            <p className="text-[12.5px] leading-[1.5] text-[#1F1F1F]">
-              Active users 147 of 200 (74%) — pace for end-of-Q2.
-            </p>
-          </div>
-          <div>
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-              At-risk callout
-            </p>
+
+          <QBRSection title="Progress review">
+            <QBRBullet>
+              Active users: 147 of 200 (74%) — pace for end-of-Q2
+            </QBRBullet>
+          </QBRSection>
+
+          <QBRSection title="Adoption detail">
+            <QBRBullet>Module A: 87% deployed (target 90%)</QBRBullet>
+            <QBRBullet>
+              Module B: 12% adopted on Ops team — gap vs 60% target
+            </QBRBullet>
+            <QBRBullet>API integration: live in 4 of 7 systems</QBRBullet>
+          </QBRSection>
+
+          <QBRSection title="Health signals">
+            <QBRBullet tone="green">
+              Product usage trending up (+18% MoM)
+            </QBRBullet>
+            <QBRBullet tone="green">
+              Champion (Priya Raman) engagement: high
+            </QBRBullet>
+            <QBRBullet tone="amber">
+              Decision-maker engagement: low — Tom Blackwell missed last 2
+              monthly checkpoints
+            </QBRBullet>
+            <QBRBullet tone="amber">
+              Support tickets: 3 open (1 P1 on Module B sync)
+            </QBRBullet>
+          </QBRSection>
+
+          <QBRSection title="At-risk callout">
             <div
               className="rounded-md p-2.5"
               style={{
@@ -476,17 +496,25 @@ function QBRVisual() {
                 Plan exec briefing once successor named.
               </p>
             </div>
-          </div>
-          <div>
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-              Commitment watch
-            </p>
+          </QBRSection>
+
+          <QBRSection title="Expansion signals">
+            <QBRBullet tone="green">
+              Procurement requested value review before renewal — Q3
+              expansion conversation likely
+            </QBRBullet>
+            <QBRBullet tone="green">
+              Module C interest mentioned by Priya in last 1:1
+            </QBRBullet>
+          </QBRSection>
+
+          <QBRSection title="Commitment watch">
             <div className="flex items-start gap-2">
               <span
                 aria-hidden="true"
                 className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#16A34A]"
               />
-              <p className="flex-1 text-[12px] leading-[1.5] text-[#1F1F1F]">
+              <p className="flex-1 text-[12.5px] leading-[1.5] text-[#1F1F1F]">
                 Procurement value review · confirmed for May 22
               </p>
               <span
@@ -496,11 +524,21 @@ function QBRVisual() {
                 Committed
               </span>
             </div>
-          </div>
+          </QBRSection>
+
+          <QBRSection title="Internal next steps">
+            <QBRBullet>Schedule exec briefing pre-Q3</QBRBullet>
+            <QBRBullet>
+              Push Module B adoption with Ops team lead
+            </QBRBullet>
+            <QBRBullet>
+              Prep expansion deck for Q3 board discussion
+            </QBRBullet>
+          </QBRSection>
         </div>
 
         <div
-          className="flex flex-col gap-3 px-5 py-4"
+          className="flex flex-col gap-4 px-5 py-4"
           style={{ background: "#F4FAF5" }}
         >
           <div>
@@ -511,35 +549,77 @@ function QBRVisual() {
               For your customer&apos;s executive team
             </p>
           </div>
-          <div>
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-              Highlight slide
-            </p>
+
+          <QBRSection title="Highlight slide">
             <p className="text-[12.5px] font-medium leading-[1.5] text-[#1F1F1F]">
               Module A adoption: 147 active users — strong trajectory toward
               200 target by end of Q2.
             </p>
-          </div>
-          <div>
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-              Talk track
-            </p>
+          </QBRSection>
+
+          <QBRSection title="Key wins this quarter">
+            <QBRBullet tone="green">
+              18% MoM usage growth across Engineering and Ops
+            </QBRBullet>
+            <QBRBullet tone="green">
+              API live in 4 production systems
+            </QBRBullet>
+            <QBRBullet tone="green">Q1 commitment hit on schedule</QBRBullet>
+            <QBRBullet tone="green">
+              2 internal champions added in Procurement and Support
+            </QBRBullet>
+          </QBRSection>
+
+          <QBRSection title="Mutual goals tracking">
+            <ul className="flex flex-col gap-1.5">
+              <QBRGoalRow
+                status="done"
+                quarter="Q1"
+                text="100 active users (delivered)"
+              />
+              <QBRGoalRow
+                status="active"
+                quarter="Q2"
+                text="200 active users (74% complete)"
+              />
+              <QBRGoalRow
+                status="future"
+                quarter="Q3"
+                text="Module B rollout to 60% of Ops team"
+              />
+              <QBRGoalRow
+                status="future"
+                quarter="Q4"
+                text="Renewal + expansion conversation"
+              />
+            </ul>
+          </QBRSection>
+
+          <QBRSection title="Talk track">
             <div className="border-l-2 border-[#16A34A] pl-3">
               <p className="text-[11.5px] italic leading-[1.55] text-[#1F1F1F]">
                 &ldquo;You&rsquo;re tracking active users at 74% of your Q1
                 commitment. Trajectory is healthy.&rdquo;
               </p>
             </div>
-          </div>
-          <div>
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
-              Value proof
-            </p>
-            <p className="text-[12px] leading-[1.5] text-[#1F1F1F]">
+          </QBRSection>
+
+          <QBRSection title="Value proof">
+            <p className="text-[12.5px] leading-[1.5] text-[#1F1F1F]">
               Q1 commitment hit · Q2 on track · 3 expansion conversations
               active
             </p>
-          </div>
+          </QBRSection>
+
+          <QBRSection title="Next quarter preview">
+            <QBRBullet>
+              Procurement value review confirmed · May 22
+            </QBRBullet>
+            <QBRBullet>Module C exploratory conversation</QBRBullet>
+            <QBRBullet>
+              Onboarding Module B adoption for Ops team lead
+            </QBRBullet>
+          </QBRSection>
         </div>
       </div>
       <div className="border-t border-[#EAEAEA] bg-white px-5 py-3">
@@ -548,6 +628,86 @@ function QBRVisual() {
         </p>
       </div>
     </div>
+  );
+}
+
+function QBRSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        {title}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+function QBRBullet({
+  tone = "neutral",
+  children,
+}: {
+  tone?: "neutral" | "green" | "amber";
+  children: React.ReactNode;
+}) {
+  const DOT: Record<"neutral" | "green" | "amber", string> = {
+    neutral: "#BBB",
+    green: "#16A34A",
+    amber: "#FB923C",
+  };
+  return (
+    <div className="flex items-start gap-2 py-0.5">
+      <span
+        aria-hidden="true"
+        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+        style={{ background: DOT[tone] }}
+      />
+      <span className="flex-1 text-[12.5px] leading-[1.5] text-[#1F1F1F]">
+        {children}
+      </span>
+    </div>
+  );
+}
+
+function QBRGoalRow({
+  status,
+  quarter,
+  text,
+}: {
+  status: "done" | "active" | "future";
+  quarter: string;
+  text: string;
+}) {
+  return (
+    <li className="flex items-start gap-2 py-0.5">
+      <span
+        aria-hidden="true"
+        className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold leading-none"
+        style={
+          status === "done"
+            ? { color: "#15803D", background: "#F0FDF4" }
+            : { color: "#888", background: "#F5F5F4" }
+        }
+      >
+        {status === "done" ? "✓" : "→"}
+      </span>
+      <span className="flex-1 text-[12.5px] leading-[1.5] text-[#1F1F1F]">
+        <span className="font-semibold">{quarter}:</span> {text}
+      </span>
+      {status === "active" ? (
+        <span
+          className="shrink-0 rounded px-1.5 py-px text-[9.5px] font-bold uppercase tracking-[0.08em]"
+          style={{ color: "#15803D", background: "#F0FDF4" }}
+        >
+          Active
+        </span>
+      ) : null}
+    </li>
   );
 }
 
