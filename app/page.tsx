@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ComponentType } from "react";
 import { motion } from "framer-motion";
 import { Mail, Sun, Calendar } from "lucide-react";
@@ -267,13 +267,7 @@ function Section4() {
         </p>
       </motion.div>
 
-      <motion.div
-        initial={false}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: FADE_EASE }}
-        viewport={{ once: true, margin: "-80px" }}
-        className="mb-10 flex justify-center border-b border-[#EAEAEA]"
-      >
+      <div className="mb-10 flex justify-center border-b border-[#EAEAEA]">
         {TAB_ORDER.map((id) => (
           <PersonaTab
             key={id}
@@ -282,7 +276,7 @@ function Section4() {
             onClick={() => setActiveTab(id)}
           />
         ))}
-      </motion.div>
+      </div>
 
       <motion.div
         key={activeTab}
@@ -330,26 +324,31 @@ function PersonaTab({
     <button
       type="button"
       onClick={onClick}
-      className={`relative px-6 py-3 text-[14px] transition-colors ${
+      className={`relative cursor-pointer px-6 py-3 text-[14px] transition-colors ${
         active
           ? "font-bold text-[#16A34A]"
           : "font-medium text-[#666] hover:text-[#0A0A0A]"
       }`}
     >
       {label}
-      {active && (
-        <motion.span
-          layoutId="active-persona-tab"
-          className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-[#16A34A]"
-          aria-hidden="true"
-          transition={{ duration: 0.3, ease: FADE_EASE }}
-        />
-      )}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-px left-3 right-3 h-[2px] bg-[#16A34A] transition-opacity duration-200"
+        style={{ opacity: active ? 1 : 0 }}
+      />
     </button>
   );
 }
 
 export default function Home() {
+  useEffect(() => {
+    const handler = (e: PageTransitionEvent) => {
+      if (e.persisted) window.location.reload();
+    };
+    window.addEventListener("pageshow", handler);
+    return () => window.removeEventListener("pageshow", handler);
+  }, []);
+
   return (
     <>
       <Nav />

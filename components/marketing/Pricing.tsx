@@ -6,10 +6,7 @@ import { Check } from "lucide-react";
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
 const fadeUp = {
-  initial: { opacity: 0, y: 16 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: FADE_EASE },
-  viewport: { once: true, margin: "-80px" },
+  initial: false,
 } as const;
 
 type Tier = {
@@ -85,7 +82,7 @@ const TIERS: Tier[] = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-24">
+    <section id="pricing" className="pb-24 pt-12">
       <motion.div
         {...fadeUp}
         className="mx-auto mb-16 max-w-3xl text-center"
