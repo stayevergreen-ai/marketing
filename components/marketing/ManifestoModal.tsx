@@ -13,7 +13,6 @@ const SERIF_STACK =
 const manifesto = {
   brand: "Evergreen",
   section: "A manifesto",
-  issue: "№ 001",
   subhead:
     "A statement on what we believe, what we won't build, and the bet we're making on every customer success team that comes with us.",
   headline: "There are two paths for AI in customer success.",
@@ -113,24 +112,13 @@ export default function ManifestoModal({
             </button>
 
             <div className="p-8 sm:px-12 sm:pb-10 sm:pt-14">
-              <div className="mb-8 flex items-baseline justify-between gap-3">
-                <p className="flex flex-wrap items-baseline gap-x-2 text-[11px] font-medium uppercase tracking-[0.2em]">
-                  <span className="text-[#999]">{manifesto.brand}</span>
-                  <span aria-hidden="true" className="text-[#999]">
-                    ·
-                  </span>
-                  <span className="text-[#16A34A]">{manifesto.section}</span>
-                </p>
-                <p className="shrink-0 text-[11px] font-medium tracking-[0.2em] text-[#999]">
-                  {manifesto.issue}
-                </p>
-              </div>
-
-              <div className="mb-10 border-l-2 border-[#16A34A] pl-5">
-                <p className="text-[16px] font-medium leading-[1.45] text-[#0A0A0A]">
-                  {manifesto.subhead}
-                </p>
-              </div>
+              <p className="mb-10 flex flex-wrap items-center gap-x-2 text-[11px] font-medium uppercase tracking-[0.2em]">
+                <span className="text-[#999]">{manifesto.brand}</span>
+                <span aria-hidden="true" className="text-[#999]">
+                  ·
+                </span>
+                <span className="text-[#16A34A]">{manifesto.section}</span>
+              </p>
 
               <h2
                 id="manifesto-headline"
@@ -144,11 +132,17 @@ export default function ManifestoModal({
               </h2>
 
               <p
-                className="mb-10 text-[17px] italic leading-[1.45] text-[#555] md:text-[19px]"
+                className="mb-8 text-[17px] italic leading-[1.45] text-[#555] md:text-[19px]"
                 style={{ fontFamily: SERIF_STACK }}
               >
                 {manifesto.lede}
               </p>
+
+              <div className="mb-8 border-l-2 border-[#16A34A] pl-5">
+                <p className="text-[17px] font-medium leading-[1.4] text-[#0A0A0A]">
+                  {manifesto.subhead}
+                </p>
+              </div>
 
               <p className="mb-5 text-[16px] leading-[1.7] text-[#0A0A0A]">
                 {manifesto.paragraph1}
