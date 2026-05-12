@@ -14,6 +14,7 @@ import ForecastAccuracy from "../components/marketing/ForecastAccuracy";
 import AccountDetailPreview from "../components/marketing/AccountDetailPreview";
 import ManagerReportsPreview from "../components/marketing/ManagerReportsPreview";
 import ARRWaterfallPreview from "../components/marketing/ARRWaterfallPreview";
+import Pricing from "../components/marketing/Pricing";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -780,6 +781,12 @@ export default function Home() {
             </a>
           </div>
         </motion.section>
+
+        <TreeDivider />
+
+        <Pricing />
+
+        <TreeDivider />
 
         <div className="flex flex-col items-center gap-3 pb-24 pt-32 opacity-60">
           <TreeMark size={24} />
