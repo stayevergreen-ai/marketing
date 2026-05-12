@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Sparkles, TrendingDown, TrendingUp } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowDown,
+  Minus,
+  Sparkles,
+  TrendingDown,
+  TrendingUp,
+} from "lucide-react";
 
 type Scope = "account" | "book" | "org";
 
@@ -450,19 +457,40 @@ const SCOPE_DATA: Record<Scope, ScopeData> = {
 
 export default function VoiceOfCustomerMethodology() {
   const [scope, setScope] = useState<Scope>("book");
+  const reduceMotion = useReducedMotion();
   const data = SCOPE_DATA[scope];
 
   return (
     <div className="bg-white text-[#0A0A0A]">
       <div className="border-b border-[#EAEAEA] px-6 py-5">
+        <p className="mb-2 flex items-center gap-1.5 text-[11px] italic text-[#888]">
+          <span>
+            Try toggling the scope to see how Voice of Customer adapts
+          </span>
+          <ArrowDown size={11} className="shrink-0" aria-hidden="true" />
+        </p>
         <div className="inline-flex items-center gap-1 rounded-lg bg-[#F5F5F4] p-1">
           {SCOPES.map((s) => {
             const active = scope === s;
             return (
-              <button
+              <motion.button
                 key={s}
                 type="button"
                 onClick={() => setScope(s)}
+                animate={
+                  active || reduceMotion
+                    ? { opacity: 1 }
+                    : { opacity: [1, 0.6, 1] }
+                }
+                transition={
+                  active || reduceMotion
+                    ? { duration: 0.3 }
+                    : {
+                        duration: 2.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
                 className={
                   active
                     ? "rounded-md bg-white px-3.5 py-1.5 text-[12px] font-semibold text-[#16A34A] shadow-sm"
@@ -470,7 +498,7 @@ export default function VoiceOfCustomerMethodology() {
                 }
               >
                 {SCOPE_LABELS[s]}
-              </button>
+              </motion.button>
             );
           })}
         </div>

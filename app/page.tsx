@@ -19,6 +19,7 @@ import FinalCTA from "../components/marketing/FinalCTA";
 import Nav from "../components/marketing/Nav";
 import VoiceOfCustomerMethodology from "../components/marketing/VoiceOfCustomerMethodology";
 import AccountQBRMethodology from "../components/marketing/AccountQBRMethodology";
+import ManifestoModal from "../components/marketing/ManifestoModal";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -91,24 +92,6 @@ const moments: Moment[] = [
     Component: ForecastAccuracy,
   },
 ];
-
-const manifesto = {
-  eyebrow: "Our manifesto",
-  openingLine:
-    "We're living through the largest workforce shift since the industrial revolution.",
-  paragraph1Rest:
-    "Every week, another company announces it's replacing a department with AI. Every major AI company is racing toward the same destination: software that doesn't need humans to run it. The customer success industry is no exception.",
-  paragraph2:
-    "Two kinds of products are competing for your customer success budget. One can't keep up. The other is chasing the wrong destination. The first was built before AI, on architectures that demand integrations, implementation cycles, and dedicated admins to function. They can bolt AI on, but they can't out-iterate companies built around it — and the buyers who could never afford their stack are still locked out. The second is honest about what they're building: customer success without customer success managers. AI doing 99% of the CSM's job today. So the board can sign off on 100% tomorrow. Their honesty is the warning, not the comfort.",
-  paragraph3Before:
-    "Evergreen exists because someone had to build the third option. AI is the most powerful tool customer success has ever seen, and we were built around that conviction — but with a line we will never cross.",
-  pullQuote: "AI does not replace your CSMs. Ever.",
-  paragraph3After:
-    "Customer success isn't a function that automates. It's a function that compounds — through trust, context, and judgment only humans accumulate. Every feature in Evergreen makes a CSM more capable. None make one optional.",
-  paragraph4:
-    "The next decade of customer success will be defined by who used AI to amplify humans, and who used it to remove them. The companies that bet on AI replacement will spend years rebuilding the trust they automated away. The ones that bet on amplifying their teams will be the ones their customers stay with. We built Evergreen for the teams that already know which side they're on. We're going to be on the right side of history. So is every team that comes with us.",
-  signature: "— Matt Gilston, Founder",
-};
 
 type DefensibilityCard = {
   eyebrow: string;
@@ -366,6 +349,8 @@ function PersonaTab({
 }
 
 export default function Home() {
+  const [manifestoOpen, setManifestoOpen] = useState(false);
+
   useEffect(() => {
     const handler = (e: PageTransitionEvent) => {
       if (e.persisted) window.location.reload();
@@ -533,57 +518,28 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <motion.div
+          <motion.button
+            type="button"
+            onClick={() => setManifestoOpen(true)}
+            aria-label="Read our manifesto"
             initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: FADE_EASE }}
             viewport={{ once: true, margin: "-80px" }}
-            className="mx-auto mt-24 max-w-3xl py-20 md:py-24"
+            className="group mx-auto mt-20 block w-full max-w-3xl cursor-pointer rounded-2xl px-6 py-16 text-left transition-colors hover:bg-white/40 md:px-10 md:py-20"
           >
-            <div className="border-l-4 border-[#16A34A] pl-8 md:pl-12">
-              <p className="mb-8 text-[12px] font-bold uppercase tracking-[0.18em] text-[#666]">
-                {manifesto.eyebrow}
-              </p>
-
-              <p className="text-balance text-[24px] font-semibold leading-[1.25] tracking-[-0.015em] text-[#0A0A0A] md:text-[30px]">
-                {manifesto.openingLine}
-              </p>
-
-              <p className="mt-7 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
-                {manifesto.paragraph1Rest}
-              </p>
-
-              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
-                {manifesto.paragraph2}
-              </p>
-
-              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
-                {manifesto.paragraph3Before}
-              </p>
-
-              <p className="my-8 text-balance text-[22px] font-bold leading-[1.3] tracking-[-0.015em] text-[#0A0A0A] md:text-[26px]">
-                {manifesto.pullQuote}
-              </p>
-
-              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
-                {manifesto.paragraph3After}
-              </p>
-
-              <p className="mt-6 text-[18px] font-normal leading-[1.7] text-[#0A0A0A] md:text-[19px]">
-                {manifesto.paragraph4}
-              </p>
-
-              <div className="mt-12">
-                <div
-                  aria-hidden="true"
-                  className="mb-5 h-px w-16 bg-[#C8C8C3]"
-                />
-                <p className="text-[16px] font-medium text-[#0A0A0A]">
-                  {manifesto.signature}
-                </p>
-              </div>
-            </div>
-          </motion.div>
+            <p className="mb-6 text-[12px] font-bold uppercase tracking-[0.18em] text-[#888]">
+              From the founder
+            </p>
+            <p className="text-balance text-[24px] font-medium leading-[1.3] tracking-[-0.015em] text-[#0A0A0A] md:text-[30px]">
+              &ldquo;We bet our company on a single conviction: AI does not
+              replace humans.&rdquo;
+            </p>
+            <span className="mt-8 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#16A34A] transition-colors group-hover:text-[#15803D]">
+              Read our manifesto
+              <span aria-hidden="true">→</span>
+            </span>
+          </motion.button>
 
           <motion.div
             initial={false}
@@ -788,6 +744,10 @@ export default function Home() {
         </div>
         </div>
       </main>
+      <ManifestoModal
+        open={manifestoOpen}
+        onClose={() => setManifestoOpen(false)}
+      />
     </>
   );
 }

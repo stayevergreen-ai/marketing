@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
+  ArrowDown,
   Check,
   Copy,
   Download,
@@ -213,6 +215,7 @@ const SECTIONS: Section[] = [
 
 export default function AccountQBRMethodology() {
   const [view, setView] = useState<View>("internal");
+  const reduceMotion = useReducedMotion();
   const isExternal = view === "external";
   const totalItems = SECTIONS.reduce((acc, s) => acc + s.items.length, 0);
 
@@ -264,14 +267,35 @@ export default function AccountQBRMethodology() {
       </div>
 
       <div className="border-b border-[#EAEAEA] px-6 py-4">
+        <p className="mb-2 flex items-center gap-1.5 text-[11px] italic text-[#888]">
+          <span>
+            Try toggling between Internal (talk track + sources) and External
+            (customer-facing)
+          </span>
+          <ArrowDown size={11} className="shrink-0" aria-hidden="true" />
+        </p>
         <div className="inline-flex items-center gap-1 rounded-lg bg-[#F5F5F4] p-1">
           {VIEWS.map((v) => {
             const active = view === v;
             return (
-              <button
+              <motion.button
                 key={v}
                 type="button"
                 onClick={() => setView(v)}
+                animate={
+                  active || reduceMotion
+                    ? { opacity: 1 }
+                    : { opacity: [1, 0.6, 1] }
+                }
+                transition={
+                  active || reduceMotion
+                    ? { duration: 0.3 }
+                    : {
+                        duration: 2.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
                 className={
                   active
                     ? "rounded-md bg-white px-3.5 py-1.5 text-[12px] font-semibold text-[#16A34A] shadow-sm"
@@ -279,7 +303,7 @@ export default function AccountQBRMethodology() {
                 }
               >
                 {VIEW_LABELS[v]}
-              </button>
+              </motion.button>
             );
           })}
         </div>
