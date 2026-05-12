@@ -9,18 +9,20 @@ const fadeUp = {
   initial: false,
 } as const;
 
+type WhatYouGetItem = string | { label: string; hint: string };
+
 type Tier = {
   name: string;
   monthlyFee: string;
   perSeat?: string;
-  description: string;
-  bullets: string[];
+  availability?: string;
+  bestFor: string[];
+  whatYouGet: WhatYouGetItem[];
   ctaLabel: string;
   ctaHref: string;
   ctaStyle: "primary" | "secondary";
   highlighted?: boolean;
   popular?: boolean;
-  availability?: string;
 };
 
 const TIERS: Tier[] = [
@@ -28,11 +30,15 @@ const TIERS: Tier[] = [
     name: "Starter",
     monthlyFee: "$1,500",
     perSeat: "+ $129 per CSM",
-    description: "For founder-led teams getting their CS motion right.",
-    bullets: [
+    bestFor: [
+      "Founder-led teams running CS hands-on",
+      "Small CS orgs with a Manager, Director, or Head of CS",
+      "Pre-seed through Seed-stage SaaS",
+    ],
+    whatYouGet: [
       "Email-first methodology",
       "AI brief + morning queue",
-      "Health scoring with configurable weights",
+      "Health scoring with weights",
       "NRR + LTV forecasting",
       "Coverage routing",
       "Up to 3 CSMs",
@@ -45,12 +51,20 @@ const TIERS: Tier[] = [
     name: "Scale",
     monthlyFee: "$2,500",
     perSeat: "+ $179 per CSM",
-    description: "For mid-market teams running a scaled CS organization.",
-    bullets: [
+    bestFor: [
+      "Mid-market CS teams running 4–12 CSMs",
+      "Series A through Series C SaaS",
+      "Multiple segments, regions, or verticals",
+      "Need defensible numbers and operational clarity",
+    ],
+    whatYouGet: [
       "Everything in Starter",
       "Multi-team segmentation",
       "Custom dashboards",
-      "Salesforce or HubSpot integration ($500/mo + $5K impl)",
+      {
+        label: "Salesforce or HubSpot integration",
+        hint: "$500/mo + $5K impl",
+      },
       "Advanced forecasting",
       "Up to 12 CSMs",
       "Priority support",
@@ -64,8 +78,13 @@ const TIERS: Tier[] = [
   {
     name: "Enterprise",
     monthlyFee: "Custom",
-    description: "For larger CS orgs with custom requirements.",
-    bullets: [
+    availability: "Available Q3 2026",
+    bestFor: [
+      "CS orgs with 13+ CSMs across multiple teams",
+      "Regulated industries needing SOC 2 Type II",
+      "Custom integration and dedicated CSM",
+    ],
+    whatYouGet: [
       "Everything in Scale",
       "Unlimited CSMs",
       "SOC 2 Type II compliance",
@@ -76,7 +95,6 @@ const TIERS: Tier[] = [
     ctaLabel: "Talk to us",
     ctaHref: "mailto:matt@stayevergreen.ai",
     ctaStyle: "secondary",
-    availability: "Available Q3 2026",
   },
 ];
 
@@ -120,9 +138,7 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
       viewport={{ once: true, margin: "-80px" }}
       className="relative flex h-full flex-col rounded-2xl bg-white p-8 md:p-10"
       style={{
-        border: tier.highlighted
-          ? "2px solid #16A34A"
-          : "1px solid #EAEAEA",
+        border: tier.highlighted ? "2px solid #16A34A" : "1px solid #EAEAEA",
         boxShadow: tier.highlighted
           ? "0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(22, 163, 74, 0.08)"
           : "0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04)",
@@ -134,11 +150,11 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
         </span>
       ) : null}
 
-      <h3 className="text-[24px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
+      <h3 className="text-[20px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
         {tier.name}
       </h3>
 
-      <div className="mt-6">
+      <div className="mt-5">
         <div className="flex items-baseline gap-1.5">
           <span className="text-[44px] font-bold leading-none tracking-[-0.03em] text-[#0A0A0A] md:text-[48px]">
             {tier.monthlyFee}
@@ -150,36 +166,68 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
         {tier.perSeat ? (
           <div className="mt-1.5 text-[14px] text-[#666]">{tier.perSeat}</div>
         ) : null}
+        {tier.availability ? (
+          <p className="mt-1.5 text-[13px] italic text-[#666]">
+            {tier.availability}
+          </p>
+        ) : null}
       </div>
 
-      <p className="mt-6 text-[14px] leading-[1.55] text-[#666]">
-        {tier.description}
-      </p>
-
-      <div className="my-7 border-t border-[#EAEAEA]" />
-
-      <ul className="flex flex-col gap-2.5">
-        {tier.bullets.map((b) => (
-          <li
-            key={b}
-            className="flex items-start gap-2.5 text-[14px] leading-[1.5] text-[#1F1F1F]"
-          >
-            <Check
-              size={14}
-              strokeWidth={2.5}
-              className="mt-1 shrink-0 text-[#16A34A]"
-              aria-hidden="true"
-            />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
-
-      {tier.availability ? (
-        <p className="mt-4 text-[12px] italic text-[#666]">
-          {tier.availability}
+      <div className="mt-7 border-t border-[#EAEAEA] pt-7">
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888]">
+          Best for
         </p>
-      ) : null}
+        <ul className="flex flex-col gap-2">
+          {tier.bestFor.map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-2.5 text-[13px] leading-[1.45] text-[#1F1F1F]"
+            >
+              <Check
+                size={13}
+                strokeWidth={2.5}
+                className="mt-[3px] shrink-0 text-[#16A34A]"
+                aria-hidden="true"
+              />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-7 border-t border-[#EAEAEA] pt-7">
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888]">
+          What you get
+        </p>
+        <ul className="flex flex-col gap-2">
+          {tier.whatYouGet.map((item) => {
+            const key = typeof item === "string" ? item : item.label;
+            return (
+              <li
+                key={key}
+                className="flex items-start gap-2.5 text-[13px] leading-[1.4] text-[#666]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="mt-[2px] shrink-0 select-none text-[#999]"
+                >
+                  •
+                </span>
+                {typeof item === "string" ? (
+                  <span>{item}</span>
+                ) : (
+                  <span>
+                    {item.label}{" "}
+                    <span className="text-[11px] text-[#999]">
+                      ({item.hint})
+                    </span>
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <div className="mt-auto pt-8">
         <a
