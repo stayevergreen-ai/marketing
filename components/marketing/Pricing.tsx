@@ -100,7 +100,7 @@ const TIERS: Tier[] = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="pb-24 pt-12">
+    <section id="pricing" className="pb-20 pt-10">
       <motion.div
         {...fadeUp}
         className="mx-auto mb-16 max-w-3xl text-center"

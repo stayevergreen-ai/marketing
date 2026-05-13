@@ -8,7 +8,7 @@ const CALENDLY_URL = "https://calendly.com/matt-stayevergreen/30min";
 
 export default function FinalCTA() {
   return (
-    <section id="demo" className="py-20 md:py-24">
+    <section id="demo" className="py-16 md:py-20">
       <motion.div
         initial={false}
         whileInView={{ opacity: 1, y: 0 }}

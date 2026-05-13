@@ -72,7 +72,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <section
             id="product"
-            className="pb-24 pt-24 text-center md:pb-32 md:pt-32 lg:pt-40"
+            className="pb-20 pt-20 text-center md:pb-24 md:pt-24 lg:pt-32"
           >
           <motion.p
             initial={false}
@@ -154,7 +154,7 @@ export default function Home() {
 
         <TreeDivider />
 
-        <section id="methodology" className="py-24">
+        <section id="methodology" className="py-20">
           <motion.div
             initial={false}
             whileInView={{ opacity: 1, y: 0 }}
@@ -203,7 +203,7 @@ export default function Home() {
 
         <FinalCTA />
 
-        <div className="flex flex-col items-center gap-3 pb-24 pt-32 opacity-60">
+        <div className="flex flex-col items-center gap-3 pb-20 pt-24 opacity-60">
           <TreeMark size={24} />
           <span className="text-xs uppercase tracking-[0.15em] text-[#666]">
             evergreen.

@@ -20,7 +20,7 @@ type Tile = {
 const TILES: Tile[] = [
   {
     id: "handoff",
-    label: "Sales-to-CS Handoff",
+    label: "Feature 01",
     headline: "Sales-to-CS Handoff",
     valueProp: "AE submits once. AI extracts. CSM reviews.",
     supporting:
@@ -29,7 +29,7 @@ const TILES: Tile[] = [
   },
   {
     id: "qbr",
-    label: "Quarterly Business Reviews",
+    label: "Feature 02",
     headline: "Quarterly Business Reviews",
     valueProp: "Internal prep + customer deck, built in one place.",
     supporting: "AI drafts. You edit. The result lands ready to present.",
@@ -37,7 +37,7 @@ const TILES: Tile[] = [
   },
   {
     id: "voc",
-    label: "Voice of Customer",
+    label: "Feature 03",
     headline: "Voice of Customer",
     valueProp: "Themes across your book, grounded in real quotes.",
     supporting:
@@ -46,7 +46,7 @@ const TILES: Tile[] = [
   },
   {
     id: "ooo",
-    label: "Coverage During OOO",
+    label: "Feature 04",
     headline: "Coverage During OOO",
     valueProp: "When a CSM is out, customers don't notice.",
     supporting:
@@ -65,7 +65,7 @@ export default function HighlightReel() {
   };
 
   return (
-    <section className="py-24">
+    <section className="py-20">
       <motion.div
         initial={false}
         whileInView={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ function Card({
         {tile.supporting}
       </p>
 
-      <div className="mt-7 flex min-h-[120px] items-start">
+      <div className="mt-7">
         <Preview />
       </div>
 
@@ -236,16 +236,39 @@ function ContactMini({
 
 function QBRPreview() {
   return (
-    <div className="inline-flex items-center gap-0.5 rounded-md bg-[#F5F5F4] p-0.5">
-      <span
-        className="rounded bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.08em] text-[#16A34A]"
-        style={{ boxShadow: "0 1px 2px rgba(0, 0, 0, 0.06)" }}
-      >
-        Internal
-      </span>
-      <span className="px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.08em] text-[#888]">
-        External
-      </span>
+    <div
+      className="w-full rounded-md bg-white p-3"
+      style={{ border: "1px solid #E8E8E8" }}
+    >
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <div className="inline-flex items-center gap-0.5 rounded-md bg-[#F5F5F4] p-0.5">
+          <span
+            className="rounded bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.08em] text-[#16A34A]"
+            style={{ boxShadow: "0 1px 2px rgba(0, 0, 0, 0.06)" }}
+          >
+            Internal
+          </span>
+          <span className="px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.08em] text-[#888]">
+            External
+          </span>
+        </div>
+        <span
+          className="shrink-0 rounded-md px-1.5 py-px text-[9px] font-bold uppercase tracking-[0.08em]"
+          style={{ color: "#15803D", background: "#F0FDF4" }}
+        >
+          Draft 87% · Q2
+        </span>
+      </div>
+      <p className="mb-1 text-[9.5px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        Progress review
+      </p>
+      <p className="text-[11px] leading-[1.4] text-[#1F1F1F]">
+        Active users{" "}
+        <span className="font-bold text-[#16A34A]">147 of 200</span> (74%)
+      </p>
+      <p className="mt-1 text-[10.5px] leading-[1.4] text-[#6B6B6B]">
+        Module B Ops adoption gap · 12% vs 60% target
+      </p>
     </div>
   );
 }
@@ -259,31 +282,84 @@ function VOCPreview() {
   ];
   return (
     <div
-      aria-hidden="true"
-      className="flex w-full max-w-[140px] flex-col gap-1"
+      className="w-full rounded-md bg-white p-3"
+      style={{ border: "1px solid #E8E8E8" }}
     >
-      {bars.map((b, i) => (
-        <div
-          key={i}
-          className="h-1.5 rounded-sm"
-          style={{ width: b.width, background: b.color }}
-        />
-      ))}
+      <p className="mb-2 text-[9.5px] font-bold uppercase tracking-[0.10em] text-[#888]">
+        Sentiment by theme
+      </p>
+      <div
+        aria-hidden="true"
+        className="mb-3 flex w-full max-w-[200px] flex-col gap-1"
+      >
+        {bars.map((b, i) => (
+          <div
+            key={i}
+            className="h-1.5 rounded-sm"
+            style={{ width: b.width, background: b.color }}
+          />
+        ))}
+      </div>
+      <p className="mb-2 text-[10.5px] text-[#6B6B6B]">
+        47 accounts · 6 active themes
+      </p>
+      <div
+        className="rounded-md p-2"
+        style={{ background: "#FAFAFA", border: "0.5px solid #EAEAEA" }}
+      >
+        <p className="text-[10.5px] italic leading-[1.4] text-[#1F1F1F]">
+          &ldquo;Onboarding friction&rdquo; mentioned by 12 accounts
+        </p>
+      </div>
     </div>
   );
 }
 
 function OOOPreview() {
+  const routes: { account: string; cover: string }[] = [
+    { account: "Acme Corp", cover: "Markham Liu" },
+    { account: "Voltura Systems", cover: "Sasha Reyes" },
+    { account: "Bridgewater Co", cover: "Markham Liu" },
+  ];
   return (
-    <span
-      className="inline-block rounded-md px-2 py-1 text-[9.5px] font-bold uppercase tracking-[0.10em]"
-      style={{
-        color: "#9A3412",
-        background: "#FFF7ED",
-        border: "1px solid #FED7AA",
-      }}
+    <div
+      className="w-full rounded-md bg-white p-3"
+      style={{ border: "1px solid #E8E8E8" }}
     >
-      OOO May 7–14
-    </span>
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <span
+          className="shrink-0 rounded-md px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.10em]"
+          style={{
+            color: "#9A3412",
+            background: "#FFF7ED",
+            border: "1px solid #FED7AA",
+          }}
+        >
+          OOO May 7–14
+        </span>
+        <span className="shrink-0 text-[9.5px] font-medium uppercase tracking-[0.08em] text-[#888]">
+          22 accts · 4 min
+        </span>
+      </div>
+      <div className="flex flex-col gap-1">
+        {routes.map((r) => (
+          <div
+            key={r.account}
+            className="flex items-center justify-between gap-2 rounded-md p-1.5"
+            style={{
+              background: "#FAFAFA",
+              border: "0.5px solid #EAEAEA",
+            }}
+          >
+            <span className="truncate text-[10.5px] font-semibold text-[#0A0A0A]">
+              {r.account}
+            </span>
+            <span className="shrink-0 text-[9.5px] text-[#666]">
+              → {r.cover}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

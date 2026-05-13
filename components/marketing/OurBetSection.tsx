@@ -6,7 +6,7 @@ const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function OurBetSection() {
   return (
-    <section className="py-28 md:py-32">
+    <section className="py-24 md:py-28">
       <motion.div
         initial={false}
         whileInView={{ opacity: 1, y: 0 }}
