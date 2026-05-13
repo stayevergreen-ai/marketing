@@ -4,79 +4,77 @@ import { motion } from "framer-motion";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
-type Phrase = {
-  text: string;
+type ContextCard = {
+  source: string;
+  primary: string;
+  secondary?: string;
+  timestamp: string;
   top: string;
   left: string;
-  size: number;
-  color: string;
   rotate: number;
+  z: number;
 };
 
-const PHRASES: Phrase[] = [
+const CARDS: ContextCard[] = [
   {
-    text: "Slack thread from 3 weeks ago",
+    source: "Gmail",
+    primary: "Re: Q3 renewal — pricing concern",
+    secondary: "Sarah Chen",
+    timestamp: "3 weeks ago",
+    top: "0%",
+    left: "4%",
+    rotate: -2.5,
+    z: 6,
+  },
+  {
+    source: "Slack · #cs-team",
+    primary: "Anyone got context on Acme's DPA escalation?",
+    secondary: "Devon Walsh",
+    timestamp: "Yesterday",
     top: "6%",
-    left: "6%",
-    size: 18,
-    color: "#888",
-    rotate: -1,
+    left: "44%",
+    rotate: 3,
+    z: 5,
   },
   {
-    text: "Email chain · 14 replies",
-    top: "12%",
-    left: "58%",
-    size: 14,
-    color: "#AAA",
-    rotate: 2,
-  },
-  {
-    text: "QBR notes from January",
-    top: "28%",
-    left: "18%",
-    size: 20,
-    color: "#777",
-    rotate: -2,
-  },
-  {
-    text: "Call recording from May",
+    source: "Salesforce · Account",
+    primary: "Voltura Systems",
+    secondary: "Health: 78 · ARR $480K",
+    timestamp: "Last updated 6w ago",
     top: "34%",
-    left: "62%",
-    size: 13,
-    color: "#BBB",
-    rotate: 1,
+    left: "0%",
+    rotate: 1.5,
+    z: 4,
   },
   {
-    text: "CRM record · stale 6w",
-    top: "50%",
-    left: "8%",
-    size: 16,
-    color: "#999",
-    rotate: -1,
+    source: "Notion · linked from QBR",
+    primary: "Q1 commitments",
+    secondary: "200 active users by EoQ2",
+    timestamp: "Mar 15",
+    top: "38%",
+    left: "46%",
+    rotate: -3,
+    z: 3,
   },
   {
-    text: "That doc somewhere",
-    top: "56%",
-    left: "52%",
-    size: 17,
-    color: "#888",
+    source: "Call recording",
+    primary: "Tom Willis · QBR prep",
+    secondary: "42 min · 8 action items",
+    timestamp: "May 7",
+    top: "68%",
+    left: "6%",
     rotate: 2,
+    z: 2,
   },
   {
-    text: "Ticket from Q3",
-    top: "74%",
-    left: "22%",
-    size: 14,
-    color: "#AAA",
-    rotate: 1,
-  },
-  {
-    text: "Last QBR commitments",
-    top: "80%",
-    left: "58%",
-    size: 15,
-    color: "#999",
-    rotate: -1,
+    source: "QBR · Q1 2026",
+    primary: "Carryover: exec review w/ new CFO",
+    secondary: "Open · owner: Devon",
+    timestamp: "Mar 15",
+    top: "70%",
+    left: "48%",
+    rotate: -1.5,
+    z: 1,
   },
 ];
 
@@ -108,8 +106,8 @@ export default function PainSection() {
             between the work. And it&rsquo;s where CS teams lose hours every
             day.
           </p>
-          <p className="mt-7 text-[18px] font-semibold leading-[1.4] text-[#14532D] md:text-[19px]">
-            Evergreen takes that tax off your team.
+          <p className="mt-10 text-[24px] font-bold leading-[1.2] tracking-[-0.015em] text-[#14532D] md:text-[28px]">
+            Evergreen handles it.
           </p>
         </motion.div>
 
@@ -121,39 +119,66 @@ export default function PainSection() {
           className="lg:col-span-7"
           aria-hidden="true"
         >
-          <div className="flex flex-wrap gap-x-6 gap-y-3 lg:hidden">
-            {PHRASES.map((p, i) => (
-              <span
-                key={i}
-                className="select-none"
-                style={{
-                  fontSize: `${Math.min(p.size, 17)}px`,
-                  color: p.color,
-                }}
-              >
-                {p.text}
-              </span>
+          <div className="flex flex-col gap-3 lg:hidden">
+            {CARDS.map((c, i) => (
+              <ContextCardView key={i} card={c} stacked={false} />
             ))}
           </div>
-          <div className="relative hidden min-h-[420px] lg:block">
-            {PHRASES.map((p, i) => (
-              <span
+          <div className="relative hidden h-[440px] lg:block">
+            {CARDS.map((c, i) => (
+              <div
                 key={i}
-                className="absolute select-none whitespace-nowrap"
+                className="absolute w-[280px]"
                 style={{
-                  top: p.top,
-                  left: p.left,
-                  fontSize: `${p.size}px`,
-                  color: p.color,
-                  transform: `rotate(${p.rotate}deg)`,
+                  top: c.top,
+                  left: c.left,
+                  transform: `rotate(${c.rotate}deg)`,
+                  zIndex: c.z,
                 }}
               >
-                {p.text}
-              </span>
+                <ContextCardView card={c} stacked />
+              </div>
             ))}
           </div>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function ContextCardView({
+  card,
+  stacked,
+}: {
+  card: ContextCard;
+  stacked: boolean;
+}) {
+  return (
+    <div
+      className="rounded-md bg-white p-3"
+      style={{
+        border: "1px solid #E8E8E8",
+        boxShadow: stacked
+          ? "0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04)"
+          : "0 1px 2px rgba(0, 0, 0, 0.03)",
+      }}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <span className="truncate text-[9px] font-bold uppercase tracking-[0.10em] text-[#888]">
+          {card.source}
+        </span>
+        <span className="shrink-0 text-[9px] uppercase tracking-[0.06em] text-[#999]">
+          {card.timestamp}
+        </span>
+      </div>
+      <p className="mt-2 text-[12px] font-semibold leading-[1.35] text-[#1F1F1F]">
+        {card.primary}
+      </p>
+      {card.secondary ? (
+        <p className="mt-1 text-[10.5px] leading-[1.4] text-[#666]">
+          {card.secondary}
+        </p>
+      ) : null}
+    </div>
   );
 }
