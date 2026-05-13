@@ -1,66 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
-import type { ComponentType } from "react";
 import { motion } from "framer-motion";
 import MorningQueue from "../components/marketing/MorningQueue";
-import HealthBreakdownCard from "../components/marketing/HealthBreakdownCard";
-import CLVMethodology from "../components/marketing/CLVMethodology";
-import NRRForecastMethodology from "../components/marketing/NRRForecastMethodology";
 import ForecastAccuracy from "../components/marketing/ForecastAccuracy";
 import Pricing from "../components/marketing/Pricing";
 import FinalCTA from "../components/marketing/FinalCTA";
 import Nav from "../components/marketing/Nav";
 import PainSection from "../components/marketing/PainSection";
 import OurBetSection from "../components/marketing/OurBetSection";
-import DefensibilityCards from "../components/marketing/DefensibilityCards";
 import HighlightReel from "../components/marketing/HighlightReel";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
-
-const fadeUp = {
-  initial: false,
-} as const;
-
-type Moment = {
-  eyebrow: string;
-  headline: string;
-  caption: string | null;
-  Component: ComponentType;
-};
-
-const moments: Moment[] = [
-  {
-    eyebrow: "Show me the formula",
-    headline: "Click any number. See exactly how it was computed.",
-    caption:
-      "Customer Lifetime Value, computed at your org's actual scale. Every metric in Evergreen — every claim, every flag — is built on math you can audit.",
-    Component: CLVMethodology,
-  },
-  {
-    eyebrow: "Show me the assumptions",
-    headline:
-      "Every threshold, weight, and cap is configurable — and visible.",
-    caption:
-      "Forecasts move with your reality. Stretch upside scenarios show what's possible if signals close as expected.",
-    Component: NRRForecastMethodology,
-  },
-  {
-    eyebrow: "Show me what's pushing the score",
-    headline: "Five components. Weighted. Traceable.",
-    caption:
-      "Every health number traces back to engagement, sentiment, behavior, business signals, and renewal proximity. Configurable. Always current.",
-    Component: HealthBreakdownCard,
-  },
-  {
-    eyebrow: "Show me the proof",
-    headline:
-      "Most CS tools forecast and never look back. We publish our own accuracy.",
-    caption:
-      "Per snapshot, per metric, per period — so you know exactly how much trust to place in next quarter's number based on how last quarter's held up.",
-    Component: ForecastAccuracy,
-  },
-];
 
 const cardChrome = {
   border: "1px solid #EAEAEA",
@@ -203,65 +154,45 @@ export default function Home() {
 
         <TreeDivider />
 
-        <DefensibilityCards />
+        <section id="methodology" className="py-24">
+          <motion.div
+            initial={false}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: FADE_EASE }}
+            viewport={{ once: true, margin: "-80px" }}
+            className="mx-auto mb-12 max-w-3xl text-center"
+          >
+            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
+              The defensibility test
+            </p>
+            <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
+              Every claim has a defensible answer.
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-[1.6] tracking-[-0.005em] text-[#1F1F1F] md:text-[17px]">
+              Click any number in Evergreen. See the formula, the inputs, the
+              assumptions. Defensible by design, not by claim.
+            </p>
+          </motion.div>
 
-        <TreeDivider />
-
-        <motion.section
-          {...fadeUp}
-          id="methodology"
-          className="pb-12 pt-24 text-center"
-        >
-          <p className="mb-8 text-[13px] uppercase tracking-[0.10em] text-[#666]">
-            Every number is defensible
-          </p>
-          <h2 className="mx-auto max-w-5xl text-[44px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[64px] lg:text-[80px]">
-            The math behind the numbers your board asks about.
-          </h2>
-          <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px]">
-            Click any number. See the formula, the inputs, the assumptions, the
-            per-account breakdown. Every signal, every forecast, every flag —
-            defensible by design, not by claim.
-          </p>
-        </motion.section>
-
-        <section className="border-t border-[#EAEAEA] pb-24 pt-12">
-          <div className="space-y-32">
-            {moments.map((m) => {
-              const Comp = m.Component;
-              return (
-                <motion.div
-                  key={m.eyebrow}
-                  {...fadeUp}
-                  className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
-                >
-                  <div className="lg:col-span-5">
-                    <div className="lg:sticky lg:top-24">
-                      <p className="mb-5 text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                        {m.eyebrow}
-                      </p>
-                      <h3 className="mb-6 text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#0A0A0A] md:text-[32px] lg:text-[36px]">
-                        {m.headline}
-                      </h3>
-                      {m.caption ? (
-                        <p className="text-[16px] leading-[1.6] text-[#1F1F1F]">
-                          {m.caption}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div className="lg:col-span-7">
-                    <div
-                      className="overflow-hidden rounded-xl bg-white"
-                      style={cardChrome}
-                    >
-                      <Comp />
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+          <motion.div
+            initial={false}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
+            viewport={{ once: true, margin: "-80px" }}
+            className="mx-auto max-w-5xl"
+          >
+            <div
+              className="overflow-hidden rounded-xl bg-white"
+              style={cardChrome}
+            >
+              <ForecastAccuracy />
+            </div>
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[13px] italic leading-[1.6] text-[#666] md:text-[14px]">
+              No black-box AI. Click any number to see the formula, the
+              inputs, the assumptions. Every snapshot, every metric, every
+              period — defensible by design, not by claim.
+            </p>
+          </motion.div>
         </section>
 
         <TreeDivider />
