@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { ComponentType } from "react";
 import { motion } from "framer-motion";
 import MorningQueue from "../components/marketing/MorningQueue";
@@ -11,8 +11,9 @@ import ForecastAccuracy from "../components/marketing/ForecastAccuracy";
 import Pricing from "../components/marketing/Pricing";
 import FinalCTA from "../components/marketing/FinalCTA";
 import Nav from "../components/marketing/Nav";
-import ManifestoModal from "../components/marketing/ManifestoModal";
-import MorningQueueSpotlight from "../components/marketing/MorningQueueSpotlight";
+import PainSection from "../components/marketing/PainSection";
+import OurBetSection from "../components/marketing/OurBetSection";
+import DefensibilityCards from "../components/marketing/DefensibilityCards";
 import HighlightReel from "../components/marketing/HighlightReel";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
@@ -61,48 +62,6 @@ const moments: Moment[] = [
   },
 ];
 
-type DefensibilityCard = {
-  eyebrow: string;
-  question: string;
-  evergreen: string;
-  contrast: string;
-};
-
-const defensibilityCards: DefensibilityCard[] = [
-  {
-    eyebrow: "Metrics",
-    question: "Is this number defensible to a CFO?",
-    evergreen:
-      "Every metric in Evergreen carries its formula with it. Click. Read. Audit. Change the assumption. Watch the number recompute.",
-    contrast:
-      "The old guard hides methodology in documentation. The new guard hides it in the model.",
-  },
-  {
-    eyebrow: "Signals",
-    question: "Show me the signals that drove this score.",
-    evergreen:
-      "Health is 5 weighted components. Click any component. Trace to source signals — every email, ticket, meeting note. Adjust the weights. Watch the score move.",
-    contrast:
-      "The old guard overcomplicates. The new guard just asks for your trust.",
-  },
-  {
-    eyebrow: "AI decisions",
-    question: "Can I see the AI's reasoning?",
-    evergreen:
-      "AI decisions in Evergreen are transparent by design. Click the recommendation. See the alternatives. Override with one click. The AI learns from your correction — the human stays in the loop.",
-    contrast:
-      "The old guard automates with rules. The new guard automates around humans. Neither shows the override.",
-  },
-  {
-    eyebrow: "Commitment tracking",
-    question: "Are we accountable to what we promised?",
-    evergreen:
-      "Every QBR commitment is captured, tracked, and surfaced. Not in someone's notes — in the platform. The next QBR opens with what you said you'd do, and what actually happened.",
-    contrast:
-      "Commitments lost in notes are commitments lost to memory. Evergreen turns them into structure.",
-  },
-];
-
 const cardChrome = {
   border: "1px solid #EAEAEA",
   boxShadow:
@@ -147,8 +106,6 @@ function TreeDivider() {
 }
 
 export default function Home() {
-  const [manifestoOpen, setManifestoOpen] = useState(false);
-
   useEffect(() => {
     const handler = (e: PageTransitionEvent) => {
       if (e.persisted) window.location.reload();
@@ -234,181 +191,19 @@ export default function Home() {
 
         <TreeDivider />
 
-        <section className="py-24">
-          <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="mb-12 text-center"
-          >
-            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
-              The fork
-            </p>
-            <h2 className="mx-auto max-w-4xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
-              There are two paths for AI in customer success.
-            </h2>
-          </motion.div>
-
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
-            <motion.div
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="rounded-2xl bg-white p-6 md:p-8 lg:p-10"
-              style={{
-                border: "1px solid #EAEAEA",
-                boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
-              }}
-            >
-              <p className="mb-6 text-[12px] uppercase tracking-[0.10em] text-[#666]">
-                The replacement bet
-              </p>
-              <h3 className="mb-8 text-[24px] font-bold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] lg:text-[28px]">
-                AI replaces your team
-              </h3>
-              <ul className="flex flex-col gap-2.5 text-[17px] leading-[1.55] text-[#666]">
-                {[
-                  "AI runs accounts autonomously",
-                  "CSMs become optional, then redundant",
-                  "Headcount reduction is the ROI story",
-                  "When the AI gets it wrong, no one notices",
-                ].map((b) => (
-                  <li key={b} className="flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#BBB]"
-                    />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: FADE_EASE }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="relative rounded-2xl bg-[#FBFBFA] p-6 md:p-8 lg:p-10"
-              style={{
-                border: "1.5px solid #E5E5E0",
-                boxShadow:
-                  "0 1px 3px rgba(0, 0, 0, 0.05), 0 12px 32px rgba(0, 0, 0, 0.07)",
-              }}
-            >
-              <div className="absolute right-8 top-8">
-                <TreeMark size={24} />
-              </div>
-              <p className="mb-6 text-[12px] uppercase tracking-[0.10em] text-[#16A34A]">
-                Our bet
-              </p>
-              <h3 className="mb-8 text-[28px] font-extrabold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] lg:text-[32px]">
-                AI makes your team unbeatable
-              </h3>
-              <ul className="flex flex-col gap-2.5 text-[17px] leading-[1.55] text-[#1F1F1F]">
-                {[
-                  "AI handles the cognitive switching cost",
-                  "CSMs do higher-leverage work, faster",
-                  "Your best people get more accounts, not fewer",
-                  "When the AI gets it wrong, your CSM catches it",
-                ].map((b) => (
-                  <li key={b} className="flex items-start gap-3">
-                    <span aria-hidden="true" className="mt-1 shrink-0">
-                      <TreeMark size={14} />
-                    </span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-
-          <motion.button
-            type="button"
-            onClick={() => setManifestoOpen(true)}
-            aria-label="Read our manifesto"
-            initial={false}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-80px" }}
-            className="group mx-auto mt-20 block w-full max-w-3xl cursor-pointer rounded-2xl px-6 py-16 text-left transition-colors hover:bg-white/40 md:px-10 md:py-20"
-          >
-            <p className="mb-6 text-[12px] font-bold uppercase tracking-[0.18em] text-[#888]">
-              From the founder
-            </p>
-            <p className="text-balance text-[24px] font-medium leading-[1.3] tracking-[-0.015em] text-[#0A0A0A] md:text-[30px]">
-              &ldquo;We bet our company on a single conviction: AI does not
-              replace humans.&rdquo;
-            </p>
-            <span className="mt-8 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#16A34A] transition-colors group-hover:text-[#15803D]">
-              Read our manifesto
-              <span aria-hidden="true">→</span>
-            </span>
-          </motion.button>
-
-          <TreeDivider />
-
-          <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-80px" }}
-          >
-            <div className="mb-12 text-center">
-              <p className="mb-6 text-[13px] uppercase tracking-[0.10em] text-[#666]">
-                The defensibility test
-              </p>
-              <h3 className="mx-auto max-w-3xl text-balance text-[28px] font-bold leading-[1.15] tracking-[-0.025em] text-[#0A0A0A] md:text-[36px]">
-                Every claim in Evergreen has a defensible answer.
-              </h3>
-            </div>
-
-            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-              {defensibilityCards.map((card) => (
-                <motion.div
-                  key={card.eyebrow}
-                  initial={false}
-                  whileHover={{
-                    y: -2,
-                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.06)",
-                    transition: { duration: 0.2, ease: "easeOut" },
-                  }}
-                  className="rounded-2xl bg-white p-7 md:p-9"
-                  style={{
-                    border: "1px solid #EAEAEA",
-                    borderLeft: "3px solid #16A34A",
-                    boxShadow: "0 1px 2px rgba(0, 0, 0, 0.02)",
-                  }}
-                >
-                  <p className="text-[11px] font-bold uppercase tracking-[0.10em] text-[#888]">
-                    {card.eyebrow}
-                  </p>
-                  <h4 className="mt-3 text-balance text-[22px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0A0A0A] md:text-[24px]">
-                    {card.question}
-                  </h4>
-                  <p className="mt-5 text-[16px] font-medium leading-[1.55] text-[#1F1F1F] md:text-[17px]">
-                    {card.evergreen}
-                  </p>
-                  <div className="mt-6 border-t border-[#EAEAEA] pt-4">
-                    <p className="text-[12px] leading-[1.55] text-[#888]">
-                      {card.contrast}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
+        <PainSection />
 
         <TreeDivider />
 
-        <MorningQueueSpotlight />
+        <OurBetSection />
 
         <TreeDivider />
 
         <HighlightReel />
+
+        <TreeDivider />
+
+        <DefensibilityCards />
 
         <TreeDivider />
 
@@ -485,10 +280,6 @@ export default function Home() {
         </div>
         </div>
       </main>
-      <ManifestoModal
-        open={manifestoOpen}
-        onClose={() => setManifestoOpen(false)}
-      />
     </>
   );
 }
