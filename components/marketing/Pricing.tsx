@@ -63,7 +63,7 @@ const TIERS: Tier[] = [
       "Custom dashboards",
       {
         label: "Salesforce or HubSpot integration",
-        hint: "$500/mo + $5K impl",
+        hint: "$500/mo + $5K implementation",
       },
       "Advanced forecasting",
       "Up to 12 CSMs",
@@ -100,47 +100,54 @@ const TIERS: Tier[] = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="pb-20 pt-10">
+    <section
+      id="pricing"
+      className="relative overflow-hidden px-6 pb-16 pt-12 md:px-12"
+    >
       <motion.div
         {...fadeUp}
-        className="mx-auto mb-16 max-w-3xl text-center"
+        className="relative z-10 mx-auto mb-12 max-w-3xl text-center"
       >
-        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
+        <p className="mb-6 text-[13px] font-semibold uppercase tracking-[0.18em] text-[#34D399]">
           Pricing
         </p>
-        <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
+        <h2 className="text-balance text-3xl font-medium leading-[1.05] tracking-[-0.03em] text-[#ECFDF5] sm:text-4xl md:text-5xl lg:text-6xl">
           Built around your team, priced around your wins.
         </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px]">
+        <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[rgba(255,255,255,0.70)] md:text-[19px]">
           Hybrid platform fee plus per-seat — designed so cost grows with your
           team's value, not punitively with seat count.
         </p>
       </motion.div>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+      <div className="relative z-10 mx-auto grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
         {TIERS.map((tier, i) => (
           <PricingCard key={tier.name} tier={tier} delay={i * 0.1} />
         ))}
       </div>
 
-      <ROIBlock />
+      <div className="relative z-10">
+        <ROIBlock />
+      </div>
     </section>
   );
 }
 
 function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
   const isPrimary = tier.ctaStyle === "primary";
-  return (
+  const card = (
     <motion.div
       initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay, ease: FADE_EASE }}
       viewport={{ once: true, margin: "-80px" }}
-      className="relative flex h-full flex-col rounded-2xl bg-white p-8 md:p-10"
+      className="relative flex h-full flex-col rounded-2xl bg-white p-6"
       style={{
-        border: tier.highlighted ? "2px solid #16A34A" : "1px solid #EAEAEA",
+        border: tier.highlighted
+          ? "2px solid #16A34A"
+          : "1px solid rgba(0, 0, 0, 0.08)",
         boxShadow: tier.highlighted
-          ? "0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(22, 163, 74, 0.08)"
+          ? "0 20px 40px -12px rgba(0, 0, 0, 0.3)"
           : "0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04)",
       }}
     >
@@ -159,9 +166,9 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
         {tier.name}
       </h3>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-[44px] font-bold leading-none tracking-[-0.03em] text-[#0A0A0A] md:text-[48px]">
+          <span className="text-[40px] font-bold leading-none tracking-[-0.03em] text-[#0A0A0A] md:text-[44px]">
             {tier.monthlyFee}
           </span>
           {tier.monthlyFee !== "Custom" ? (
@@ -169,24 +176,24 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
           ) : null}
         </div>
         {tier.perSeat ? (
-          <div className="mt-1.5 text-[14px] text-[#666]">{tier.perSeat}</div>
+          <div className="mt-1 text-[14px] text-[#666]">{tier.perSeat}</div>
         ) : null}
         {tier.availability ? (
-          <p className="mt-1.5 text-[13px] italic text-[#666]">
+          <p className="mt-1 text-[13px] italic text-[#666]">
             {tier.availability}
           </p>
         ) : null}
       </div>
 
-      <div className="mt-7 border-t border-[#EAEAEA] pt-7 lg:min-h-[200px]">
-        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888]">
+      <div className="mt-4 border-t border-[#EAEAEA] pt-4 lg:min-h-[150px]">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888]">
           Best for
         </p>
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-1.5">
           {tier.bestFor.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-2.5 text-[13px] leading-[1.45] text-[#444]"
+              className="flex items-start gap-2 text-[13px] leading-snug text-[#444]"
             >
               <Check
                 size={13}
@@ -200,17 +207,17 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
         </ul>
       </div>
 
-      <div className="mt-7 border-t border-[#EAEAEA] pt-7">
-        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888]">
+      <div className="mt-4 border-t border-[#EAEAEA] pt-4">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.08em] text-[#888]">
           What you get
         </p>
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-1.5">
           {tier.whatYouGet.map((item) => {
             const key = typeof item === "string" ? item : item.label;
             return (
               <li
                 key={key}
-                className="flex items-start gap-2.5 text-[13px] leading-[1.4] text-[#444]"
+                className="flex items-start gap-2 text-[13px] leading-snug text-[#444]"
               >
                 <span
                   aria-hidden="true"
@@ -221,10 +228,10 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
                 {typeof item === "string" ? (
                   <span>{item}</span>
                 ) : (
-                  <span>
-                    {item.label}{" "}
-                    <span className="text-[11px] text-[#999]">
-                      ({item.hint})
+                  <span className="flex flex-col">
+                    <span>{item.label}</span>
+                    <span className="mt-0.5 text-[11px] text-[#9CA3AF]">
+                      {item.hint}
                     </span>
                   </span>
                 )}
@@ -234,21 +241,39 @@ function PricingCard({ tier, delay }: { tier: Tier; delay: number }) {
         </ul>
       </div>
 
-      <div className="mt-auto pt-8">
+      <div className="mt-auto pt-4">
         <a
           href={tier.ctaHref}
-          className={
-            isPrimary
-              ? "inline-flex w-full items-center justify-center rounded-lg bg-[#16A34A] px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-[#15803D]"
-              : "inline-flex w-full items-center justify-center rounded-lg bg-white px-6 py-3 text-[15px] font-semibold text-[#16A34A] transition-colors hover:bg-[#F0FDF4]"
-          }
-          style={isPrimary ? undefined : { border: "2px solid #16A34A" }}
+          className="inline-flex w-full items-center justify-center rounded-lg bg-white px-6 py-3 text-[15px] font-semibold text-[#16A34A] transition-colors hover:bg-[#F0FDF4]"
+          style={{
+            border: isPrimary ? "1px solid #16A34A" : "2px solid #16A34A",
+          }}
         >
           {tier.ctaLabel}
         </a>
       </div>
     </motion.div>
   );
+
+  if (tier.highlighted) {
+    return (
+      <div className="relative h-full" style={{ isolation: "isolate" }}>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{
+            inset: "-48px",
+            background:
+              "radial-gradient(circle, rgba(74, 222, 128, 0.28) 0%, rgba(74, 222, 128, 0.12) 40%, transparent 75%)",
+            zIndex: 0,
+          }}
+        />
+        <div className="relative z-10 h-full">{card}</div>
+      </div>
+    );
+  }
+
+  return card;
 }
 
 function ROIBlock() {
@@ -258,20 +283,20 @@ function ROIBlock() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: FADE_EASE }}
       viewport={{ once: true, margin: "-80px" }}
-      className="mx-auto mt-24 max-w-3xl text-center"
+      className="mx-auto mt-20 max-w-3xl text-center"
     >
-      <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
+      <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.10em] text-[#6EE7B7]">
         The math
       </p>
-      <p className="text-[18px] font-medium leading-[1.4] text-[#0A0A0A] md:text-[20px]">
+      <p className="text-[18px] font-medium leading-[1.4] text-[#ECFDF5] md:text-[20px]">
         ROI typically lands at 16–20× year one for a 6-CSM team.
       </p>
-      <p className="mt-3 text-[14px] leading-[1.55] text-[#1F1F1F] md:text-[15px]">
+      <p className="mt-3 text-[14px] leading-[1.55] text-[rgba(255,255,255,0.70)] md:text-[15px]">
         We built the calculator so the math is yours, not ours.
       </p>
       <a
         href="/roi"
-        className="mt-5 inline-block text-[14px] font-medium text-[#16A34A] transition-colors hover:text-[#15803D]"
+        className="mt-5 inline-block text-[14px] font-medium text-[#4ADE80] transition-colors hover:text-[#ECFDF5]"
       >
         See the math →
       </a>

@@ -4,205 +4,282 @@ import { motion } from "framer-motion";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
 
-// === ACTIVE VISUAL: Direction C — vertical "context queue" activity feed ===
-// Why this concept: prior iterations (scattered phrases, overlapping cards)
-// both felt decorative / stock-illustration-y. A vertical chronological feed
-// reads as a literal CSM inbox — "this is the mess to mentally reconcile
-// every morning." Linear/Notion design language. Premium through restraint.
-// Two alternative concepts left as commented sketches at the bottom of this
-// file for review.
-
-type Fragment = {
+type RankedRow = {
   source: string;
   preview: string;
   timestamp: string;
+  priority: string;
+  priorityColor: string;
 };
 
-const FRAGMENTS: Fragment[] = [
+const RANKED_ROWS: RankedRow[] = [
   {
+    priority: "1",
+    priorityColor: "#993C1D",
     source: "Email",
     preview: "Re: Q3 renewal — pricing concern from Sarah Chen",
     timestamp: "3w ago",
   },
   {
+    priority: "2",
+    priorityColor: "#BA7517",
     source: "Slack",
     preview: "Anyone got context on Acme's DPA escalation?",
     timestamp: "Yesterday",
   },
   {
+    priority: "3",
+    priorityColor: "#BA7517",
     source: "Call",
     preview: "Tom Willis · QBR prep · 42 min · 8 action items",
     timestamp: "May 7",
   },
   {
+    priority: "4",
+    priorityColor: "#888780",
     source: "CRM",
     preview: "Voltura Systems · Health 78 · ARR $480K · stale 6w",
     timestamp: "6w",
   },
-  {
-    source: "Notion",
-    preview: "Q1 commitments doc · 200 active users by EoQ2",
-    timestamp: "Mar 15",
-  },
-  {
-    source: "QBR",
-    preview: "Carryover: exec review w/ new CFO",
-    timestamp: "Mar 15",
-  },
-  {
-    source: "Ticket",
-    preview: "Bridgewater · P1 sync issue · open 4d",
-    timestamp: "4d",
-  },
-  {
-    source: "Doc",
-    preview: "Champion notes from Apr 21 sync · Module C interest",
-    timestamp: "Apr 21",
-  },
+];
+
+type Fragment = {
+  text: string;
+  top: string;
+  left: string;
+  rotate: number;
+  hideMobile?: boolean;
+};
+
+const FRAGMENTS: Fragment[] = [
+  // ── Top band (above card) ──
+  { text: "Q3 renewal · Sarah", top: "3%", left: "8%", rotate: -3 },
+  { text: "DPA escalation", top: "2%", left: "28%", rotate: 2 },
+  { text: "QBR · 42min", top: "5%", left: "52%", rotate: -1 },
+  { text: "Voltura 78", top: "3%", left: "74%", rotate: 3 },
+  { text: "P1 ticket", top: "12%", left: "14%", rotate: -2 },
+  { text: "EoQ2 target", top: "14%", left: "38%", rotate: 4 },
+  { text: "147/200 active", top: "10%", left: "62%", rotate: -3 },
+  { text: "Sarah replied", top: "13%", left: "84%", rotate: 1 },
+  { text: "Bridgewater", top: "20%", left: "24%", rotate: -1, hideMobile: true },
+  { text: "Acme renewal", top: "22%", left: "58%", rotate: 2, hideMobile: true },
+
+  // ── Left flank ──
+  { text: "200 users", top: "32%", left: "1%", rotate: -3 },
+  { text: "Pricing concern", top: "44%", left: "3%", rotate: 2 },
+  { text: "Module C interest", top: "56%", left: "1%", rotate: 4 },
+  { text: "Net new logos", top: "38%", left: "11%", rotate: 1, hideMobile: true },
+  { text: "Re-baseline", top: "62%", left: "10%", rotate: -2, hideMobile: true },
+
+  // ── Right flank ──
+  { text: "8 action items", top: "34%", left: "84%", rotate: 2 },
+  { text: "Stale 6w", top: "45%", left: "90%", rotate: -3 },
+  { text: "Tom Willis", top: "57%", left: "85%", rotate: 1 },
+  { text: "Forward CFO", top: "40%", left: "92%", rotate: -2, hideMobile: true },
+  { text: "Loop Devon", top: "62%", left: "91%", rotate: 2, hideMobile: true },
+
+  // ── Bottom band ──
+  { text: "Apr 21 sync", top: "78%", left: "10%", rotate: 3 },
+  { text: "Champion gone", top: "82%", left: "30%", rotate: -2 },
+  { text: "$480K ARR", top: "80%", left: "52%", rotate: 1 },
+  { text: "New CFO", top: "78%", left: "74%", rotate: -4 },
+  { text: "Apr 21 doc", top: "90%", left: "16%", rotate: -1, hideMobile: true },
+  { text: "Open 4d", top: "88%", left: "40%", rotate: -3, hideMobile: true },
+  { text: "Mar 15 sync", top: "90%", left: "62%", rotate: 2, hideMobile: true },
+  { text: "Carryover", top: "86%", left: "84%", rotate: -1, hideMobile: true },
+
+  // ── Edge-overlap: TOP edge of card ──
+  { text: "Slack #acme", top: "28%", left: "30%", rotate: -2, hideMobile: true },
+  { text: "Pricing thread", top: "27%", left: "48%", rotate: 1, hideMobile: true },
+  { text: "Notion doc", top: "29%", left: "65%", rotate: -1, hideMobile: true },
+
+  // ── Edge-overlap: BOTTOM edge of card ──
+  { text: "Mar 15 call", top: "69%", left: "28%", rotate: 2, hideMobile: true },
+  { text: "Renewal 8w", top: "70%", left: "48%", rotate: -1, hideMobile: true },
+  { text: "QBR doc", top: "68%", left: "66%", rotate: 3, hideMobile: true },
+
+  // ── Edge-overlap: LEFT edge of card ──
+  { text: "Health 78", top: "38%", left: "19%", rotate: -3, hideMobile: true },
+  { text: "NRR 104%", top: "50%", left: "20%", rotate: 1, hideMobile: true },
+  { text: "Mid-market", top: "62%", left: "19%", rotate: -2, hideMobile: true },
+
+  // ── Edge-overlap: RIGHT edge of card ──
+  { text: "Acme DPA", top: "38%", left: "75%", rotate: 1, hideMobile: true },
+  { text: "EU expansion", top: "50%", left: "76%", rotate: -2, hideMobile: true },
+  { text: "Slack DM", top: "62%", left: "75%", rotate: 3, hideMobile: true },
 ];
 
 export default function PainSection() {
   return (
-    <section className="py-20 md:py-24">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: FADE_EASE }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="lg:col-span-5"
-        >
-          <p className="mb-6 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
-            The problem
-          </p>
-          <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-[44px] lg:text-[48px]">
-            The tax of context rebuilding.
-          </h2>
-          <p className="mt-7 text-[16px] leading-[1.65] text-[#1F1F1F] md:text-[17px]">
-            Customer Success spends most of its day rebuilding context.
-            Reading the same email thread for the third time. Re-finding the
-            insight buried in last week&rsquo;s Slack. Re-explaining an
-            account to leadership for the fifth time this quarter.
-          </p>
-          <p className="mt-4 text-[16px] leading-[1.65] text-[#1F1F1F] md:text-[17px]">
-            It&rsquo;s not the work. It&rsquo;s the cognitive switching cost
-            between the work. And it&rsquo;s where CS teams lose hours every
-            day.
-          </p>
-          <p className="mt-10 text-[24px] font-bold leading-[1.2] tracking-[-0.015em] text-[#14532D] md:text-[28px]">
-            Evergreen handles it.
-          </p>
-        </motion.div>
+    <section className="relative overflow-hidden px-6 py-20 md:px-12 lg:py-28">
+      <motion.div
+        initial={false}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: FADE_EASE }}
+        viewport={{ once: true, margin: "-80px" }}
+        className="relative z-10 mx-auto mb-16 max-w-2xl text-center lg:mb-20"
+      >
+        <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-[#6EE7B7]">
+          The problem
+        </p>
+        <h2 className="text-balance text-3xl font-medium leading-[1.05] tracking-[-0.03em] text-[#ECFDF5] sm:text-4xl md:text-[44px] lg:text-[48px]">
+          The tax of context rebuilding.
+        </h2>
+        <p className="mx-auto mt-7 text-[16px] leading-[1.65] text-[rgba(255,255,255,0.70)] md:text-[17px]">
+          It&rsquo;s not the work. It&rsquo;s the cognitive switching cost
+          between the work — the constant context rebuilding that happens
+          between every meeting, every reply, every handoff. And it&rsquo;s
+          where CS teams lose hours every day.
+        </p>
+      </motion.div>
 
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: FADE_EASE }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="lg:col-span-7"
+      <motion.div
+        initial={false}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.15, ease: FADE_EASE }}
+        viewport={{ once: true, margin: "-80px" }}
+        className="relative z-10 mx-auto flex max-w-5xl items-center justify-center"
+        style={{ minHeight: "600px" }}
+      >
+        <div
           aria-hidden="true"
+          className="absolute inset-0 overflow-hidden"
         >
-          <ContextQueue />
-        </motion.div>
-      </div>
+          {FRAGMENTS.map((f, i) => (
+            <span
+              key={i}
+              className={`absolute select-none whitespace-nowrap rounded-md ${
+                f.hideMobile ? "hidden lg:inline-block" : "inline-block"
+              }`}
+              style={{
+                top: f.top,
+                left: f.left,
+                padding: "5px 9px",
+                fontSize: "11px",
+                fontWeight: 500,
+                background: "rgba(255, 255, 255, 0.10)",
+                border: "1px solid rgba(255, 255, 255, 0.18)",
+                color: "rgba(255, 255, 255, 0.55)",
+                transform: `rotate(${f.rotate}deg)`,
+                zIndex: 1,
+              }}
+            >
+              {f.text}
+            </span>
+          ))}
+        </div>
+
+        <div
+          className="relative w-full"
+          style={{ maxWidth: "580px", zIndex: 2 }}
+        >
+          <RankedQueueCard />
+        </div>
+      </motion.div>
+
     </section>
   );
 }
 
-function ContextQueue() {
+function RankedQueueCard() {
   return (
     <div
       className="rounded-xl bg-white"
       style={{
-        border: "1px solid #E8E8E8",
-        boxShadow:
-          "0 1px 3px rgba(0, 0, 0, 0.03), 0 12px 32px rgba(0, 0, 0, 0.05)",
+        border: "1px solid rgba(0, 0, 0, 0.08)",
+        boxShadow: "0 30px 80px -12px rgba(0, 0, 0, 0.6)",
       }}
     >
-      <div className="flex items-center justify-between border-b border-[#EAEAEA] px-5 py-3">
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#888]">
-          Devon&rsquo;s context queue
+      <div
+        className="flex items-center justify-between px-5 py-3"
+        style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.10)" }}
+      >
+        <p
+          className="font-semibold uppercase"
+          style={{
+            fontSize: "11px",
+            letterSpacing: "0.15em",
+            color: "#14532D",
+          }}
+        >
+          Devon&rsquo;s queue · ranked by Evergreen
         </p>
-        <span className="font-mono text-[10px] tabular-nums text-[#999]">
-          8 fragments
+        <span className="text-[10px] font-medium tabular-nums text-gray-500">
+          8 of 30+
         </span>
       </div>
       <ul className="flex flex-col">
-        {FRAGMENTS.map((f, i) => (
+        {RANKED_ROWS.map((row, i) => (
           <li
             key={i}
             className="flex items-center gap-3 px-5 py-2.5"
             style={{
-              borderTop: i === 0 ? "none" : "0.5px solid #F0F0F0",
+              borderTop:
+                i === 0 ? "none" : "1px solid rgba(0, 0, 0, 0.06)",
             }}
           >
-            <span className="w-14 shrink-0 text-[9.5px] font-bold uppercase tracking-[0.10em] text-[#888]">
-              {f.source}
+            <span
+              className="shrink-0 text-center"
+              style={{
+                width: "22px",
+                fontSize: "12px",
+                fontWeight: 600,
+                color: row.priorityColor,
+              }}
+            >
+              {row.priority}
             </span>
+            <div className="w-[60px] shrink-0">
+              <span className="inline-flex items-center rounded-md bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-gray-700">
+                {row.source}
+              </span>
+            </div>
             <span className="flex-1 truncate text-[12px] leading-[1.4] text-[#1F1F1F]">
-              {f.preview}
+              {row.preview}
             </span>
-            <span className="shrink-0 font-mono text-[10px] tabular-nums text-[#999]">
-              {f.timestamp}
+            <span className="shrink-0 text-xs font-medium text-gray-500">
+              {row.timestamp}
             </span>
           </li>
         ))}
+        <li
+          className="flex items-center gap-3 px-5 py-2.5"
+          style={{ borderTop: "1px solid rgba(0, 0, 0, 0.06)" }}
+        >
+          <span
+            className="shrink-0 text-center"
+            style={{
+              width: "22px",
+              fontSize: "12px",
+              fontWeight: 600,
+              color: "#888780",
+            }}
+          >
+            +5
+          </span>
+          <span className="flex-1 text-[12px] italic leading-[1.4] text-gray-500">
+            +5 more, ranked
+          </span>
+        </li>
       </ul>
-      <div className="border-t border-[#EAEAEA] bg-[#FAFAF9] px-5 py-2.5">
-        <p className="text-center text-[10.5px] italic text-[#888]">
-          Every morning. Across every account. By hand.
+      <div
+        className="flex items-center justify-center"
+        style={{
+          background: "#F1EFE8",
+          padding: "12px 22px",
+        }}
+      >
+        <p
+          className="text-center"
+          style={{
+            fontSize: "12px",
+            color: "#5F5E5A",
+          }}
+        >
+          Without Evergreen, this is{" "}
+          <span style={{ fontWeight: 600, color: "#2C2C2A" }}>by hand.</span>
         </p>
       </div>
     </div>
   );
 }
-
-/* =========================================================================
- * COMMENTED-OUT ALTERNATIVES (for review — pick one to swap in if preferred)
- * =========================================================================
- *
- * ALTERNATIVE 1 — Tabbed source switcher (Direction A)
- * Interactive tab strip at top: Email / Slack / Calls / Notion / CRM / QBR.
- * Each tab swaps the lower panel to show a stylized fragment from that
- * source. State-driven, not auto-rotating. Visitor scrubs through to see
- * "all these places context lives." More product-energy but also more
- * UI vocabulary — risk of feeling like a teaser product widget rather
- * than a feature illustration.
- *
- * Sketch:
- *   const [tab, setTab] = useState<Source>("email");
- *   <div className="rounded-xl bg-white" style={cardChrome}>
- *     <div className="flex border-b border-[#EAEAEA]">
- *       {SOURCES.map(s => (
- *         <button onClick={() => setTab(s)}
- *           className={tab === s ? "active-tab" : "inactive-tab"}>
- *           {s}
- *         </button>
- *       ))}
- *     </div>
- *     <div className="p-5">
- *       <FragmentDetail source={tab} />
- *     </div>
- *   </div>
- *
- * ALTERNATIVE 2 — "From this... to this" split-screen (Direction E)
- * Left half: scattered fragments (current overlapping-cards iteration).
- * Right half: same fragments, organized into a clean column with a
- * single green check at top labeled "Reconciled".
- * Caption between the two halves: "From this... to this."
- * Conveys the transformation Evergreen performs visually. Strongest
- * narrative impact but visually busiest — risk of looking like a
- * before/after marketing template.
- *
- * Sketch:
- *   <div className="grid grid-cols-2 gap-6">
- *     <div className="relative h-[420px]">
- *       {scattered overlapping cards (iteration 2 visual)}
- *     </div>
- *     <div className="flex flex-col">
- *       <div className="header">✓ Reconciled by Evergreen</div>
- *       {ordered list of same fragments}
- *     </div>
- *   </div>
- *
- * ========================================================================= */

@@ -99,9 +99,9 @@ const SETTINGS = [
 export default function ForecastAccuracy() {
   return (
     <div className="bg-white text-[#0A0A0A]">
-      <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] px-6 py-5">
+      <div className="flex items-start justify-between gap-4 border-b border-[rgba(0,0,0,0.10)] px-6 py-5">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
+          <div className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#16A34A]">
             Forecast Accuracy
           </div>
           <h3 className="mt-1 text-[17px] font-bold tracking-[-0.02em] text-[#0A0A0A]">
@@ -109,24 +109,24 @@ export default function ForecastAccuracy() {
           </h3>
           <p className="mt-1 text-[12px] text-[#666]">{SUMMARY.scope}</p>
         </div>
-        <span className="shrink-0 font-mono text-[28px] font-extrabold tracking-[-0.03em] tabular-nums text-[#0A0A0A]">
+        <span className="shrink-0 font-mono text-[48px] font-medium leading-none tracking-[-0.03em] tabular-nums text-[#0A0A0A]">
           {SUMMARY.headline}
         </span>
       </div>
 
-      <div className="border-b border-[#EAEAEA] px-6 py-4">
+      <div className="border-b border-[rgba(0,0,0,0.10)] px-6 py-4">
         <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Formula
         </div>
         <div
           className="rounded-md bg-[#FAFAFA] px-3 py-2.5 font-mono text-[12px] leading-[1.5] text-[#1F1F1F]"
-          style={{ border: "1px solid #EAEAEA" }}
+          style={{ border: "1px solid rgba(0, 0, 0, 0.06)" }}
         >
           {FORMULA}
         </div>
       </div>
 
-      <div className="border-b border-[#EAEAEA] px-6 py-4">
+      <div className="border-b border-[rgba(0,0,0,0.10)] px-6 py-4">
         <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           What this measures
         </div>
@@ -135,13 +135,13 @@ export default function ForecastAccuracy() {
         </p>
       </div>
 
-      <div className="border-b border-[#EAEAEA] px-6 py-4">
+      <div className="border-b border-[rgba(0,0,0,0.10)] px-6 py-4">
         <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Per forecast type
         </div>
         <div
           className="overflow-hidden rounded-md"
-          style={{ border: "0.5px solid #EAEAEA" }}
+          style={{ border: "1px solid rgba(0, 0, 0, 0.06)" }}
         >
           <table className="w-full text-[12px]">
             <thead className="bg-[#FAFAFA]">
@@ -161,7 +161,10 @@ export default function ForecastAccuracy() {
                     key={row.metric}
                     className="transition-colors hover:bg-[#FAFAF9]"
                     style={{
-                      borderTop: i === 0 ? "none" : "0.5px solid #EAEAEA",
+                      borderTop:
+                        i === 0
+                          ? "1px solid rgba(0, 0, 0, 0.10)"
+                          : "1px solid rgba(0, 0, 0, 0.06)",
                     }}
                   >
                     <Cell>{row.metric}</Cell>
@@ -187,7 +190,7 @@ export default function ForecastAccuracy() {
         </div>
       </div>
 
-      <div className="border-b border-[#EAEAEA] px-6 py-4">
+      <div className="border-b border-[rgba(0,0,0,0.06)] px-6 py-4">
         <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Most recent closed quarter · {SUMMARY.recentQuarter}
         </div>
@@ -195,10 +198,10 @@ export default function ForecastAccuracy() {
           {RECENT_QUARTER.map((q, i) => (
             <div
               key={q.metric}
-              className="text-[12px] leading-[1.5]"
+              className="text-[11.5px] leading-[1.5]"
               style={{
                 paddingTop: i === 0 ? 0 : 6,
-                borderTop: i === 0 ? "none" : "0.5px solid #F4F4F3",
+                borderTop: i === 0 ? "none" : "1px solid rgba(0, 0, 0, 0.06)",
               }}
             >
               <span className="font-semibold text-[#0A0A0A]">{q.metric}</span>
@@ -221,18 +224,18 @@ export default function ForecastAccuracy() {
         </div>
       </div>
 
-      <div className="border-b border-[#EAEAEA] px-6 py-4">
+      <div className="border-b border-[rgba(0,0,0,0.06)] px-6 py-4">
         <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Drift factors
         </div>
-        <ul className="list-disc space-y-1.5 pl-5 text-[12px] leading-[1.65] text-[#1F1F1F]">
+        <ul className="list-disc space-y-1.5 pl-5 text-[11.5px] leading-[1.65] text-[#1F1F1F]">
           {DRIFT_FACTORS.map((f) => (
             <li key={f}>{f}</li>
           ))}
         </ul>
       </div>
 
-      <div className="border-b border-[#EAEAEA] px-6 py-4">
+      <div className="border-b border-[rgba(0,0,0,0.06)] px-6 py-4">
         <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
           Settings driving this
         </div>
@@ -257,9 +260,9 @@ export default function ForecastAccuracy() {
 function SettingsRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="-mx-3 flex items-center justify-between gap-3 rounded-md px-3 py-2 transition-colors hover:bg-[#FAFAF9]">
-      <span className="text-[13px] text-[#1F1F1F]">{label}</span>
+      <span className="text-[11.5px] text-[#1F1F1F]">{label}</span>
       <span className="flex items-center gap-2">
-        <span className="text-[13px] text-[#666]">{value}</span>
+        <span className="text-[11.5px] text-[#666]">{value}</span>
         <span className="text-[12px] text-[#16A34A]">→</span>
       </span>
     </div>

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Nav from "../../components/marketing/Nav";
+import Footer from "../../components/marketing/Footer";
 
 const CALENDLY_URL = "https://calendly.com/matt-stayevergreen/30min";
 
@@ -93,30 +94,43 @@ export default function RoiPage() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen bg-[#FAFAF9] pt-16 text-[#0A0A0A]">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
-          <section className="py-24 text-center">
-            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
+      <main className="relative min-h-screen pt-16 text-[#ECFDF5]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-[22%] -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: "1100px",
+            height: "1100px",
+            background:
+              "radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%)",
+            zIndex: 0,
+          }}
+        />
+        <section className="relative z-10 px-6 pb-12 pt-16 text-center md:px-12 md:pb-16 md:pt-20">
+          <div className="mx-auto max-w-3xl">
+            <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-[#6EE7B7]">
               ROI Calculator
             </p>
-            <h1 className="mx-auto max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-[#ECFDF5] sm:text-[48px] lg:text-[60px]">
               What does Evergreen actually save you?
             </h1>
-            <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-[1.55] tracking-[-0.005em] text-[#666] md:text-[19px]">
-              Tune the inputs to your team. See the math behind the numbers we
-              publish — every assumption is editable, every number traces back.
+            <p className="mx-auto mt-6 max-w-2xl text-[18px] leading-[1.6] text-[rgba(255,255,255,0.70)]">
+              Tune the inputs to your team. See the math behind the numbers
+              we publish — every assumption is editable, every number traces
+              back.
             </p>
-          </section>
+          </div>
+        </section>
 
-          <section className="pb-16">
-            <div
-              className="mx-auto max-w-6xl rounded-2xl bg-white p-8 md:p-10"
-              style={{
-                border: "1px solid #EAEAEA",
-                boxShadow:
-                  "0 4px 12px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.06)",
-              }}
-            >
+        <section className="relative z-10 px-6 pb-16 md:px-12">
+          <div
+            className="mx-auto max-w-5xl rounded-2xl bg-white p-8 lg:p-10"
+            style={{
+              border: "1px solid rgba(0, 0, 0, 0.08)",
+              boxShadow:
+                "0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.08)",
+            }}
+          >
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
                 <div>
                   <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.10em] text-[#666]">
@@ -174,23 +188,27 @@ export default function RoiPage() {
             </div>
           </section>
 
-          <section className="border-t border-[#EAEAEA] py-24 text-center">
-            <p className="mb-6 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
+        <section className="relative overflow-hidden px-6 py-16 text-center md:px-12 md:py-20">
+          <div className="relative z-10 mx-auto max-w-2xl">
+            <p className="mb-6 text-[13px] font-medium uppercase tracking-[0.18em] text-[#6EE7B7]">
               Ready to see it in action?
             </p>
-            <h2 className="mx-auto max-w-2xl text-balance text-[28px] font-bold tracking-[-0.02em] text-[#0A0A0A] md:text-[32px]">
+            <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] text-[#ECFDF5] lg:text-4xl">
               Book a 30-minute walk-through.
             </h2>
             <a
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center justify-center rounded-lg bg-[#16A34A] px-7 py-3.5 text-[15px] font-medium text-white transition-all duration-200 hover:scale-[1.01] hover:bg-[#15803D]"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-[#0A0A0A] transition-all duration-200 hover:scale-[1.02] hover:bg-[#ECFDF5]"
             >
               Book a demo
+              <span aria-hidden="true">→</span>
             </a>
-          </section>
-        </div>
+          </div>
+        </section>
+
+        <Footer />
       </main>
     </>
   );
@@ -226,7 +244,9 @@ function InputRow({
   return (
     <div
       className="flex items-start justify-between gap-4 py-4"
-      style={{ borderBottom: last ? "none" : "1px solid #F0EFEC" }}
+      style={{
+        borderBottom: last ? "none" : "1px solid rgba(0, 0, 0, 0.06)",
+      }}
     >
       <div className="min-w-0 flex-1">
         <label
@@ -250,7 +270,7 @@ function InputRow({
             inputMode="numeric"
             value={formatted}
             onChange={handleChange}
-            className="w-[110px] rounded-md border border-[#EAEAEA] bg-white px-3 py-2 text-right text-[16px] font-medium text-[#0A0A0A] outline-none transition-colors focus:border-[#16A34A]"
+            className="w-[110px] rounded-md border border-[rgba(0,0,0,0.12)] bg-white px-3 py-2 text-right text-[16px] font-medium text-[#0A0A0A] outline-none transition-colors focus:border-[#16A34A] focus:ring-2 focus:ring-[#16A34A]/20"
           />
         </div>
         {derivedAnnotation ? (
@@ -300,11 +320,17 @@ function ResultsColumn({
         Your results
       </p>
 
-      <div className="rounded-xl bg-[#FAFAF9] p-6">
-        <div className="text-[40px] font-bold leading-none tracking-[-0.03em] text-[#0A0A0A] md:text-[48px]">
+      <div
+        className="rounded-xl p-6"
+        style={{
+          background: "#F0FDF4",
+          border: "1px solid rgba(22, 163, 74, 0.2)",
+        }}
+      >
+        <div className="text-[40px] font-medium leading-none tracking-[-0.03em] text-[#15803D] md:text-[48px]">
           {multiplierDisplay}
         </div>
-        <p className="mt-2 text-[13px] text-[#666]">
+        <p className="mt-2 text-[13px] text-[#6B7280]">
           estimated year-one return
         </p>
       </div>
@@ -427,7 +453,13 @@ function ResultRow({
   return (
     <div
       className="py-3"
-      style={{ borderBottom: last ? "none" : "0.5px solid #EAEAEA" }}
+      style={{
+        borderBottom: last
+          ? "none"
+          : accent
+            ? "1px solid rgba(0, 0, 0, 0.10)"
+            : "1px solid rgba(0, 0, 0, 0.06)",
+      }}
     >
       <div className="flex items-baseline justify-between gap-3">
       <span

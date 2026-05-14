@@ -146,7 +146,7 @@ export default function MorningQueue() {
 
 function TopBar() {
   return (
-    <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-5 py-3 md:px-6">
+    <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.10)] bg-white px-5 py-3 md:px-6">
       <div className="flex items-baseline gap-3">
         <h2 className="text-[14px] font-bold tracking-[-0.01em] md:text-[15px]">
           Morning queue
@@ -170,7 +170,7 @@ function TopBar() {
 
 function CalendarBar() {
   return (
-    <div className="flex items-center gap-2 border-b border-[#E8E8E8] bg-white px-5 py-2 text-[11px] md:gap-3 md:px-6 md:text-[12px]">
+    <div className="flex items-center gap-2 border-b border-[rgba(0,0,0,0.10)] bg-white px-5 py-2 text-[11px] md:gap-3 md:px-6 md:text-[12px]">
       <span className="flex items-center gap-1.5 text-[#666]">
         <CalendarIcon />
         <span>
@@ -192,11 +192,11 @@ function CalendarBar() {
 
 function KpiRow() {
   return (
-    <div className="grid grid-cols-2 gap-2 border-b border-[#E8E8E8] bg-white px-5 py-3 md:grid-cols-4 md:gap-3 md:px-6 md:py-4">
+    <div className="grid grid-cols-2 gap-2 border-b border-[rgba(0,0,0,0.10)] bg-white px-5 py-3 md:grid-cols-4 md:gap-3 md:px-6 md:py-4">
       {KPIS.map((k) => (
         <div
           key={k.label}
-          className="rounded-md border-[0.5px] border-[#E8E8E8] bg-white px-3 py-2.5 transition-colors hover:bg-[#FAFAF9]"
+          className="rounded-md border border-[rgba(0,0,0,0.06)] bg-white px-3 py-2.5 transition-colors hover:bg-[#FAFAF9]"
         >
           <div className="text-[9px] font-semibold uppercase tracking-[0.06em] text-[#666] md:text-[10px]">
             {k.label}
@@ -215,7 +215,7 @@ function KpiRow() {
 
 function AiBrief() {
   return (
-    <div className="border-b border-[#E8E8E8] bg-white px-5 py-3 md:px-6 md:py-4">
+    <div className="border-b border-[rgba(0,0,0,0.10)] bg-white px-5 py-3 md:px-6 md:py-4">
       <div className="mb-3 flex items-center gap-2">
         <span className="text-[10px] font-bold uppercase tracking-[0.10em] text-[#16A34A]">
           AI
@@ -302,7 +302,7 @@ function KanbanColumn({
           </h3>
           <span className="text-[10px] text-[#666]">{count}</span>
         </div>
-        <div className="flex items-center gap-1 rounded border-[0.5px] border-[#E8E8E8] bg-white px-2 py-0.5 text-[10px] text-[#666]">
+        <div className="flex items-center gap-1 rounded border border-[rgba(0,0,0,0.06)] bg-white px-2 py-0.5 text-[10px] text-[#666]">
           AI score <span className="text-[#aaa]">▾</span>
         </div>
       </div>
@@ -318,7 +318,7 @@ function KanbanColumn({
 function KanbanCard({ account, tone }: { account: Account; tone: string }) {
   return (
     <div
-      className="rounded-md border-[0.5px] border-[#E8E8E8] bg-white px-3 py-2.5 transition-all duration-150 hover:translate-y-[-1px] hover:bg-[#FCFCFC] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+      className="rounded-md border border-[rgba(0,0,0,0.06)] bg-white px-3 py-2.5 transition-all duration-150 hover:translate-y-[-1px] hover:bg-[#FCFCFC] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
       style={{ borderLeft: `3px solid ${tone}` }}
     >
       <div className="flex items-center justify-between gap-2">
@@ -354,7 +354,7 @@ function KanbanCard({ account, tone }: { account: Account; tone: string }) {
 
 function ActionPill({ children }: { children: React.ReactNode }) {
   return (
-    <div className="inline-flex items-center gap-1 rounded-sm border border-[#E8E8E8] bg-[#FAFAFA] px-2.5 py-1 text-[10px] text-[#444] transition-colors hover:bg-[#F0F0F0]">
+    <div className="inline-flex items-center gap-1 rounded-sm border border-[rgba(0,0,0,0.15)] bg-white px-2.5 py-1 text-[10px] text-[#0A0A0A] transition-colors hover:bg-[#FAFAFA]">
       {children}
     </div>
   );

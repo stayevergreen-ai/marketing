@@ -1,27 +1,120 @@
 @import "tailwindcss";
 
+/*
+ * Evergreen design tokens — R.6.1 (deep emerald atmospheric)
+ *
+ * Two layers active during the R.6 transition:
+ *   1. Legacy chalk tokens (--background, --foreground) — kept so existing
+ *      sections that reference them via the @theme inline mapping don't break.
+ *      Values flipped to the new dark-atmosphere defaults.
+ *   2. New --eg-* tokens — explicit deep-emerald-tonal palette. Section
+ *      components migrate to these in R.6.2 (hero rebuild) and R.6.3
+ *      (section migration). DO NOT delete legacy tokens until after R.6.3.
+ */
+
 :root {
-  --background: #fafaf9;
-  --foreground: #0a0a0a;
+  /* === Legacy bridge (flipped to new atmosphere values) === */
+  --background: #022c22;
+  --foreground: #ecfdf5;
+
+  /* === Deep emerald atmospheric palette === */
+
+  /* Background atmosphere */
+  --eg-bg-base: #022c22; /* page background base — deepest emerald */
+  --eg-bg-mid: #064e3b; /* mid emerald — section rhythm */
+  --eg-bg-glow: rgba(16, 185, 129, 0.12); /* soft glow overlay */
+
+  /* Text on dark atmosphere (R.6.4.3 tone unification) */
+  --eg-text-primary-dark: #ecfdf5; /* mint cream — primary text */
+  --eg-text-secondary-dark: rgba(255, 255, 255, 0.7); /* white-70 — secondary body */
+  --eg-text-tertiary-dark: rgba(255, 255, 255, 0.5); /* white-50 — fine print, footer */
+  --eg-text-accent-dark: #6ee7b7; /* mid mint — eyebrows, brand moments */
+  --eg-text-accent-bright: #4ade80; /* bright accent — closers, emphasis */
+
+  /* Spec-named aliases (R.6.4.3) */
+  --text-primary-on-dark: #ecfdf5;
+  --text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --text-tertiary-on-dark: rgba(255, 255, 255, 0.5);
+  --text-accent-on-dark: #6ee7b7;
+  --text-accent-bright: #4ade80;
+
+  /* Brand accents */
+  --eg-accent-bright: #10b981; /* bright emerald — primary CTA, key brand moments */
+  --eg-accent-mid: #16a34a; /* secondary accent — ties to logo ST-1 */
+  --eg-accent-deep: #14532d; /* deep accent for light-surface contrast */
+
+  /* Light surfaces (floating product cards on dark atmosphere) */
+  --eg-surface-light: #ffffff;
+  --eg-surface-light-soft: #fafafa;
+  --eg-surface-light-border: #e8e8e8;
+
+  /* Text on light surfaces */
+  --eg-text-on-light-primary: #000000;
+  --eg-text-on-light-secondary: #6b7280;
+  --eg-text-on-light-tertiary: #9ca3af;
+
+  /* Status (used surgically inside product UI previews) */
+  --eg-status-urgent: #dc2626;
+  --eg-status-attention: #fb923c;
+  --eg-status-opportunity: #10b981;
+  --eg-status-neutral: #94a3b8;
+
+  /* === Typography system (R.6.1) ===
+   * Headline weights on dark atmosphere lean lighter than on light backgrounds —
+   * bold reads heavier than intended. Defaults documented here; sections apply
+   * during R.6.2/R.6.3.
+   *
+   *   --eg-headline-weight: 500           (medium, NOT 700)
+   *   --eg-body-weight:     400
+   *   --eg-body-line-height: 1.7
+   *   --eg-eyebrow-tracking: 0.05em       (tracking-wider)
+   *
+   * Font stack unchanged — Geist Sans + Geist Mono via next/font/google.
+   */
+
+  /* === Hero atmospheric background (composed) ===
+   * R.6.4.4: linear base removed — page-wide body gradient now supplies it.
+   * Hero keeps its two radial glows as transparent overlays.
+   */
+  --eg-hero-atmosphere:
+    radial-gradient(
+      circle at 38% 45%,
+      rgba(16, 185, 129, 0.1) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 78% 55%,
+      rgba(16, 185, 129, 0.04) 0%,
+      transparent 50%
+    );
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --font-sans: "General Sans", "General Sans Fallback", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background: linear-gradient(180deg, #033b2d 0%, #001712 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+body {
+  background: transparent;
+  color: var(--foreground);
+  font-family: "General Sans", "General Sans Fallback", ui-sans-serif,
+    system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 #product,

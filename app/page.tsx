@@ -3,58 +3,15 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import MorningQueue from "../components/marketing/MorningQueue";
-import ForecastAccuracy from "../components/marketing/ForecastAccuracy";
 import Pricing from "../components/marketing/Pricing";
 import FinalCTA from "../components/marketing/FinalCTA";
 import Nav from "../components/marketing/Nav";
 import PainSection from "../components/marketing/PainSection";
 import OurBetSection from "../components/marketing/OurBetSection";
 import HighlightReel from "../components/marketing/HighlightReel";
+import Footer from "../components/marketing/Footer";
 
 const FADE_EASE = [0.16, 1, 0.3, 1] as const;
-
-const cardChrome = {
-  border: "1px solid #EAEAEA",
-  boxShadow:
-    "0 4px 12px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.06)",
-};
-
-function TreeMark({
-  size = 28,
-  className,
-}: {
-  size?: number;
-  className?: string;
-}) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 64 64"
-      fill="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <polygon points="32,8 21,24 43,24" fill="#4ADE80" />
-      <polygon points="32,20 18,38 46,38" fill="#16A34A" />
-      <polygon points="32,32 14,54 50,54" fill="#14532D" />
-      <rect x="29" y="54" width="6" height="6" fill="#14532D" />
-    </svg>
-  );
-}
-
-function TreeDivider() {
-  return (
-    <div
-      aria-hidden="true"
-      className="my-16 flex items-center justify-center gap-6"
-    >
-      <div className="h-px max-w-32 flex-1 bg-[#C8C8C3]" />
-      <TreeMark size={20} className="opacity-85" />
-      <div className="h-px max-w-32 flex-1 bg-[#C8C8C3]" />
-    </div>
-  );
-}
 
 export default function Home() {
   useEffect(() => {
@@ -68,148 +25,162 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen bg-[#FAFAF9] pt-16 text-[#0A0A0A]">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
-          <section
-            id="product"
-            className="pb-20 pt-20 text-center md:pb-24 md:pt-24 lg:pt-32"
-          >
-          <motion.p
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
-            className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]"
-          >
-            The operational intelligence layer for CS
-          </motion.p>
+      <main className="min-h-screen pt-16 text-[#ECFDF5]">
+        <section
+          id="product"
+          className="relative overflow-hidden"
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 40%, rgba(16, 185, 129, 0.10) 0%, transparent 60%)",
+            }}
+          />
+          <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+              <motion.div
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
+                className="lg:col-span-6"
+              >
+                <p className="text-[13px] font-medium uppercase tracking-[0.18em] text-[#6EE7B7]">
+                  The operational intelligence layer for CS
+                </p>
+                <h1 className="mt-5 text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-[#ECFDF5] sm:text-[48px] lg:text-[60px]">
+                  Built to make your CSMs unbeatable.
+                </h1>
+                <p className="mt-6 max-w-md text-[18px] font-normal leading-[1.6] text-[rgba(255,255,255,0.70)]">
+                  The operational intelligence layer for CS — leverage for
+                  your team, confidence for your board.
+                </p>
+                <motion.a
+                  href="https://calendly.com/matt-stayevergreen/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2, ease: FADE_EASE }}
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-[#0A0A0A] transition-colors duration-200 hover:bg-[#ECFDF5]"
+                >
+                  Book a demo
+                  <span aria-hidden="true">→</span>
+                </motion.a>
+              </motion.div>
 
-          <motion.h1
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: FADE_EASE }}
-            className="mx-auto max-w-5xl text-balance text-[48px] font-extrabold leading-[1.0] tracking-[-0.04em] text-[#0A0A0A] md:text-[80px] lg:text-[112px]"
-          >
-            Built to make your CSMs unbeatable.
-          </motion.h1>
-
-          <motion.p
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35, ease: FADE_EASE }}
-            className="mx-auto mt-8 max-w-2xl text-balance text-[17px] leading-[1.45] tracking-[-0.005em] text-[#1F1F1F] md:text-[19px] lg:text-[22px]"
-          >
-            The operational intelligence layer for CS — leverage for your team, confidence for your board.
-          </motion.p>
-
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: FADE_EASE }}
-            className="mx-auto mt-12 flex flex-col items-stretch justify-center gap-2 sm:flex-row sm:items-center sm:gap-3"
-          >
-            <motion.a
-              href="https://calendly.com/matt-stayevergreen/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ scale: 1, backgroundColor: "#0A0A0A" }}
-              whileHover={{ scale: 1.01, backgroundColor: "#16A34A" }}
-              transition={{ duration: 0.2, ease: FADE_EASE }}
-              className="inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-[15px] font-medium text-white"
-            >
-              Book a demo
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7, ease: FADE_EASE }}
-            className="mx-auto mt-20 max-w-6xl overflow-hidden rounded-xl bg-white md:mt-24"
-            style={cardChrome}
-          >
-            <MorningQueue />
-          </motion.div>
-
-          <motion.p
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.85, ease: FADE_EASE }}
-            className="mx-auto mt-5 max-w-3xl text-[13px] italic text-[#888]"
-          >
-            Morning Queue: the day prioritized for your team, ranked by what&apos;s at stake.
-          </motion.p>
+              <motion.div
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: FADE_EASE }}
+                className="overflow-hidden rounded-xl bg-white lg:col-span-6"
+                style={{
+                  border: "1px solid rgba(0, 0, 0, 0.08)",
+                  boxShadow:
+                    "0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.08)",
+                }}
+              >
+                <MorningQueue />
+              </motion.div>
+            </div>
+          </div>
         </section>
-
-        <TreeDivider />
 
         <PainSection />
 
-        <TreeDivider />
-
         <OurBetSection />
-
-        <TreeDivider />
 
         <HighlightReel />
 
-        <TreeDivider />
+        <section
+          id="methodology"
+          className="relative overflow-hidden"
+        >
+          <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12">
+              <motion.div
+                initial={false}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: FADE_EASE }}
+                viewport={{ once: true, margin: "-80px" }}
+                className="lg:col-span-5"
+              >
+                <p className="text-[13px] font-medium uppercase tracking-[0.18em] text-[#6EE7B7]">
+                  The defensibility test
+                </p>
+                <h2 className="mt-4 text-balance text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-[#ECFDF5] lg:text-5xl">
+                  Every claim has a defensible answer.
+                </h2>
+                <p className="mt-6 text-[18px] leading-[1.6] tracking-[-0.005em] text-[rgba(255,255,255,0.70)]">
+                  Click any number in Evergreen. See the formula, the inputs,
+                  the assumptions.
+                </p>
+                <p className="mt-8 text-[16px] font-medium leading-[1.5] text-[#ECFDF5] lg:text-[18px]">
+                  Defensible by design, not by claim.
+                </p>
+              </motion.div>
 
-        <section id="methodology" className="py-20">
-          <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-80px" }}
-            className="mx-auto mb-12 max-w-3xl text-center"
-          >
-            <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
-              The defensibility test
-            </p>
-            <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
-              Every claim has a defensible answer.
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-[1.6] tracking-[-0.005em] text-[#1F1F1F] md:text-[17px]">
-              Click any number in Evergreen. See the formula, the inputs, the
-              assumptions. Defensible by design, not by claim.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
-            viewport={{ once: true, margin: "-80px" }}
-            className="mx-auto max-w-5xl"
-          >
-            <div
-              className="overflow-hidden rounded-xl bg-white"
-              style={cardChrome}
-            >
-              <ForecastAccuracy />
+              <motion.div
+                initial={false}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: FADE_EASE }}
+                viewport={{ once: true, margin: "-80px" }}
+                className="lg:col-span-7"
+              >
+                <div
+                  className="rounded-2xl bg-white p-8 lg:p-10"
+                  style={{
+                    border: "1px solid rgba(0, 0, 0, 0.08)",
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)",
+                  }}
+                >
+                  <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-[#16A34A]">
+                    Forecast accuracy
+                  </p>
+                  <p className="mt-2 text-6xl font-medium leading-none tracking-[-0.03em] text-black lg:text-7xl">
+                    93.8%
+                  </p>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Trailing 4 closed quarters · Customer Success Team scope
+                  </p>
+                  <div className="mt-6 rounded-md bg-[#FAFAFA] p-4 font-mono text-sm text-gray-800">
+                    accuracy = 1 − |forecast − actual| ÷ actual
+                  </div>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      className="rounded-md border border-[rgba(0,0,0,0.10)] bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[rgba(22,163,74,0.40)] hover:bg-gray-50"
+                    >
+                      Inputs →
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-md border border-[rgba(0,0,0,0.10)] bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[rgba(22,163,74,0.40)] hover:bg-gray-50"
+                    >
+                      Assumptions →
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-md border border-[rgba(0,0,0,0.10)] bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[rgba(22,163,74,0.40)] hover:bg-gray-50"
+                    >
+                      Snapshot history →
+                    </button>
+                  </div>
+                  <p className="mt-6 text-sm leading-[1.6] text-gray-600">
+                    Click any number in Evergreen. See everything that built
+                    it.
+                  </p>
+                </div>
+              </motion.div>
             </div>
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[13px] italic leading-[1.6] text-[#666] md:text-[14px]">
-              No black-box AI. Click any number to see the formula, the
-              inputs, the assumptions. Every snapshot, every metric, every
-              period — defensible by design, not by claim.
-            </p>
-          </motion.div>
+          </div>
         </section>
-
-        <TreeDivider />
 
         <Pricing />
 
-        <TreeDivider />
-
         <FinalCTA />
 
-        <div className="flex flex-col items-center gap-3 pb-20 pt-24 opacity-60">
-          <TreeMark size={24} />
-          <span className="text-xs uppercase tracking-[0.15em] text-[#666]">
-            evergreen.
-          </span>
-        </div>
-        </div>
+        <Footer />
       </main>
     </>
   );

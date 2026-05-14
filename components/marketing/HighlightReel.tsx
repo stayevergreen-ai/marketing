@@ -65,27 +65,27 @@ export default function HighlightReel() {
   };
 
   return (
-    <section className="py-20">
+    <section className="relative overflow-hidden px-6 py-14 md:px-12 md:py-16">
       <motion.div
         initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: FADE_EASE }}
         viewport={{ once: true, margin: "-80px" }}
-        className="mx-auto mb-14 max-w-3xl text-center"
+        className="relative z-10 mx-auto mb-12 max-w-3xl text-center"
       >
-        <p className="mb-8 text-[13px] font-medium uppercase tracking-[0.18em] text-[#666]">
+        <p className="mb-6 text-[13px] font-medium uppercase tracking-[0.18em] text-[#6EE7B7]">
           How it works
         </p>
-        <h2 className="text-balance text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-[#0A0A0A] sm:text-4xl md:text-5xl">
+        <h2 className="text-balance text-3xl font-medium leading-[1.05] tracking-[-0.03em] text-[#ECFDF5] sm:text-4xl md:text-5xl">
           Leverage, where the work actually happens.
         </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-[1.6] tracking-[-0.005em] text-[#1F1F1F] md:text-[17px]">
+        <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-[1.6] tracking-[-0.005em] text-[rgba(255,255,255,0.70)] md:text-[17px]">
           Four places where AI handles the cognitive load — and your CSM
           stays in charge.
         </p>
       </motion.div>
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+      <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
         {TILES.map((tile, i) => (
           <Card
             key={tile.id}
@@ -137,7 +137,9 @@ function Card({
       aria-label={`Open ${tile.headline} highlight`}
       className="group flex h-full cursor-pointer flex-col rounded-2xl bg-white p-8 text-left transition-shadow duration-200 md:p-10"
       style={{
-        border: hover ? "1px solid #16A34A" : "1px solid #E8E8E8",
+        border: hover
+          ? "1px solid #16A34A"
+          : "1px solid rgba(0, 0, 0, 0.08)",
         boxShadow: hover
           ? "0 12px 32px rgba(22, 163, 74, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04)"
           : "0 1px 2px rgba(0, 0, 0, 0.02)",
@@ -156,13 +158,9 @@ function Card({
         {tile.supporting}
       </p>
 
-      <div className="mt-7">
+      <div className="mt-auto pt-7">
         <Preview />
       </div>
-
-      <span className="mt-auto pt-6 text-[13px] font-semibold text-[#16A34A] transition-colors group-hover:text-[#15803D]">
-        See it →
-      </span>
     </motion.button>
   );
 }
@@ -171,7 +169,7 @@ function HandoffPreview() {
   return (
     <div
       className="w-full rounded-md bg-white p-3"
-      style={{ border: "1px solid #E8E8E8" }}
+      style={{ border: "1px solid rgba(0, 0, 0, 0.06)" }}
     >
       <div className="mb-3 flex items-center gap-1.5">
         <span
@@ -219,7 +217,10 @@ function ContactMini({
   return (
     <div
       className="flex items-center justify-between gap-2 rounded-md p-2"
-      style={{ background: "#FAFAFA", border: "0.5px solid #EAEAEA" }}
+      style={{
+        background: "#FAFAFA",
+        border: "1px solid rgba(0, 0, 0, 0.06)",
+      }}
     >
       <span className="truncate text-[11px] font-semibold text-[#0A0A0A]">
         {name}
@@ -238,7 +239,7 @@ function QBRPreview() {
   return (
     <div
       className="w-full rounded-md bg-white p-3"
-      style={{ border: "1px solid #E8E8E8" }}
+      style={{ border: "1px solid rgba(0, 0, 0, 0.06)" }}
     >
       <div className="mb-3 flex items-center justify-between gap-2">
         <div className="inline-flex items-center gap-0.5 rounded-md bg-[#F5F5F4] p-0.5">
@@ -283,7 +284,7 @@ function VOCPreview() {
   return (
     <div
       className="w-full rounded-md bg-white p-3"
-      style={{ border: "1px solid #E8E8E8" }}
+      style={{ border: "1px solid rgba(0, 0, 0, 0.06)" }}
     >
       <p className="mb-2 text-[9.5px] font-bold uppercase tracking-[0.10em] text-[#888]">
         Sentiment by theme
@@ -305,7 +306,10 @@ function VOCPreview() {
       </p>
       <div
         className="rounded-md p-2"
-        style={{ background: "#FAFAFA", border: "0.5px solid #EAEAEA" }}
+        style={{
+        background: "#FAFAFA",
+        border: "1px solid rgba(0, 0, 0, 0.06)",
+      }}
       >
         <p className="text-[10.5px] italic leading-[1.4] text-[#1F1F1F]">
           &ldquo;Onboarding friction&rdquo; mentioned by 12 accounts
@@ -324,7 +328,7 @@ function OOOPreview() {
   return (
     <div
       className="w-full rounded-md bg-white p-3"
-      style={{ border: "1px solid #E8E8E8" }}
+      style={{ border: "1px solid rgba(0, 0, 0, 0.06)" }}
     >
       <div className="mb-3 flex items-center justify-between gap-2">
         <span
@@ -348,7 +352,7 @@ function OOOPreview() {
             className="flex items-center justify-between gap-2 rounded-md p-1.5"
             style={{
               background: "#FAFAFA",
-              border: "0.5px solid #EAEAEA",
+              border: "1px solid rgba(0, 0, 0, 0.06)",
             }}
           >
             <span className="truncate text-[10.5px] font-semibold text-[#0A0A0A]">
